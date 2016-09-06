@@ -6,7 +6,7 @@
     <!--<pip:location>/xnat/pipeline/myPipelines/examcardExtractor/resource</pip:location>-->
     <pip:type>Executable</pip:type>
 	<pip:description>Generates NIFTI files from DICOM datasets</pip:description>
-    <pip:commandPrefix>module load mricron; </pip:commandPrefix>
+    <pip:commandPrefix>/bin/bash module load mricron;</pip:commandPrefix>
 	<pip:estimated_time>00:10:00</pip:estimated_time>
 	<pip:input>
 		<pip:argument id="anonymize" >
