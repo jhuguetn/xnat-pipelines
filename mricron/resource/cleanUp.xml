@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+	<pip:name>cleanUp.sh</pip:name>
+	<pip:location>/xnat/pipeline/amc-catalog/mricron/resource</pip:location>
+	<pip:type>Executable</pip:type>
+	<pip:description>Dcm2nii output clean-up</pip:description>
+	<pip:estimated_time>00:00:05</pip:estimated_time>
+	<pip:input>
+		<pip:argument id="inputDir"/>
+	</pip:input>
+</pip:Resource>
+
