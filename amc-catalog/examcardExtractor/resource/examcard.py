@@ -26,7 +26,7 @@ import subprocess as sub
 import os
 from lxml import etree
 from base64 import b64decode
-from sys import argv
+import sys
 
 from dicom.filereader import InvalidDicomError
 
@@ -195,17 +195,17 @@ print ''
 print 'examcard.py :: Tool for recursively locate, parse and extract Philips EXAMCARD objects from DICOM files'
 print ''
 
-if len(argv) == 1 or argv[1] == '-h' or argv[1] == '--h' or argv[1] == '-help' or argv[1] == '--help':
+if len(sys.argv) == 1 or sys.argv[1] == '-h' or sys.argv[1] == '--h' or sys.argv[1] == '-help' or sys.argv[1] == '--help':
     print 'examcard <input directory> <output directory>'
     
-elif argv[1] == '-v' or argv[1] == '--v' or argv[1] == '-version' or argv[1] == '--version':
+elif sys.argv[1] == '-v' or sys.argv[1] == '--v' or sys.argv[1] == '-version' or sys.argv[1] == '--version':
     print '%s v%s' %('examcard', __version__)
     
-elif len(argv) == 3:    
+elif len(sys.argv) == 3:    
     #usage: main(usr_pwd, host, xnatProject, directory)
-    print '[Debug] Source directory of DICOM file-set: ', argv[1]
-    print '[Debug] Location of the extracted examcards: ', argv[2]
-    main(argv[1],argv[2])
+    print '[Debug] Source directory of DICOM file-set: ', sys.argv[1]
+    print '[Debug] Location of the extracted examcards: ', sys.argv[2]
+    main(sys.argv[1],sys.argv[2])
     
 else :
     print '[Error] Wrong command'
