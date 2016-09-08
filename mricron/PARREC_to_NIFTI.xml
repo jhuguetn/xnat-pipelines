@@ -17,7 +17,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>2.0</version>
+		<version>3.0</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
@@ -112,7 +112,7 @@
 				</argument>
 			</resource>
 		</step>
-		<step id="2" description="HTTP-GET scan PARREC DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="true">
+		<step id="2" description="HTTP-GET scan PARREC DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="false">
 			<resource name="XnatDataClient" location="xnat_tools">
 				<argument id="sessionId">
                     <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
@@ -127,7 +127,7 @@
 				</argument>				
 			</resource>
 		</step>
-		<step id="3" description="Convert each series file into a 4d NIFTI file" continueOnFailure="true">
+		<step id="3" description="Convert each series file into a 4d NIFTI file" continueOnFailure="false">
 			<resource name="dcm2nii" location="/xnat/pipeline/amc-catalog/mricron/resource">
 				<argument id="date">
 					<value>N</value>
@@ -165,7 +165,7 @@
 				</argument>
 			</resource>
 		</step>
-		<step id="3b" description="CleanUp the content created by dcm2nii" continueOnFailure="true">
+		<step id="3b" description="CleanUp the content created by dcm2nii" continueOnFailure="false">
 			<resource name="cleanUp" location="/xnat/pipeline/amc-catalog/mricron/resource">
 				<argument id="inputDir">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
