@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+	<pip:name>fs_reconAll.sh</pip:name>
+	<pip:location>/xnat/pipeline/myPipelines/freesurfer/resource</pip:location>
+	<pip:type>Executable</pip:type>
+	<pip:description>Performs the FreeSurfer cortical reconstruction process</pip:description>
+	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load freesurfer;</pip:commandPrefix>
+	<pip:estimated_time>01:00:00</pip:estimated_time>
+	<pip:input>
+		<pip:argument id="in_directory"/>
+		<pip:argument id="subjectName_string"/>                
+		<pip:argument id="out_directory"/>
+	</pip:input>
+</pip:Resource>
+

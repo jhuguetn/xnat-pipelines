@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+	<pip:name>stats2xml.py</pip:name>
+	<pip:location>/xnat/pipeline/myPipelines/freesurfer/resource</pip:location>
+	<pip:type>Executable</pip:type>
+	<pip:description>Parses FreeSurfer processing results into an XML file representing an assessment</pip:description>
+	<pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
+	<pip:estimated_time>00:01:00</pip:estimated_time>
+	<pip:input>
+		<pip:argument id="input_directory">
+			<pip:description>Input directory location</pip:description>
+		</pip:argument>
+		<pip:argument id="output_filename" >
+			<pip:description>Output file path name</pip:description>
+		</pip:argument>
+	</pip:input>
+</pip:Resource>
+
