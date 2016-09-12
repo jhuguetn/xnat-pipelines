@@ -127,7 +127,7 @@
 		<step id="3" description="Perform the FreeSurfer cortical reconstruction process of each scan" continueOnFailure="true">
 			<resource name="fs_reconAll" location="/xnat/pipeline/amc-catalog/freesurfer/resource">
 				<argument id="in_directory">
-					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',/Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'/SCANS/',PIPELINE_LOOPON(series),'/DICOM')^</value>
+					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^</value>
 				</argument>				
 				<argument id="subjectName_string">
 					<value>^/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text()^</value>
