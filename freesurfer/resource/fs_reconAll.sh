@@ -25,6 +25,13 @@ if [ $# != 3 ]
         #export FREESURFER_HOME=/opt/amc/freesurfer-5.3.0
         #export NO_FSFAST=1
         #source /opt/amc/freesurfer-5.3.0/FreeSurferEnv.sh
+        
+        # Jordi Huguet - 20160912 - workaround to fix an issue where FreeSurfer assumes structural scan is DWI and crashes
+        #   ERROR: GetDICOMInfo(): dcmGetDWIParams() 7
+        #   IsDWI = 1, IsPhilipsDWI = 1
+        #   This is a philips DWI, so ignorning the last frame, nframes = 0
+        export FS_LOAD_DWI=0
+        
         echo nice -n 19 recon-all -i $DCM_FILE -s $SUBJECT_NAME -sd $OUT_DIR -autorecon-all #-autorecon1        
         nice -n 19 recon-all -i $DCM_FILE -s $SUBJECT_NAME -sd $OUT_DIR -autorecon-all #-autorecon1        
 fi
