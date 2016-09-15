@@ -160,10 +160,13 @@
 				</argument>				
 			</resource>
 		</step>
-		<step id="6" description="Create a freesurfer resource collection for FS-related derived data" continueOnFailure="true">
+		<step id="6" description="Create a freesurfer resource collection for FS-related derived data" continueOnFailure="false">
 			<resource name="XnatDataClient" location="xnat_tools">
-				<argument id="sessionId">
-					<value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+				<argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="pwd">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
 					<value>PUT</value>
@@ -173,10 +176,13 @@
 				</argument> 
 			</resource>
 		</step>
-		<step id="7a" description="Upload files to XNAT" continueOnFailure="true">
+		<step id="7a" description="Upload files to XNAT" continueOnFailure="false">
 			<resource name="XnatDataClient" location="xnat_tools">
-				<argument id="sessionId">
-					<value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+				<argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="pwd">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
 					<value>PUT</value>
@@ -205,10 +211,13 @@
 				</argument>				
 			</resource>			
 		</step>-->
-		<step id="7b" description="Upload the freesurfer stats files as freesurfer assessment in XNAT" continueOnFailure="true">
+		<step id="7b" description="Upload the freesurfer stats files as freesurfer assessment in XNAT" continueOnFailure="false">
 			<resource name="XnatDataClient" location="xnat_tools">
-				<argument id="sessionId">
-					<value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+				<argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="pwd">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
 					<value>PUT</value>
@@ -241,8 +250,11 @@
 		</step>
 		<step id="10" description="Create a workflow resource collection for pipeline-related metadata" continueOnFailure="true">
 			<resource name="XnatDataClient" location="xnat_tools">
-				<argument id="sessionId">
-					<value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+				<argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="pwd">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
 					<value>PUT</value>
@@ -254,8 +266,11 @@
 		</step>
 		<step id="11" description="Upload pipeline-related metadata XML file(s)">
 			<resource name="XnatDataClient" location="xnat_tools">
-				<argument id="sessionId">
-					<value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+				<argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="pwd">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
 					<value>PUT</value>
