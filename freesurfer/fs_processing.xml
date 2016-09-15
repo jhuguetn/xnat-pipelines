@@ -165,7 +165,7 @@
 				<argument id="user">
 					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
-                <argument id="pwd">
+                <argument id="password">
 					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
@@ -181,7 +181,7 @@
 				<argument id="user">
 					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
-                <argument id="pwd">
+                <argument id="password">
 					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
@@ -216,7 +216,7 @@
 				<argument id="user">
 					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
-                <argument id="pwd">
+                <argument id="password">
 					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
@@ -253,7 +253,7 @@
 				<argument id="user">
 					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
-                <argument id="pwd">
+                <argument id="password">
 					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
@@ -269,7 +269,7 @@
 				<argument id="user">
 					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
-                <argument id="pwd">
+                <argument id="password">
 					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
 				<argument id="method">
