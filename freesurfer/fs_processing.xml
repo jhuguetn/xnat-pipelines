@@ -6,7 +6,7 @@
 	<!--Should be name of the pipeline XML file -->
 	<location>/xnat/pipeline/amc-catalog/freesurfer</location>
 	<!-- Filesystem path to the pipeline XML -->
-	<description>Run FreeSurfer (recon-all!) on DICOM structural scan data</description>	
+	<description>Run FreeSurfer (recon-all!) on structural scan data</description>	
 	<documentation>
 	   <authors>
 	   	<author>
@@ -14,7 +14,7 @@
 			<firstname>Huguet</firstname>
 	   	</author>
 	   </authors>
-		<version>1.0</version>
+		<version>1.1</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
@@ -109,7 +109,7 @@
 				</argument>
 			</resource>
 		</step>
-		<step id="2" description="HTTP-GET scan DICOM DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="false">
+		<step id="2" description="HTTP-GET scan DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="false">
 			<resource name="XnatDataClient" location="xnat_tools">
 				<argument id="sessionId">
                     <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
@@ -120,7 +120,7 @@
                     <value>GET</value>
                 </argument>
                 <argument id="remote">
-					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/scans/',PIPELINE_LOOPON(series),'/resources/DICOM/files"')^</value>
+					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/scans/',PIPELINE_LOOPON(series),'/resources/DICOM,NIFTI/files"')^</value>
 				</argument> 				
 			</resource>
 		</step>
