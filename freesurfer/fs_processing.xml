@@ -188,7 +188,7 @@
 					<value>PUT</value>
 				</argument>
 				<argument id="remote">
-					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/FreeSurfer/files/',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_',PIPELINE_LOOPON(series),'_results.zip?format=ZIP&amp;extract=true&amp;content=FREESURFER_PROCESS')^</value>
+					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/FreeSurfer/files/',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_',PIPELINE_LOOPON(series),'_results.zip?format=ZIP&amp;extract=true&amp;content=FREESURFER_PROCESS"')^</value>
 				</argument> 
 				<argument id="infile">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series),'.zip')^</value>
