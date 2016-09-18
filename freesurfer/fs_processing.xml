@@ -6,7 +6,7 @@
 	<!--Should be name of the pipeline XML file -->
 	<location>/xnat/pipeline/amc-catalog/freesurfer</location>
 	<!-- Filesystem path to the pipeline XML -->
-	<description>Run FreeSurfer (recon-all!) on structural scan data</description>	
+	<description>Run FreeSurfer (recon-all!) on structural scan data</description>
 	<documentation>
 	   <authors>
 	   	<author>
@@ -121,43 +121,43 @@
                 </argument>
                 <argument id="remote">
 					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/scans/',PIPELINE_LOOPON(series),'/resources/DICOM,NIFTI/files"')^</value>
-				</argument> 				
+				</argument>
 			</resource>
 		</step>
 		<step id="3" description="Perform the FreeSurfer cortical reconstruction process of each scan" continueOnFailure="false">
 			<resource name="fs_reconAll" location="/xnat/pipeline/amc-catalog/freesurfer/resource">
 				<argument id="in_directory">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^</value>
-				</argument>				
+				</argument>
 				<argument id="subjectName_string">
 					<value>^/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text()^</value>
 				</argument>
 				<argument id="out_directory">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series))^</value>
-				</argument>			
+				</argument>
 			</resource>
 		</step>
 		<step id="4" description="Parse the FreeSurfer processing outputs to an assessment XML file" continueOnFailure="false">
 			<resource name="stats2xml" location="/xnat/pipeline/amc-catalog/freesurfer/resource">
 				<argument id="input_directory">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series))^</value>
-				</argument>				
+				</argument>
 				<argument id="output_filename">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series),'_fsStats.xml')^</value>
-				</argument>			
+				</argument>
 			</resource>
-		</step>		
+		</step>
 		<step id="5" description="Zip the directory with the processing results" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
 			<resource name="zip" location="commandlineTools" >
 				<argument id="recursive"/>
 				<argument id="archive">
 					<!--<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series),'.zip')^</value>-->
 					<value>^concat('FREESURFER/',PIPELINE_LOOPON(series),'.zip')^</value>
-				</argument>				
+				</argument>
 				<argument id="folder">
 					<!--<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series))^</value>-->
 					<value>^concat('FREESURFER/',PIPELINE_LOOPON(series))^</value>
-				</argument>				
+				</argument>
 			</resource>
 		</step>
 		<step id="6" description="Create a freesurfer resource collection for FS-related derived data" continueOnFailure="false">
@@ -173,7 +173,7 @@
 				</argument>
 				<argument id="remote">
 					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/FreeSurfer?format=ZIP&amp;content=FREESURFER_RECONS"')^</value>
-				</argument> 
+				</argument>
 			</resource>
 		</step>
 		<step id="7a" description="Upload files to XNAT" continueOnFailure="false">
@@ -189,11 +189,11 @@
 				</argument>
 				<argument id="remote">
 					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/FreeSurfer/files/',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_',PIPELINE_LOOPON(series),'_results.zip?format=ZIP&amp;extract=true&amp;content=FREESURFER_PROCESS"')^</value>
-				</argument> 
+				</argument>
 				<argument id="infile">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series),'.zip')^</value>
-				</argument>				
-			</resource>			
+				</argument>
+			</resource>
 		</step>
 		<!--<step id="7b" description="Upload freesurfer stats files to XNAT" continueOnFailure="true">
 			<resource name="XnatDataClient" location="xnat_tools">
@@ -205,11 +205,11 @@
 				</argument>
 				<argument id="remote">
 					<value>^concat('/data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/FreeSurfer/files/',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_',PIPELINE_LOOPON(series),'_fsStats.xml?format=XML&amp;content=FREESURFER_STATS')^</value>
-				</argument> 
+				</argument>
 				<argument id="infile">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series),'_fsStats.xml')^</value>
-				</argument>				
-			</resource>			
+				</argument>
+			</resource>
 		</step>-->
 		<step id="7b" description="Upload the freesurfer stats files as freesurfer assessment in XNAT" continueOnFailure="false">
 			<resource name="XnatDataClient" location="xnat_tools">
@@ -223,13 +223,13 @@
 					<value>PUT</value>
 				</argument>
 				 <argument id="remote">
-					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/assessors/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'_',PIPELINE_LOOPON(series),'_',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'"')^</value>
+					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/assessors/',/Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'_',PIPELINE_LOOPON(series),'_',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'?inbody=true"')^</value>
 				</argument>
 				<argument id="infile">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series),'_fsStats.xml')^</value>
-				</argument>				
+				</argument>
 			</resource>
-		</step>		
+		</step>
 		<step id="8" description="Delete the intermediate RAW data" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
 			<resource name="rm" location="commandlineTools">
 				<argument id="f"/>
@@ -261,7 +261,7 @@
 				</argument>
 				<argument id="remote">
 					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/workflows?format=XML&amp;content=PIPELINE_DEFINITION"')^</value>
-				</argument> 
+				</argument>
 			</resource>
 		</step>
 		<step id="11" description="Upload pipeline-related metadata XML file(s)">
@@ -277,10 +277,10 @@
 				</argument>
 				<argument id="remote">
 					<value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/workflows/files/',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.xml?format=XML&amp;inbody=true&amp;content=',/Pipeline/name/text(),'"')^</value>
-				</argument> 
+				</argument>
 				<argument id="infile">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/',/Pipeline/name/text(),'_',/Pipeline/name/text(),'.xml')^</value>
-				</argument>				
+				</argument>
 			</resource>
 		</step>
 		 <step id="END-Notify" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
