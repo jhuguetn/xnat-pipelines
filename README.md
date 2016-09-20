@@ -9,6 +9,7 @@ XNAT pipelines repository
 * examcardExtractor :: Extracts Philips ExamCard objects embedded in DICOM object files
 * freesurfer :: FreeSurfer recon-all pipeline with XNAT assessor output with stats metrics
 * mricron :: DICOM and PARREC flavoured pipelines for imaging data conversion to NIFTI format
+* QAP :: QA analysis on functional/structural MRI data
 
 ##Contributors
 Jordi Huguet, Department of Neuroradiology & Brain Imaging Centre, AMC-UvA Amsterdam
