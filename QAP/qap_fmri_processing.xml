@@ -51,23 +51,23 @@
             <parameter>
                 <name>spatial_analysis</name>
                 <values>
-                    <csv>Y,N</csv>
+                    <csv>1</csv>
                 </values>
-                    <description>Set this value to Y to compute spatial QA metrics of functional data. Set it to N otherwise</description>
+                    <description>Set this value to 1 to compute spatial QA metrics of functional data. Set it to 0 otherwise</description>
             </parameter>
             <parameter>
                 <name>temporal_analysis</name>
                 <values>
-                    <csv>Y,N</csv>
+                    <csv>1</csv>
                 </values>
-                    <description>Set this value to Y to compute temporal QA metrics of functional data. Set it to N otherwise</description>
+                    <description>Set this value to 1 to compute temporal QA metrics of functional data. Set it to 0 otherwise</description>
             </parameter>
             <parameter>
                 <name>notify</name>
                 <values>
                     <csv>1</csv>
                 </values>
-                <description>Set the value to 1 if you want the pipeline to notify the user when complete. 0 otherwise</description>
+                <description>Set the value to 1 if you want the pipeline to notify the user when complete. Set it to 0 otherwise</description>
             </parameter>
         </input-parameters>
     </documentation>
@@ -113,7 +113,7 @@
                 </argument>
             </resource>
         </step>
-        <step id="2" description="Get suitable fMRI data and place it into the raw folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/raw')^" continueOnFailure="false">
+        <step id="2" description="Get suitable fMRI data and place it into the raw folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^" continueOnFailure="false">
             <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/QAP/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
@@ -134,7 +134,7 @@
                     <value>functional</value>
                 </argument>
                 <argument id="output_directory">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW)^</value>
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^</value>
                 </argument>
             </resource>
         </step>
