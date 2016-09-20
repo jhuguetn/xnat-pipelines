@@ -164,9 +164,6 @@ def main():
         # get a list of affected scans for the given imaging session
         process_scan_list = get_scans_list(xnat_connection,project,subjectID,experimentID,required_type)
                 
-        #debug
-        print '[debug] list of scans of type %s to be processed: %s' %(required_type,process_scan_list)
-        
         # if the list is empty, no valid scans found for the given imaging session, close and exit
         if not process_scan_list : 
             print '[error] Unable to find a suitable %s scan for %s' %(required_type,experimentID)
