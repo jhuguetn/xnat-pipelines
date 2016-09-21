@@ -75,6 +75,7 @@ if [ $# != 5 ]
                         dcm2nii -b /xnat/etc/dcm2nii.ini -p N -d N -e N -f N -g N -n Y -r N -x N -o $(dirname $DICOM_DIR)/NIFTI $DICOM_DIR                        
                         
                         /xnat/pipeline/amc-catalog/mricron/resource/cleanUp.sh $(dirname $DICOM_DIR)/NIFTI
+                        echo "[warning] NIFTI images automatically converted from DICOMs (experimental)"
                     fi
                 fi
                 
