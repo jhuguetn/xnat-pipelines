@@ -11,7 +11,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.1</version>
+        <version>0.2</version>
         <input-parameters>
             <parameter>
                 <name>scanIDs</name>
@@ -95,21 +95,35 @@
             </values>
             <description>The subject label (Intermediate Schematron XSL File)</description>
         </parameter>
+        <parameter>
+            <name>scans_type</name>
+            <values>
+                <unique>functional</unique>
+            </values>
+        </parameter>
     </parameters>
     <steps>
-        <step id="1a" description="Create a qap_fmri working folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
-            <resource name="mkdir" location="commandlineTools" >
-                <argument id="p"/>
-                <argument id="dirname">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI')^</value>
-                </argument>
-            </resource>
-        </step>
-        <step id="1b" description="Create a folder for hosting the raw data" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+        <step id="1a" description="Create a folder for hosting the raw data" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="1b" description="Create a folder for placing the organized raw data (BIDS spec)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+            <resource name="mkdir" location="commandlineTools" >
+                <argument id="p"/>
+                <argument id="dirname">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="1c" description="Create a qap_fmri working folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+            <resource name="mkdir" location="commandlineTools" >
+                <argument id="p"/>
+                <argument id="dirname">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI')^</value>
                 </argument>
             </resource>
         </step>
@@ -131,9 +145,28 @@
                     <value>^/Pipeline/parameters/parameter[name='sessionID']/values/unique/text()^</value>
                 </argument>                
                 <argument id="scan_type">
-                    <value>functional</value>
+                    <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
                 </argument>
                 <argument id="output_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="3" description="Organize XNAT-downloaded imaging data using BIDS specification" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^" continueOnFailure="false">
+            <resource name="organize_data" location="/xnat/pipeline/amc-catalog/QAP/resource">
+                <argument id="project">
+                    <value>^/Pipeline/parameters/parameter[name='projectID']/values/unique/text()^</value>
+                </argument>
+                <argument id="subjectName">
+                    <value>^/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text()^</value>
+                </argument>
+                <argument id="sessionName">
+                    <value>^/Pipeline/parameters/parameter[name='sessionName']/values/unique/text()^</value>
+                </argument>                
+                <argument id="scans_type">
+                    <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
+                </argument>
+                <argument id="input_data_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^</value>
                 </argument>
             </resource>
