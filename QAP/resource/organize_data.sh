@@ -48,9 +48,9 @@ if [ $# != 5 ]
             for scanID_dir in $(find $scans_dir -maxdepth 1 -mindepth 1 -type d); do
                 #create the per-scan proper directory structure in the BIDS directory
                 if [ $SCANS_TYPE = "structural" ]; then
-                    bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/anat_$scanID_dir                    
+                    bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/anat_$(basename $scanID_dir)
                 elif [ $SCANS_TYPE = "functional" ]; then
-                    bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/func_$scanID_dir
+                    bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/func_$(basename $scanID_dir)
                 fi
                 
                 mkdir -v -p $bids_scan_path
