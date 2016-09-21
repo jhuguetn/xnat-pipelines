@@ -124,7 +124,7 @@ def download_scan_list_files(connection,experimentID,scan_list,resource_format,o
     # add URL option to download all scan files in a single compressed file 
     options = {}
     options['format'] = 'zip'
-    #options['structure'] = 'legacy'
+    options['structure'] = 'legacy'
     options = urllib.urlencode(options)
     
     # GET the resource files blob
