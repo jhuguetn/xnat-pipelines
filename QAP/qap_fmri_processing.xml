@@ -119,11 +119,19 @@
                 </argument>
             </resource>
         </step>
-        <step id="1c" description="Create a qap_fmri working folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+        <step id="1c" description="Create a qap package working folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI')^</value>
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_work')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="1d" description="Create a qap package output folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+            <resource name="mkdir" location="commandlineTools" >
+                <argument id="p"/>
+                <argument id="dirname">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out')^</value>
                 </argument>
             </resource>
         </step>
