@@ -208,6 +208,17 @@
                 </argument>
             </resource>
         </step>
+        <step id="6" description="Computes QA spatial metrics on functional MRI scan data" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
+            <resource name="qap_functional_spatial" location="/xnat/pipeline/amc-catalog/QAP/resource">
+                <argument id="scan_list_file">
+                    <value>^concat('scanlist_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
+                </argument>
+                <argument id="reports_flag"/>
+                <argument id="config_file">
+                    <value>^concat('config_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
+                </argument>
+            </resource>
+        </step>
         <!--<step id="2" description="HTTP-GET scan DICOM DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="false">
             <resource name="XnatDataClient" location="xnat_tools">
                 <argument id="sessionId">
