@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>qap_raw_data_sublist_generator.py</pip:name>
+    <pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>
+    <pip:type>Executable</pip:type>
+    <pip:description>Generates a YAML formatted file with a list of datasets (under BIDS specs) found in the specified location</pip:description>
+    <pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
+    <pip:estimated_time>00:00:30</pip:estimated_time>
+    <pip:input>
+        <pip:argument id="site_folder" >
+            <pip:description>full path to the directory holding the raw data, organized by site/subject/session/scan/file.nii.gz</pip:description>
+        </pip:argument>
+        <pip:argument id="outfile_path" >
+            <pip:description>absolute name for the generated subject list (YAML file)</pip:description>
+        </pip:argument>
+        <pip:argument id="scan_type" >
+            <pip:description>either 'anat' or 'func'</pip:description>
+        </pip:argument>
+    </pip:input>
+</pip:Resource>

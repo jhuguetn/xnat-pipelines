@@ -18,7 +18,7 @@
 			<pip:description>session label</pip:description>
 		</pip:argument>
         <pip:argument id="scans_type" >
-			<pip:description>type of scans to process QAP for</pip:description>
+			<pip:description>type of scans to process QAP for (i.e. anat  or func)</pip:description>
 		</pip:argument>
         <pip:argument id="input_data_directory" >
 			<pip:description>location where raw imaging data is stored</pip:description>

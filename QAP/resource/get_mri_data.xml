@@ -23,8 +23,8 @@
         <pip:argument id="experimentID" >
 			<pip:description>experiment ID</pip:description>
 		</pip:argument>
-        <pip:argument id="scan_type" >
-			<pip:description>type of scans to filter for</pip:description>
+        <pip:argument id="scans_type" >
+			<pip:description>type of scans to filter for (i.e. anat  or func)</pip:description>
 		</pip:argument>
         <pip:argument id="output_directory" >
 			<pip:description>location where to download the imaging data files</pip:description>

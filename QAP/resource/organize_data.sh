@@ -16,7 +16,7 @@
 
 if [ $# != 5 ]
   then
-        echo "organize XNAT output to meet BIDS specification (QAP package) - v0.3"    
+        echo "organize XNAT output to meet BIDS specification (QAP package) - v0.3"
         exit 1
         #echo "No valid arguments supplied"
         #echo ""
@@ -32,29 +32,32 @@ if [ $# != 5 ]
         INPUT_DIRECTORY=$5
         # compose the root directory where BIDS organized data will be hosted
         BIDS_DIRECTORY=$(dirname $INPUT_DIRECTORY)/BIDS
-        
+
         # initial checkings for working directory names provided
         if [ ! -d $INPUT_DIRECTORY ]; then
             echo "[error] Directory not found: "$INPUT_DIRECTORY
             exit 1
         fi
-        
+
         if [ ! -d $BIDS_DIRECTORY ]; then
             echo "[error] Directory not found: "$BIDS_DIRECTORY
             exit 1
         fi
-        
+
         for scans_dir in $(find $INPUT_DIRECTORY -type d -iname "SCANS"); do
             for scanID_dir in $(find $scans_dir -maxdepth 1 -mindepth 1 -type d); do
                 #create the per-scan proper directory structure in the BIDS directory
-                if [ $SCANS_TYPE = "structural" ]; then
-                    bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/anat_$(basename $scanID_dir)
-                elif [ $SCANS_TYPE = "functional" ]; then
-                    bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/func_$(basename $scanID_dir)
-                fi
-                
+
+                bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/$SCANS_TYPE'_'$(basename $scanID_dir)
+                echo $bids_scan_path
+                # if [ $SCANS_TYPE == "anat" ]; then
+                #     bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/anat_$(basename $scanID_dir)
+                # elif [ $SCANS_TYPE == "func" ]; then
+                #     bids_scan_path=$BIDS_DIRECTORY/$PROJECT/$SUBJECT_NAME/$SESSION_NAME/func_$(basename $scanID_dir)
+                # fi
+
                 mkdir -v -p $bids_scan_path
-                
+
                 #if no NIFTIs, lets desperately attempt to use DICOMs if available (converting them to NIFTI)
                 NIFTI_DIR=$(find $scanID_dir -type d -iname "NIFTI")
                 # -z checks for an empty string (i.e. no NIFTI data directories found)
@@ -69,16 +72,16 @@ if [ $# != 5 ]
                       else
                         #dcm2nii --> convert to NIFTI (EXPERIMENTAL)!
                         mkdir -v -p $(dirname $DICOM_DIR)/NIFTI
-                        
+
                         source /etc/profile.d/modules.sh
                         module load mricron
-                        dcm2nii -b /xnat/etc/dcm2nii.ini -p N -d N -e N -f N -g N -n Y -r N -x N -o $(dirname $DICOM_DIR)/NIFTI $DICOM_DIR                        
-                        
+                        dcm2nii -b /xnat/etc/dcm2nii.ini -p N -d N -e N -f N -g N -n Y -r N -x N -o $(dirname $DICOM_DIR)/NIFTI $DICOM_DIR
+
                         /xnat/pipeline/amc-catalog/mricron/resource/cleanUp.sh $(dirname $DICOM_DIR)/NIFTI
                         echo "[warning] NIFTI images automatically converted from DICOMs (experimental)"
                     fi
                 fi
-                
+
                 #re-do the find search command for new NIFTI files
                 NIFTIs=$(find $scanID_dir -type f -iname "*.nii") #-o -iname "*.bvec" -o -iname "*.bval" )
                 # -z checks for an empty string (i.e. no NIFTI data directories found)
@@ -86,15 +89,16 @@ if [ $# != 5 ]
                   then
                     echo "[error] No valid imaging data found: "$scanID_dir
                     exit 1
-                  else 
+                  else
                     for NIFTI_file in $NIFTIs; do
                         # for each NIFTI file move it to BIDS directory and gzip it (replacing uncompressed file)
                         mv -v $NIFTI_file $bids_scan_path
-                        gzip -v $bids_scan_path/$(basename $NIFTI_file)                        
+                        gzip -v $bids_scan_path/$(basename $NIFTI_file)
                     done
                 fi
             done
-        done       
+        done
 fi
 
 exit 0
+
