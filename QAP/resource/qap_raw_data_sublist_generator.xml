@@ -2,7 +2,7 @@
 <!-- edited by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
     <pip:name>qap_raw_data_sublist_generator.py</pip:name>
-    <pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>
+    <!--<pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>-->
     <pip:type>Executable</pip:type>
     <pip:description>Generates a YAML formatted file with a list of datasets (under BIDS specs) found in the specified location</pip:description>
     <pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
