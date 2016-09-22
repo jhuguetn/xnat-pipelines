@@ -174,7 +174,7 @@
         <step id="4" description="Generate a file list (YAML) of all affected scan datasets" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
             <resource name="qap_raw_data_sublist_generator" location="/xnat/pipeline/amc-catalog/QAP/resource">
                 <argument id="site_folder">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS',/Pipeline/parameters/parameter[name='projectID']/values/unique/text())^</value>
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text())^</value>
                 </argument>
                 <argument id="outfile_path">
                     <value>^concat('scanlist_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
