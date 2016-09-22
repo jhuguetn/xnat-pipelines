@@ -1,17 +1,17 @@
 #!/bin/bash
 ##
-## title:       organize.sh
-## description: Search for XNAT-downloaded MRI files and reshape the file/directory structure for running QAP (BIDS spec).
-##              Script recurses over a directory tree of XNAT downloaded data and reshapes it to meet QAP requirements on input datasets.
-## inputs:      (1) XNAT project identifier (BIDS site)
-##              (2) XNAT subject label (BIDS subject ID)
-##              (3) XNAT MRI session label (BIDS session ID)
-##              (4) Type of scans to be processed (QAP requirement: should be included as prefix in the scan directory name)
-##              (5) A locally accessible location of XNAT retrieved imaging data (organized in folders per subject)
-## author:      Jordi Huguet (AMC)
-## date:        20160921
-## version:     0.3
-## usage:       bash organize.sh [input directory]
+## title:               organize_data.sh
+## description:    Search for XNAT-downloaded MRI files and reshape the file/directory structure for running QAP (BIDS spec).
+##                       Script recurses over a directory tree of XNAT downloaded data and reshapes it to meet QAP requirements on input datasets.
+## inputs:           (1) XNAT project identifier (BIDS site)
+##                       (2) XNAT subject label (BIDS subject ID)
+##                       (3) XNAT MRI session label (BIDS session ID)
+##                       (4) Type of scans to be processed (QAP requirement: should be included as prefix in the scan directory name)
+##                       (5) A locally accessible location of XNAT retrieved imaging data (organized in folders per subject)
+## author:           Jordi Huguet (AMC)
+## date:              20160921
+## version:          0.3
+## usage:            bash organize_data.sh [project ID] [subject label] [MRI session label] [scans_type] [input directory]
 
 
 if [ $# != 5 ]
