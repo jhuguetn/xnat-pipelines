@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>qap_config_generator.sh</pip:name>
+    <pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>
+    <pip:type>Executable</pip:type>
+    <pip:description>Creates a QAP specific configuration file (YAML format) for running the QAP package.</pip:description>
+    <!--<pip:commandPrefix>...</pip:commandPrefix>-->
+    <pip:estimated_time>00:00:05</pip:estimated_time>
+    <pip:input>
+        <pip:argument id="output_dir" >
+            <pip:description>output directory</pip:description>
+        </pip:argument>
+        <pip:argument id="working_dir" >
+            <pip:description>working directory</pip:description>
+        </pip:argument>
+        <pip:argument id="config_file_path" >
+            <pip:description>generated configuration file name, full/absolute path</pip:description>
+        </pip:argument>
+        <pip:argument id="scans_type" >
+            <pip:description>type of scans to process QAP for (i.e. anat  or func)</pip:description>
+        </pip:argument>
+    </pip:input>
+</pip:Resource>

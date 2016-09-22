@@ -192,6 +192,22 @@
                 </argument>
             </resource>
         </step>
+        <step id="5" description="Create a configuration file (YAML format)" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
+            <resource name="qap_raw_data_sublist_generator" location="/xnat/pipeline/amc-catalog/QAP/resource">
+                <argument id="output_dir">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out')^</value>
+                </argument>
+                <argument id="working_dir">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_work')^</value>
+                </argument>
+                <argument id="config_file_path">
+                    <value>^concat('config_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
+                </argument>
+                <argument id="scans_type">
+                    <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
+                </argument>
+            </resource>
+        </step>
         <!--<step id="2" description="HTTP-GET scan DICOM DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="false">
             <resource name="XnatDataClient" location="xnat_tools">
                 <argument id="sessionId">
