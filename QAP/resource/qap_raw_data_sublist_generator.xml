@@ -14,7 +14,7 @@
         <pip:argument id="outfile_path" >
             <pip:description>absolute name for the generated subject list (YAML file)</pip:description>
         </pip:argument>
-        <pip:argument id="scan_type" >
+        <pip:argument id="scans_type" >
             <pip:description>either 'anat' or 'func'</pip:description>
         </pip:argument>
     </pip:input>
