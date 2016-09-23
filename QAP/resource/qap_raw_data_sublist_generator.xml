@@ -5,7 +5,7 @@
     <!--<pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>-->
     <pip:type>Executable</pip:type>
     <pip:description>Generates a YAML formatted file with a list of datasets (under BIDS specs) found in the specified location</pip:description>
-    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12;</pip:commandPrefix>
     <pip:estimated_time>00:00:30</pip:estimated_time>
     <pip:input>
         <pip:argument id="site_folder" >
