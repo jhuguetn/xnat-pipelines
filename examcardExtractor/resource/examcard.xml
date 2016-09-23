@@ -5,7 +5,7 @@
 	<pip:location>/xnat/pipeline/myPipelines/examcardExtractor/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Extracts EXAMCARD MRi settings file from a DICOM dataset</pip:description>
-    <pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
 	<pip:estimated_time>00:00:10</pip:estimated_time>
 	<pip:input>
 		<pip:argument id="input" >
