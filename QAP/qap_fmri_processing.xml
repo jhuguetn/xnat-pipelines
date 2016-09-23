@@ -343,7 +343,7 @@
                 </argument>
             </resource>
         </step>-->
-        <step id="END-Notify" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^"  continueOnFailure="true">
+        <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^ AND ^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='Y'^ AND ^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='Y'^">
             <resource name="Notifier" location="notifications">
                 <argument id="user">
                     <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
@@ -372,6 +372,62 @@
                 <argument id="attachment">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_temporal_spatial_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
                 </argument>
+            </resource>
+        </step>
+        <step id="END-Notify-SPAT" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^ AND ^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='Y'^ AND ^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='N'^">
+            <resource name="Notifier" location="notifications">
+                <argument id="user">
+                    <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+                    <value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="to">
+                    <value>^/Pipeline/parameters/parameter[name='useremail']/values/unique/text()^</value>
+                </argument>
+                <argument id="from">
+                    <value>^/Pipeline/parameters/parameter[name='adminemail']/values/unique/text()^</value>
+                </argument>
+                <argument id="subject">
+                    <value>^concat('[',/Pipeline/parameters/parameter[name='xnatserver']/values/unique/text(), '] QA analysis successfully performed for ',/Pipeline/parameters/parameter[name='sessionName']/values/unique/text() )^</value>
+                </argument>
+                <argument id="host">
+                    <value>^/Pipeline/parameters/parameter[name='mailhost']/values/unique/text()^</value>
+                </argument>
+                <argument id="body">
+                    <value>^concat('Dear ',/Pipeline/parameters/parameter[name='userfullname']/values/unique/text(),',&lt;br&gt; &lt;p&gt;', ' Quality Control metrics (functional MRI) have been computed for session ', /Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'. Details of the session are available &lt;a href="',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'/app/action/DisplayItemAction/search_element/xnat:mrSessionData/search_field/xnat:mrSessionData.ID/search_value/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'"&gt;', ' here. &lt;/a&gt; &lt;/p&gt;&lt;br&gt;', ' &lt;/p&gt;&lt;br&gt;', '3TMRI-XNAT Team.')^</value>
+                </argument>
+                <argument id="attachment">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_functional_spatial_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
+                </argument>                
+            </resource>
+        </step>
+        <step id="END-Notify-TEMP" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^ AND ^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='N'^ AND ^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='Y'^">
+            <resource name="Notifier" location="notifications">
+                <argument id="user">
+                    <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+                    <value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="to">
+                    <value>^/Pipeline/parameters/parameter[name='useremail']/values/unique/text()^</value>
+                </argument>
+                <argument id="from">
+                    <value>^/Pipeline/parameters/parameter[name='adminemail']/values/unique/text()^</value>
+                </argument>
+                <argument id="subject">
+                    <value>^concat('[',/Pipeline/parameters/parameter[name='xnatserver']/values/unique/text(), '] QA analysis successfully performed for ',/Pipeline/parameters/parameter[name='sessionName']/values/unique/text() )^</value>
+                </argument>
+                <argument id="host">
+                    <value>^/Pipeline/parameters/parameter[name='mailhost']/values/unique/text()^</value>
+                </argument>
+                <argument id="body">
+                    <value>^concat('Dear ',/Pipeline/parameters/parameter[name='userfullname']/values/unique/text(),',&lt;br&gt; &lt;p&gt;', ' Quality Control metrics (functional MRI) have been computed for session ', /Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'. Details of the session are available &lt;a href="',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'/app/action/DisplayItemAction/search_element/xnat:mrSessionData/search_field/xnat:mrSessionData.ID/search_value/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'"&gt;', ' here. &lt;/a&gt; &lt;/p&gt;&lt;br&gt;', ' &lt;/p&gt;&lt;br&gt;', '3TMRI-XNAT Team.')^</value>
+                </argument>
+                <argument id="attachment">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_temporal_spatial_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
+                </argument>                
             </resource>
         </step>
     </steps>
