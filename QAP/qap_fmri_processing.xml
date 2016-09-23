@@ -344,7 +344,7 @@
             </resource>
         </step>-->
         <step id="END-Notify" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
-            <resource name="Notifier" location="notifications">
+            <resource name="Notifier" location="notifications" continueOnFailure="true">
                 <argument id="user">
                     <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
