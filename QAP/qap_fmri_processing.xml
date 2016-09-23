@@ -219,6 +219,7 @@
                 </argument>
             </resource>
         </step>
+        
         <!--<step id="7" description="Computes QA temporal metrics on functional MRI scan data" precondition="^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='Y'^" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
             <resource name="qap_functional_temporal" location="/xnat/pipeline/amc-catalog/QAP/resource">
                 <argument id="scan_list_file">
@@ -229,36 +230,8 @@
                     <value>^concat('config_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
                 </argument>
             </resource>
-        </step>-->
-        <!--<step id="2" description="HTTP-GET scan DICOM DATA and place it into RAW folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^" continueOnFailure="false">
-            <resource name="XnatDataClient" location="xnat_tools">
-                <argument id="sessionId">
-                    <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
-                </argument>
-                <argument id="absolutePath"/>
-                <argument id="batch" />
-                <argument id="method">
-                    <value>GET</value>
-                </argument>
-                <argument id="remote">
-                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/scans/',PIPELINE_LOOPON(series),'/resources/DICOM/files"')^</value>
-                </argument>
-            </resource>
-        </step>
-        <step id="3" description="Perform the FreeSurfer cortical reconstruction process of each scan" continueOnFailure="false">
-            <resource name="fs_reconAll" location="/xnat/pipeline/amc-catalog/freesurfer/resource">
-                <argument id="in_directory">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/',PIPELINE_LOOPON(series))^</value>
-                </argument>
-                <argument id="subjectName_string">
-                    <value>^/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text()^</value>
-                </argument>
-                <argument id="out_directory">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series))^</value>
-                </argument>
-            </resource>
-        </step>
-        <step id="4" description="Parse the FreeSurfer processing outputs to an assessment XML file" continueOnFailure="false">
+        </step>-->       
+        <!--<step id="4" description="Parse the FreeSurfer processing outputs to an assessment XML file" continueOnFailure="false">
             <resource name="stats2xml" location="/xnat/pipeline/amc-catalog/freesurfer/resource">
                 <argument id="input_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/FREESURFER/',PIPELINE_LOOPON(series))^</value>
@@ -393,6 +366,9 @@
                 </argument>
                 <argument id="body">
                     <value>^concat('Dear ',/Pipeline/parameters/parameter[name='userfullname']/values/unique/text(),',&lt;br&gt; &lt;p&gt;', ' Quality Control metrics (functional MRI) have been computed for session ', /Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'. Details of the session are available &lt;a href="',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'/app/action/DisplayItemAction/search_element/xnat:mrSessionData/search_field/xnat:mrSessionData.ID/search_value/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'"&gt;', ' here. &lt;/a&gt; &lt;/p&gt;&lt;br&gt;', ' &lt;/p&gt;&lt;br&gt;', '3TMRI-XNAT Team.')^</value>
+                </argument>
+                <argument id="attachment">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_functional_spatial_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
                 </argument>
             </resource>
         </step>
