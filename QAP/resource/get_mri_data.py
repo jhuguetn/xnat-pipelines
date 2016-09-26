@@ -177,7 +177,7 @@ def main():
             download_scan_list_files(xnat_connection,experimentID,process_scan_list,resource_format,output_directory)
     
     except xnatLibrary.XNATException as xnatErr:
-        print '[error] XNAT-related issue(%s): %s', %(header_msg,xnatErr)
+        print '[error] XNAT-related issue(%s): %s' %(header_msg,xnatErr)
         sys.exit(1)
     except Exception as e:
         print '[Error]', e	
