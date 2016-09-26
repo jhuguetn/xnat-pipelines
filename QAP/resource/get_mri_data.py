@@ -20,6 +20,7 @@ import StringIO
 import urllib
 import zipfile
 import xnatLibrary
+import traceback
 
 # FUNCTIONS
 def get_scan_type_philips_info(xnat_connection,project,subjectID,experimentID, scan_id):
@@ -139,8 +140,10 @@ def download_scan_list_files(connection,experimentID,scan_list,resource_format,o
 
 def main():
 
+    header_msg = '%s - v%s' %(os.path.basename(sys.argv[0]),__version__)
+    
     if len(sys.argv) != 8 :
-        print '[error] No valid arguments supplied'
+        print '[error] No valid arguments supplied (%s)' %header_msg
         sys.exit(1)
 
     usr_pwd = sys.argv[1]
@@ -155,23 +158,30 @@ def main():
 
     #basic checkings on output directory status
     if not os.path.isdir(output_directory):
-        print '[error] Download location specified is not a valid directory'
+        print '[error] Download location specified is not a valid directory (%s)' %header_msg
         sys.exit(1)
 
     # connect to XNAT
-    with xnatLibrary.XNAT(hostname,usr_pwd) as xnat_connection :
+    try:
+        with xnatLibrary.XNAT(hostname,usr_pwd) as xnat_connection :
 
-        # get a list of affected scans for the given imaging session
-        process_scan_list = get_scans_list(xnat_connection,project,subjectID,experimentID,required_type)
+            # get a list of affected scans for the given imaging session
+            process_scan_list = get_scans_list(xnat_connection,project,subjectID,experimentID,required_type)
 
-        # if the list is empty, no valid scans found for the given imaging session, close and exit
-        if not process_scan_list :
-            print '[error] Unable to find a suitable %s scan for %s' %(required_type,experimentID)
-            sys.exit(1)
+            # if the list is empty, no valid scans found for the given imaging session, close and exit
+            if not process_scan_list :
+                print '[error] Unable to find a suitable %s scan for %s (%s)' %(required_type,experimentID,%header_msg)
+                sys.exit(1)
 
-        # retrieve the scans from XNAT
-        download_scan_list_files(xnat_connection,experimentID,process_scan_list,resource_format,output_directory)
-
+            # retrieve the scans from XNAT
+            download_scan_list_files(xnat_connection,experimentID,process_scan_list,resource_format,output_directory)
+    
+    except xnatLibrary.XNATException as xnatErr:
+        print '[error] XNAT-related issue(%s): %s', %(header_msg,xnatErr)
+        sys.exit(1)
+    except Exception as e:
+        print '[Error]', e	
+        print(traceback.format_exc())
 
 if __name__=="__main__" :
 
