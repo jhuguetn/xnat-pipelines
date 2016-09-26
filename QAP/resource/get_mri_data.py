@@ -170,7 +170,7 @@ def main():
 
             # if the list is empty, no valid scans found for the given imaging session, close and exit
             if not process_scan_list :
-                print '[error] Unable to find a suitable %s scan for %s (%s)' %(required_type,experimentID,%header_msg)
+                print '[error] Unable to find a suitable %s scan for %s (%s)' %(required_type,experimentID,header_msg)
                 sys.exit(1)
 
             # retrieve the scans from XNAT

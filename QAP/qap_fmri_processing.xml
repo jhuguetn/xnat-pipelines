@@ -343,7 +343,7 @@
                 </argument>
             </resource>
         </step>-->
-        <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^ AND ^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='Y'^ AND ^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='Y'^">
+        <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
             <resource name="Notifier" location="notifications">
                 <argument id="user">
                     <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
@@ -370,7 +370,7 @@
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_functional_spatial_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
                 </argument>
                 <argument id="attachment">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_temporal_spatial_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out/qap_functional_temporal_',/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text(),'.pdf')^</value>
                 </argument>
             </resource>
         </step>
