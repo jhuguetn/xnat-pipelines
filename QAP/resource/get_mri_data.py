@@ -182,6 +182,7 @@ def main():
     except Exception as e:
         print '[Error]', e	
         print(traceback.format_exc())
+        sys.exit(1)
 
 if __name__=="__main__" :
 
