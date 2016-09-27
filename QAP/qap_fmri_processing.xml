@@ -11,15 +11,15 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.4</version>
+        <version>0.5</version>
         <input-parameters>
-            <parameter>
+            <!--<parameter>
                 <name>scanIDs</name>
                 <values>
                     <schemalink>xnat:imageSessionData/scans/scan/ID</schemalink>
                 </values>
                 <description>List of scan IDs of all affected scans of the session</description>
-            </parameter>
+            </parameter>-->
             <parameter>
                 <name>sessionID</name>
                 <values>
@@ -79,7 +79,7 @@
         </input-parameters>
     </documentation>
     <outputFileNamePrefix>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/',/Pipeline/name/text())^</outputFileNamePrefix>
-    <loop id="series" xpath="^/Pipeline/parameters/parameter[name='scanIDs']/values/list^"/>
+    <!--<loop id="series" xpath="^/Pipeline/parameters/parameter[name='scanIDs']/values/list^"/>-->
     <!-- Info:: Description of the Pipeline -->
     <parameters>
         <parameter>
@@ -110,31 +110,25 @@
         </parameter>
     </parameters>
     <steps>
-        <step id="1a" description="Create a folder for hosting the raw data" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+        <step id="1" description="Create folders for hosting raw, organized scan data (BIDS spec), working and output folders" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^</value>
                 </argument>
             </resource>
-        </step>
-        <step id="1b" description="Create a folder for placing the organized raw data (BIDS spec)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^</value>
                 </argument>
             </resource>
-        </step>
-        <step id="1c" description="Create a qap package working folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_work')^</value>
                 </argument>
             </resource>
-        </step>
-        <step id="1d" description="Create a qap package output folder" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
@@ -301,7 +295,7 @@
                     <value>PUT</value>
                 </argument>
                 <argument id="remote">
-                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/QAP_fMRI?format=ZIP&amp;content=MRI_QA'"')^</value>
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/QAP_fMRI?format=ZIP&amp;content=MRI_QA"')^</value>
                 </argument>
             </resource>
             <resource name="XnatDataClient" location="xnat_tools">
@@ -312,7 +306,7 @@
                     <value>PUT</value>
                 </argument>
                 <argument id="remote">
-                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/QAP_fMRI/files/w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_QAP_fMRI_output.zip?format=ZIP&amp;extract=true&amp;content=MRI_QA')^</value>
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/QAP_fMRI/files/w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_QAP_fMRI_output.zip?format=ZIP&amp;extract=true&amp;content=MRI_QA"')^</value>
                 </argument>
                 <argument id="infile">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'QAP_fMRI_output.zip')^</value>
