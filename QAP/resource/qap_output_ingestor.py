@@ -5,7 +5,7 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160925'      ##
-__version__     = '0.1.0'         ##
+__version__     = '0.1.1'         ##
 __versionDate__ = '20160927'      ##
 ####################################
 
@@ -86,10 +86,7 @@ def upload_to_XNAT(xnat_connection,project,subject,session,assessor,xml_data,dat
         opts_dict['inbody'] = 'true'
         opts = urllib.urlencode(opts_dict)
         
-        #Convert the options to an encoded string suitable for the HTTP request
-        print URL 
-        print xml_data
-        print opts
+        # upload the XML data object via the proper XNAT REST API call 
         resp,experiment_uid = xnat_connection.putData(URL, xml_data, opts)
         
         if resp.status == 201 : 
