@@ -309,7 +309,7 @@
                     <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/QAP_fMRI/files/w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_QAP_fMRI_output.zip?format=ZIP&amp;extract=true&amp;content=MRI_QA"')^</value>
                 </argument>
                 <argument id="infile">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'QAP_fMRI_output.zip')^</value>
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_output.zip')^</value>
                 </argument>
             </resource>
         </step>              
