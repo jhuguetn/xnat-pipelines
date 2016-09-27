@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>qap_output_ingestor.py</pip:name>
+    <pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>
+    <pip:type>Executable</pip:type>
+    <pip:description>Parse QAP results, fill XNAT-compliant XML objects and upload them to XNAT</pip:description>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; python</pip:commandPrefix>
+    <pip:estimated_time>00:05:00</pip:estimated_time>
+    <pip:input>
+        <pip:argument id="auth_token" isSensitive="true">
+            <pip:description>basic user authentication string</pip:description>
+        </pip:argument>
+        <pip:argument id="hostname" >
+            <pip:description>XNAT hostname</pip:description>
+        </pip:argument>
+        <pip:argument id="project" >
+            <pip:description>project ID</pip:description>
+        </pip:argument>
+        <pip:argument id="results_csv_file" >
+            <pip:description>QAP output csv file path</pip:description>
+        </pip:argument>
+        <pip:argument id="analysis_type" >
+            <pip:description>type of analysis performed (i.e. temporal or spatial)</pip:description>
+        </pip:argument>
+        <pip:argument id="scans_type" >
+            <pip:description>type of scans to filter for (i.e. anat  or func)</pip:description>
+        </pip:argument>
+    </pip:input>
+</pip:Resource>

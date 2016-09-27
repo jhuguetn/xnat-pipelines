@@ -248,7 +248,7 @@ def main (argument_list):
     
     header_msg = '%s - v%s' %(os.path.basename(argument_list[0]),__version__)
     
-    if len(argument_list) != 8 :
+    if len(argument_list) != 7 :
         print '[error] No valid arguments supplied (%s)' %header_msg
         sys.exit(1)
     
@@ -257,9 +257,8 @@ def main (argument_list):
     hostname = argument_list[2]
     project = argument_list[3]
     csv_input_file = argument_list[4]
-    xml_output_file = argument_list[5] 
-    qap_analysis_type = argument_list[6] # either {temporal, spatial}
-    scan_type = argument_list[7] # either {anat, func}
+    qap_analysis_type = argument_list[5] # either {temporal, spatial}
+    scan_type = argument_list[6] # either {anat, func}
     
     # check the main XML element type (XNAT datatype)
     if 'anat' in scan_type.lower():
