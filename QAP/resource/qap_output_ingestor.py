@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160925'      ##
-__version__     = '0.1.1'         ##
-__versionDate__ = '20160927'      ##
+__version__     = '0.1.2'         ##
+__versionDate__ = '20160928'      ##
 ####################################
 
 # qap_output_ingestor.py
@@ -286,8 +286,9 @@ def main (argument_list):
                 xml_element = create_xml_obj(scan_results,xml_element_type, scan_id, scan_type)    
                 
                 # Do some magic :: upload xml object into XNAT (instantiate a new dataType object)
-                assessment_label = normalize_string( scan_results['subject'] + '_' + scan_results['session'] + '_s' + scan_results['scan'].split('_')[1] + '_' + xml_element_type.split(':')[1] )
-                
+                #assessment_label = normalize_string( scan_results['subject'] + '_' + scan_results['session'] + '_s' + scan_results['scan'].split('_')[1] + '_' + xml_element_type.split(':')[1] )
+                #let's shorten it, subject info is not required (session label should suffice)
+                assessment_label = normalize_string( scan_results['session'] + '_s' + scan_results['scan'].split('_')[1] + '_' + xml_element_type.split(':')[1] ) 
                 upload_to_XNAT(xnat_connection,project,scan_results['subject'],scan_results['session'],assessment_label,etree.tostring(xml_element),xml_element_type)        
     
     except xnatLibrary.XNATException as xnatErr:
