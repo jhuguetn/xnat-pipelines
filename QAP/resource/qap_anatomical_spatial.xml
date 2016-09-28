@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>qap_anatomical_spatial.py</pip:name>
+    <!--<pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>-->
+    <pip:type>Executable</pip:type>
+    <pip:description>Computes QA spatial metrics on structural MRI scan data (QAP pipeline)</pip:description>
+    <!--<pip:commandPrefix>source /etc/profile.d/modules.sh; module load afni fsl development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>-->
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load afni fsl development/python/2.7.12;</pip:commandPrefix>
+    <pip:estimated_time>00:50:00</pip:estimated_time>
+    <pip:input>
+        <pip:argument id="scan_list_file" >
+            <pip:name>-sublist</pip:name>
+            <pip:description>path to the YAML scan list file generated</pip:description>
+        </pip:argument>
+        <pip:argument id="reports_flag" >
+            <pip:name>-with-reports</pip:name>
+            <pip:description>flag for the generation of PDF reports</pip:description>
+        </pip:argument>
+        <pip:argument id="config_file" >
+            <pip:description>path to the YAML configuration file generated</pip:description>
+        </pip:argument>
+    </pip:input>
+</pip:Resource>
