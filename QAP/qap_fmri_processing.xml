@@ -286,7 +286,7 @@
                 </argument>
             </resource>
         </step>
-        <step id="9" description="Create a QAP resource collection for QAP-related derived data and upload it" precondition="^/Pipeline/parameters/parameter[name='store_results']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+        <step id="9" description="Create a QAP resource collection for QAP-related derived data and upload it" precondition="^/Pipeline/parameters/parameter[name='store_results']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="XnatDataClient" location="xnat_tools">
                 <argument id="sessionId">
                     <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
