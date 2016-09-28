@@ -5,7 +5,7 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.1.1'         ##
+__version__     = '0.1.2'         ##
 __versionDate__ = '20160928'      ##
 ####################################
 
@@ -104,7 +104,7 @@ def get_scans_list(connection,project,subjectID,experimentID,required_type):
 
     for scanID in scans :
         # check if scan is labeled as a usable scan
-        if scans[scanID]['quality'] is 'usable' :
+        if scans[scanID]['quality'] == 'usable' :
             # first get Philips scan type info (if available!)
             philips_scan_type_info = get_scan_type_philips_info(connection,project,subjectID,experimentID,scanID)
 
