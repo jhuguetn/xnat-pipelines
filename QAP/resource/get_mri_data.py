@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.1.0'         ##
-__versionDate__ = '20160926'      ##
+__version__     = '0.1.1'         ##
+__versionDate__ = '20160928'      ##
 ####################################
 
 # get_mri_data
@@ -93,24 +93,26 @@ def is_struct_scan(philips_scan_type_info, scan_type, scanID):
 
 
 def get_scans_list(connection,project,subjectID,experimentID,required_type):
-    ''' Given an XNAT connection and project>subject>experiment IDs, return a list of scans (IDs) which are of required type '''
+    ''' Given an XNAT connection and project>subject>experiment IDs, return a list of usable scans (IDs) which are of required type '''
     ''' Being required_type either functional or structural types'''
 
     process_scan_list = []
 
     # get FULL scan list of the given session
-    options = { 'columns' : 'ID,type' }
+    options = { 'columns' : 'ID,type,quality' }
     scans = connection.getScans(experimentID, options)
 
     for scanID in scans :
-        # first get Philips scan type info (if available!)
-        philips_scan_type_info = get_scan_type_philips_info(connection,project,subjectID,experimentID,scanID)
+        # check if scan is labeled as a usable scan
+        if scans[scanID]['quality'] is 'usable' :
+            # first get Philips scan type info (if available!)
+            philips_scan_type_info = get_scan_type_philips_info(connection,project,subjectID,experimentID,scanID)
 
-        if 'anat' == required_type.lower() and is_struct_scan(philips_scan_type_info,scans[scanID]['type'],scanID):
-            process_scan_list.append(scanID)
+            if 'anat' == required_type.lower() and is_struct_scan(philips_scan_type_info,scans[scanID]['type'],scanID):
+                process_scan_list.append(scanID)
 
-        elif 'func' == required_type.lower() and is_func_scan(philips_scan_type_info,scans[scanID]['type'],scanID):
-            process_scan_list.append(scanID)
+            elif 'func' == required_type.lower() and is_func_scan(philips_scan_type_info,scans[scanID]['type'],scanID):
+                process_scan_list.append(scanID)
 
     return process_scan_list
 
