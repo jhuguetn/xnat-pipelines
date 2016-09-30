@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.1.2'         ##
-__versionDate__ = '20160928'      ##
+__version__     = '0.1.3'         ##
+__versionDate__ = '20160930'      ##
 ####################################
 
 # get_mri_data
@@ -56,13 +56,16 @@ def get_scan_type_philips_info(xnat_connection,project,subjectID,experimentID, s
 
 def is_func_scan(philips_scan_type_info, scan_type, scanID):
 
-    functional_type_tokens = ['resting', 'rsmri', 'fmri']
+    functional_type_tokens = ['resting', 'rsmri', 'fmri', 'fbirn']
     is_func = None
 
     if philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'PROTON_DENSITY' and 'EPI' in pulse_seq :
+            is_func = True
+        # Specific fBIRN phantom scan data case
+        elif acq_contrast == 'T2' and 'EPI' in pulse_seq and scan_type.lower() in functional_type_tokens:
             is_func = True
     else :
     # Not Philips data or private group 0x2005 removed/emptied'
@@ -71,8 +74,7 @@ def is_func_scan(philips_scan_type_info, scan_type, scanID):
             is_func = True
 
     return is_func
-
-
+   
 def is_struct_scan(philips_scan_type_info, scan_type, scanID):
 
     structural_type_tokens = ['t1', 'adni', 'mprage']
