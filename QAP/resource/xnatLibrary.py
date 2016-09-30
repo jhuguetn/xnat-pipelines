@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20141015'      ##
-__version__     = '1.2.1'         ##
-__versionDate__ = '20160811'      ##
+__version__     = '1.2.2'         ##
+__versionDate__ = '20160930'      ##
 ####################################
 
 # xnatLibrary.py
@@ -89,10 +89,10 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=10)
-            #connection = httplib.HTTPSConnection(netloc, timeout=10, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=100)
+            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
         else :
-            connection = httplib.HTTPConnection(netloc, timeout=10)
+            connection = httplib.HTTPConnection(netloc, timeout=100)
         
         if options != None :
             path += '?%s' % options
