@@ -11,7 +11,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.2</version>
+        <version>0.3</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -233,8 +233,14 @@
         </step>
         <step id="9" description="Create a QAP resource collection for QAP-related derived data and upload it" precondition="^/Pipeline/parameters/parameter[name='store_results']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="XnatDataClient" location="xnat_tools">
-                <argument id="sessionId">
+                <!--<argument id="sessionId">
                     <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+                </argument>-->
+                <argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
                 <argument id="method">
                     <value>PUT</value>
@@ -244,8 +250,14 @@
                 </argument>
             </resource>
             <resource name="XnatDataClient" location="xnat_tools">
-                <argument id="sessionId">
+                <!--<argument id="sessionId">
                     <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+                </argument>-->
+                <argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
                 <argument id="method">
                     <value>PUT</value>
