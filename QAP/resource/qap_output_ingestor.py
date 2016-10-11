@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160925'      ##
-__version__     = '0.1.2'         ##
-__versionDate__ = '20160928'      ##
+__version__     = '0.2.0'         ##
+__versionDate__ = '20161004'      ##
 ####################################
 
 # qap_output_ingestor.py
@@ -22,6 +22,7 @@ import traceback
 from lxml import etree
 from datetime import datetime
 import xnatLibrary
+import qap_snapshot_creator
 
 
 # GLOBAL NAMESPACES 
@@ -240,7 +241,7 @@ def parse_csv_file(csv_filepath):
 
     return rows_dict_list
 
-    
+   
 def main (argument_list):
     
     header_msg = '%s - v%s' %(os.path.basename(argument_list[0]),__version__)
@@ -289,14 +290,22 @@ def main (argument_list):
                 #assessment_label = normalize_string( scan_results['subject'] + '_' + scan_results['session'] + '_s' + scan_results['scan'].split('_')[1] + '_' + xml_element_type.split(':')[1] )
                 #let's shorten it, subject info is not required (session label should suffice)
                 assessment_label = normalize_string( scan_results['session'] + '_s' + scan_results['scan'].split('_')[1] + '_' + xml_element_type.split(':')[1] ) 
-                upload_to_XNAT(xnat_connection,project,scan_results['subject'],scan_results['session'],assessment_label,etree.tostring(xml_element),xml_element_type)        
+                assessment_uid = upload_to_XNAT(xnat_connection,project,scan_results['subject'],scan_results['session'],assessment_label,etree.tostring(xml_element),xml_element_type)        
+                # snapshot images generation and upload 
+                qap_output_directory = os.path.dirname(os.path.realpath(csv_input_file))
+                matched_results = qap_snapshot_creator.find_pdf_files(qap_output_directory)
+                if matched_results :
+                    for pdf_file in matched_results :
+                        png_file = qap_snapshot_creator.convert_to_img(pdf_file)
+                        qap_snapshot_creator.upload_snapshot_resource(xnat_connection,project,scan_results['subject'],scan_results['session'],assessment_uid,png_file)                            
+                        os.remove(png_file)
     
     except xnatLibrary.XNATException as xnatErr:
         print '[error] XNAT-related issue(%s): %s' %(header_msg,xnatErr)
         sys.exit(1)
     
     except Exception as e:
-        print '[error]', e	
+        print '[error]', e    
         print(traceback.format_exc())
         sys.exit(1)
     
