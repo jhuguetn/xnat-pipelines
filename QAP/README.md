@@ -44,8 +44,7 @@ Once enabled, pipeline can be easily triggered for an imaging session in the pro
 
 * From the XNAT GUI, see [here](https://wiki.xnat.org/display/XNAT16/Working+with+Processing+Pipelines#WorkingwithProcessingPipelines-RunningPipelinesonyourProject)
 
-* Programmatically (RESTful API), 
-  Via an HTTP-post command at the following resource: 
+* Programmatically (RESTful API), via an HTTP-post command at the following resource: 
   ```
 [POST] /data/archive/projects/{PROJECT_ID}/pipelines/{PIPELINE_ID}/experiments/{EXPERIMENT_ID}
   ```
