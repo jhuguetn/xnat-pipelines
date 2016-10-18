@@ -12,10 +12,10 @@ The QAP pipelines are designed for automatically:
 [Quality Assessment Protocol](http://preprocessed-connectomes-project.org/quality-assessment-protocol/) (QAP) is a Python-based package for computing functional and anatomical MRI data quality measures.
 More information about the QAP computed metrics/measurements can be found [here] (http://preprocessed-connectomes-project.org/quality-assessment-protocol/#taxonomy-of-qa-measures).
 
-## qap_anat_processing:
+### qap_anat_processing:
 Analizes the quality of structural/anatomical scan(s) in an MRI session. Pipeline automatically searches for T1, ADNI or MPRAGE alike scans to process.
 
-## qap_fmri_processing:
+### qap_fmri_processing:
 Analizes the quality of functional scan(s) —either or both in the temporal and the spatial domains— in an MRSession. Pipeline automatically searches for fMRI, RESTING, rsMRI alike scans to process.
 
 ## Requisites
