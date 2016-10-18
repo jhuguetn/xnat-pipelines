@@ -10,7 +10,7 @@ The QAP pipelines are designed for automatically:
 
 1. fetch suited MRI scan data from XNAT instance given an MRSession
 2. analyse structural and/or functional MRI running QAP tools
-3. and finally storing back into XNAT the resulting measuments as derived but linked data (image session assessments)
+3. and finally store back into XNAT the resulting measuments as derived but linked data (image session assessments)
 
 ## qap_anat_processing:
 Analizes the quality of structural/anatomical MRI scans. Pipeline automatically looks for T1, ADNI or MPRAGE alike scans to process.
