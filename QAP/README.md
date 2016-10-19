@@ -15,8 +15,12 @@ More information about the QAP computed metrics/measurements can be found [here]
 ### qap_anat_processing:
 Analizes the quality of structural/anatomical scan(s) in an MRI session. Pipeline automatically searches for T1, ADNI or MPRAGE alike scans to process.
 
+![pipeline flow](http://i.imgur.com/C4Dzgrk.png)
+
 ### qap_fmri_processing:
 Analizes the quality of functional scan(s) —either or both in the temporal and the spatial domains— in an MRSession. Pipeline automatically searches for fMRI, RESTING, rsMRI alike scans to process.
+
+![pipeline flow](http://i.imgur.com/doIvNZZ.png)
 
 ## Requisites
 
