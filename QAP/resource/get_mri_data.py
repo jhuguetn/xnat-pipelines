@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.1.3'         ##
-__versionDate__ = '20160930'      ##
+__version__     = '0.1.4'         ##
+__versionDate__ = '20161024'      ##
 ####################################
 
 # get_mri_data
@@ -49,6 +49,10 @@ def get_scan_type_philips_info(xnat_connection,project,subjectID,experimentID, s
         scan_type_params = [ str(matching_dcm_attribute_value1[0]), str(matching_dcm_attribute_value2[0]) ]
     else:
         # either is not Philips or has been anonymized, thus private group 0x2005 removed
+        scan_type_params = None
+
+    # Strange scenario fix: if any of the Philips fields are set to UNKNOWN, their info is useless
+    if scan_type_params and 'UNKNOWN' in (item.upper() for item in scan_type_params):
         scan_type_params = None
 
     return scan_type_params
@@ -192,4 +196,3 @@ if __name__=="__main__" :
 
     main()
     sys.exit(0)
-
