@@ -3,7 +3,7 @@
 <!-- created by Mohana Ramaratnam (Washington University) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>dcm2nii</pip:name>
-    <!--<pip:location>/xnat/pipeline/myPipelines/examcardExtractor/resource</pip:location>-->
+    <!--<pip:location>/xnat/pipeline/amc-catalog/mricron/resource</pip:location>-->
     <pip:type>Executable</pip:type>
 	<pip:description>Generates NIFTI files from DICOM datasets</pip:description>
     <pip:commandPrefix>source /etc/profile.d/modules.sh; module load mricron;</pip:commandPrefix>
