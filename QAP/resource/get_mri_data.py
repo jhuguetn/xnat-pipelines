@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.1.4'         ##
-__versionDate__ = '20161024'      ##
+__version__     = '0.1.5'         ##
+__versionDate__ = '20161124'      ##
 ####################################
 
 # get_mri_data
@@ -82,12 +82,13 @@ def is_func_scan(philips_scan_type_info, scan_type, scanID):
 def is_struct_scan(philips_scan_type_info, scan_type, scanID):
 
     structural_type_tokens = ['t1', 'adni', 'mprage']
+    unprocessable_type_tokens = ['survey']
     is_struct = None
 
     if philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
-        if acq_contrast == 'T1' and 'T1' in pulse_seq :
+        if acq_contrast == 'T1' and 'T1' in pulse_seq and scan_type.lower() not in unprocessable_type_tokens:
             is_struct = True
     else :
     # Not Philips data or private group 0x2005 removed/emptied'
