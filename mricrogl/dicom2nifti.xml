@@ -5,7 +5,7 @@
 	<name>dicom2nifti</name>
 	<!-- Filesystem path to the pipeline XML -->
 	<location>/xnat/pipeline/amc-catalog/mricrogl</location>
-    <description>NIFTI conversion of DICOM image data (dcm2niix)</description>
+    <description>New DICOM to NIFTI image data converter (dcm2niix)</description>
     <resourceRequirements>
         <property name="DRMAA_JobTemplate_JobCategory">XNAT</property>
     </resourceRequirements>
