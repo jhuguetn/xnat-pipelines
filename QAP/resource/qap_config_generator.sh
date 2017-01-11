@@ -18,7 +18,7 @@
 
 if [ $# != 5 ]
   then
-        echo "generate QAP configuration file (QAP package) - v0.1"
+        echo "generate QAP configuration file (QAP package) - v0.2"
         exit 1
 
   else
