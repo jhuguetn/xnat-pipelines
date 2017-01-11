@@ -6,7 +6,10 @@
 	<name>DICOM_to_NIFTI</name>
 	<!-- Filesystem path to the pipeline XML -->
 	<location>/xnat/pipeline/amc-catalog/mricron</location>
-	<description>DICOM to NIFTI image data converter (MRIcron), ignore errors</description>
+    <description>DICOM to NIFTI image data converter (MRIcron)</description>
+    <resourceRequirements>
+        <property name="DRMAA_JobTemplate_JobCategory">XNAT</property>
+    </resourceRequirements>
 	<documentation>
 		<authors>
 			<author>
