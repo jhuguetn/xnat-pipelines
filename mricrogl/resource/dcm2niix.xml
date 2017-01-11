@@ -5,8 +5,8 @@
     <pip:type>Executable</pip:type>
     <!--<pip:location></pip:location>-->
     <pip:description>Convert DICOM datasets to NIFTI (dcm2niix)</pip:description>
-    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load mricrogl;</pip:commandPrefix>
-    <pip:estimated_time>00:10:00</pip:estimated_time>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load mricrogl/20170101;</pip:commandPrefix>
+    <pip:estimated_time>00:10:00</pip:estimated_time>year
 	<pip:input>
 		<pip:argument id="filename" >
 			<pip:name>f</pip:name>
