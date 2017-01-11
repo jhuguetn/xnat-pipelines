@@ -20,5 +20,8 @@
         <pip:argument id="scans_type" >
             <pip:description>type of scans to process QAP for (i.e. anat  or func)</pip:description>
         </pip:argument>
+        <pip:argument id="debug_mode" >
+            <pip:description>Flag for swapping between normal and debug execution modes (N or Y)</pip:description>
+        </pip:argument>
     </pip:input>
 </pip:Resource>
