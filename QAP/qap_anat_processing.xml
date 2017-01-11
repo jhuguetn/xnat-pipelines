@@ -185,6 +185,9 @@
                 <argument id="scans_type">
                     <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
                 </argument>
+                <argument id="debug_mode">
+                    <value>N</value>
+                </argument>
             </resource>
         </step>
         <step id="6a" description="Compute QA spatial metrics on anatomical MRI scan data" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
