@@ -296,17 +296,6 @@
                 </argument>
             </resource>
         </step>
-        <step id="8b" description="Zip the directory with the debug-mode result files" precondition="^/Pipeline/parameters/parameter[name='debug_mode']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
-            <resource name="zip" location="commandlineTools" >
-                <argument id="recursive"/>
-                <argument id="archive">
-                    <value>'QAP_fMRI_work.zip'</value>
-                </argument>
-                <argument id="folder">
-                    <value>QAP_fMRI_work</value>
-                </argument>
-            </resource>
-        </step>
         <step id="9" description="Create a QAP resource collection for QAP-related derived data and upload it" precondition="^/Pipeline/parameters/parameter[name='store_results']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="XnatDataClient" location="xnat_tools">
                 <!--<argument id="sessionId">
@@ -343,6 +332,34 @@
                 </argument>
                 <argument id="infile">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_output.zip')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="9b" description="Archive the debug-mode working files" precondition="^/Pipeline/parameters/parameter[name='debug_mode']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+            <resource name="zip" location="commandlineTools" >
+                <argument id="recursive"/>
+                <argument id="archive">
+                    <value>'QAP_fMRI_work.zip'</value>
+                </argument>
+                <argument id="folder">
+                    <value>QAP_fMRI_work</value>
+                </argument>
+            </resource>
+            <resource name="XnatDataClient" location="xnat_tools">
+                <argument id="user">
+                    <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+                    <value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/QAP_fMRI/files/w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_QAP_fMRI_work.zip?format=ZIP&amp;extract=true&amp;content=MRI_QA_DEBUG"')^</value>
+                </argument>
+                <argument id="infile">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_work.zip')^</value>
                 </argument>
             </resource>
         </step>
