@@ -197,7 +197,7 @@
                 </argument>
                 <argument id="scans_type">
                     <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
-                </argument>                
+                </argument>
             </resource>
         </step>
         <step id="5" description="Create a configuration file (YAML format)" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
@@ -216,7 +216,7 @@
                 </argument>
                 <argument id="debug_mode">
                     <value>^/Pipeline/parameters/parameter[name='debug_mode']/values/unique/text()^</value>
-                </argument>                
+                </argument>
             </resource>
         </step>
         <step id="6a" description="Compute QA spatial metrics on functional MRI scan data" precondition="^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='Y'^" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
@@ -282,7 +282,7 @@
                 </argument>
                 <argument id="scans_type">
                     <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
-                </argument>                
+                </argument>
             </resource>
         </step>
         <step id="8" description="Zip the directory with the result files" precondition="^/Pipeline/parameters/parameter[name='store_results']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
@@ -293,6 +293,17 @@
                 </argument>
                 <argument id="folder">
                     <value>QAP_fMRI_out</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="8b" description="Zip the directory with the debug-mode result files" precondition="^/Pipeline/parameters/parameter[name='debug_mode']/values/unique/text()='Y'^" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+            <resource name="zip" location="commandlineTools" >
+                <argument id="recursive"/>
+                <argument id="archive">
+                    <value>'QAP_fMRI_work.zip'</value>
+                </argument>
+                <argument id="folder">
+                    <value>QAP_fMRI_work</value>
                 </argument>
             </resource>
         </step>
@@ -334,7 +345,7 @@
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_output.zip')^</value>
                 </argument>
             </resource>
-        </step>              
+        </step>
         <step id="10" description="Delete the intermediate data" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="rm" location="commandlineTools">
                 <argument id="f"/>
