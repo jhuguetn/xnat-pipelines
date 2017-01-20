@@ -7,6 +7,10 @@
 	<location>/xnat/pipeline/amc-catalog/mricron</location>
 	<!-- Filesystem path to the pipeline XML -->
 	<description>PARREC to NIFTI image data converter (MRIcron), ignore errors</description>
+    <resourceRequirements>
+        <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
+    </resourceRequirements>
 	<documentation>
 		<authors>
 			<author>
@@ -17,7 +21,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>3.0</version>
+		<version>3.1</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>

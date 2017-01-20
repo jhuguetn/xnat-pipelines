@@ -7,7 +7,8 @@
 	<location>/xnat/pipeline/amc-catalog/mricrogl</location>
     <description>New DICOM to NIFTI image data converter (dcm2niix)</description>
     <resourceRequirements>
-        <property name="DRMAA_JobTemplate_JobCategory">XNAT</property>
+        <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
     </resourceRequirements>
 	<documentation>
 		<authors>
@@ -19,7 +20,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>1.0</version>
+		<version>1.1</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
