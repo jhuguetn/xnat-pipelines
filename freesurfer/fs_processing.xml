@@ -7,6 +7,10 @@
 	<location>/xnat/pipeline/amc-catalog/freesurfer</location>
 	<!-- Filesystem path to the pipeline XML -->
 	<description>Run FreeSurfer (recon-all!) on structural scan data</description>
+    <resourceRequirements>
+        <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
+    </resourceRequirements>
 	<documentation>
 	   <authors>
 	   	<author>
@@ -14,7 +18,7 @@
 			<firstname>Huguet</firstname>
 	   	</author>
 	   </authors>
-		<version>1.1</version>
+		<version>1.2</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>

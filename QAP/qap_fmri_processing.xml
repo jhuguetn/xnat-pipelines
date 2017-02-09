@@ -4,6 +4,10 @@
     <name>qap_fmri_processing</name>
     <location>/xnat/pipeline/amc-catalog/QAP</location>
     <description>Compute Quality Assessment Package metrics on functional MRI scan data</description>
+    <resourceRequirements>
+        <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
+    </resourceRequirements>
     <documentation>
        <authors>
            <author>
@@ -11,7 +15,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.6</version>
+        <version>1.0</version>
         <input-parameters>
             <!--<parameter>
                 <name>scanIDs</name>
