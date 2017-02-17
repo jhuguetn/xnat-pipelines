@@ -27,7 +27,7 @@ Analizes the quality of functional scan(s) —either or both in the temporal and
 
 - QAP package (1.0.4 or +) and its prerequisites should be installed in the system before installing QAP pipelines.
 
-- The QAP pipelines ingest computed QA metrics to XNAT database as customized data-types. Thus, [QAPdata module](https://github.com/jhuguetn/xnat-modules/tree/master/QAPdata-0.4) must be conveniently installed in the XNAT instance before running such pipelines. QAPdata module aims at modelling and structuring QAP measurements into custom XNAT data-types.
+- The QAP pipelines ingest computed QA metrics to XNAT database as customized data-types. Thus, [QAPData module](https://github.com/jhuguetn/xnat-modules/tree/master/QAPData-0.4) must be conveniently installed in the XNAT instance before running such pipelines. QAPData module aims at modelling and structuring QAP measurements into custom XNAT data-types.
 
 - Python version 2.7.X is required for running the pythonic scripts. Additionally, Wand (ImageMagick), urllib, lxml and httplib Python modules are also needed.
 
