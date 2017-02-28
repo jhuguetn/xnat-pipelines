@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+	<pip:name>dti_preprocessing_core.sh</pip:name>
+	<pip:location>/xnat/pipeline/amc-catalog/dti_preprocessing/resource</pip:location>
+	<pip:type>Executable</pip:type>
+	<pip:description>Prepare data and compute preprocessing corrections on given DTI scans</pip:description>
+	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load fsl dtitk matlab matlab/toolbox/spm8 matlab/toolbox/dipimage matlab/toolbox/NIfTI;</pip:commandPrefix>
+    <!--RADIAN config.-->
+    <!--<pip:commandPrefix>source /etc/profile.d/modules.sh; module load fsl dtitk matlab matlab/toolbox/spm8 dipimage;</pip:commandPrefix>-->
+	<pip:estimated_time>01:00:00</pip:estimated_time>
+	<pip:input>
+		<pip:argument id="toolboxes_directory" >
+			<pip:description>location where home-brewed Matlab toolboxes are located</pip:description>
+		</pip:argument>
+        <pip:argument id="input_directory" >
+			<pip:description>location where input MRI scan data is located</pip:description>
+		</pip:argument>
+        <pip:argument id="output_directory" >
+			<pip:description>processing outputs location</pip:description>
+		</pip:argument>
+	</pip:input>
+</pip:Resource>
+

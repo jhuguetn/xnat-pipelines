@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+	<pip:name>get_mri_data.py</pip:name>
+	<pip:location>/xnat/pipeline/amc-catalog/dti_preprocessing/resource</pip:location>
+	<pip:type>Executable</pip:type>
+	<pip:description>Get suitable raw MRI scan data for the pipeline</pip:description>
+	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; python</pip:commandPrefix>
+	<pip:estimated_time>00:01:00</pip:estimated_time>
+	<pip:input>
+		<pip:argument id="auth_token" isSensitive="true">
+			<pip:description>basic user authentication string</pip:description>
+		</pip:argument>
+		<pip:argument id="hostname" >
+			<pip:description>XNAT hostname</pip:description>
+		</pip:argument>
+        <pip:argument id="project" >
+			<pip:description>project ID</pip:description>
+		</pip:argument>
+        <pip:argument id="subjectID" >
+			<pip:description>subject ID</pip:description>
+		</pip:argument>
+        <pip:argument id="experimentID" >
+			<pip:description>experiment ID</pip:description>
+		</pip:argument>
+        <pip:argument id="scans_type" >
+			<pip:description>type of scans to filter for (i.e. dti)</pip:description>
+		</pip:argument>
+        <pip:argument id="output_directory" >
+			<pip:description>location where to download the imaging data files</pip:description>
+		</pip:argument>
+	</pip:input>
+</pip:Resource>
+

@@ -1,0 +1,6 @@
+## author:           Jordi Huguet (AMC)
+## date:             20170228
+## version:          0.1
+
+# This is an informative file solely. 
+# SVN checkout or export in its location the required Matlab home-brewed toolboxes (i.e. tools,spmtools and dti/matlabCommon)
