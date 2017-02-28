@@ -11,6 +11,8 @@ XNAT pipelines repository
 * [mricron](https://github.com/jhuguetn/xnat-pipelines/tree/master/mricron) :: DICOM and PARREC flavoured pipelines for imaging data conversion to NIFTI format (using dcm2nii)
 * [Quality Assessment Protocol](https://github.com/jhuguetn/xnat-pipelines/tree/master/QAP) :: QA analysis on functional/structural MRI data
 * [mricrogl](https://github.com/jhuguetn/xnat-pipelines/tree/master/mricrogl) :: New generation of DICOM-to-NIFTI format conversion pipeline (using dcm2niix)
+* [DTI-preprocessing](https://github.com/jhuguetn/xnat-pipelines/tree/master/dti_preprocessing) ::  Compute preprocessing corrections on MRI DTI scans
+
 
 ##Contributors
 Jordi Huguet, Department of Neuroradiology & Brain Imaging Centre, AMC-UvA Amsterdam
