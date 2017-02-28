@@ -2,6 +2,7 @@
 ##
 ## title:            dti_preprocessing_core.sh
 ## description:      Prepare data and compute preprocessing corrections on MRI DTI scans
+##                   Running MATLAB from command-line (resource): https://nl.mathworks.com/help/matlab/ref/matlablinux.html
 ## inputs:           (1) Matlab toolboxes directory
 ##                   (2) input data directory
 ##                   (3) output data directory
