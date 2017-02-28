@@ -11,7 +11,7 @@ The DTI-preprocessing pipeline is designed for automatically:
 2. compute the preprocessing corrections
 3. and finally store back into XNAT the resulting outputs 
 
-## Taxonomy of output results
+## Taxonomy of DTI-preprocessing output results
 
 output filename | description
 | ------------ | ------------ |
