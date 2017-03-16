@@ -3,7 +3,7 @@
 ## TO-DO
 * Add brief read-me documentation for each pipeline
 
-##Synopsis
+## Synopsis
 XNAT pipelines repository
 
 * [ExamCard extractor](https://github.com/jhuguetn/xnat-pipelines/tree/master/examcardExtractor) :: Extracts Philips ExamCard objects embedded in DICOM object files
@@ -14,10 +14,10 @@ XNAT pipelines repository
 * [DTI-preprocessing](https://github.com/jhuguetn/xnat-pipelines/tree/master/dti_preprocessing) ::  Compute preprocessing corrections on MRI DTI scans
 
 
-##Contributors
+## Contributors
 Jordi Huguet, Department of Neuroradiology & Brain Imaging Centre, AMC-UvA Amsterdam
 
-##License
+## License
 This work is licensed under the terms of the GNU GPLv3 license.
 
 
