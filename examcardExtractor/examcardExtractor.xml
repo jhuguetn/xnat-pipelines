@@ -8,7 +8,7 @@
     <description>Recursively locate, parse and extract Philips EXAMCARDs from DICOM dataset</description>
     <resourceRequirements>
         <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
-        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
+        <property name="DRMAA_JobTemplate_JobResource">-q xnat.q</property>
     </resourceRequirements>
     <documentation>
        <authors>
