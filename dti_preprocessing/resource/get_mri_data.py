@@ -108,7 +108,9 @@ def is_dti_scan(philips_scan_type_info, scan_type, scanID):
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'DIFFUSION' and 'dwi' in pulse_seq.lower():
-            is_dti = True
+            # Specific for excluding processed DTI scan sequences
+            if scanID.endswith('1')  :
+               is_dti = True
     else :
     # Not Philips data or private group 0x2005 removed/emptied'
         if [scanID for ctype in diffusion_type_tokens if ctype in scan_type.lower()] :
