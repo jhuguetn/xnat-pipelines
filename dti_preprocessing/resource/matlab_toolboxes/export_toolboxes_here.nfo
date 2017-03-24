@@ -4,3 +4,10 @@
 
 # This is an informative file solely. 
 # SVN checkout or export in its location the required Matlab home-brewed toolboxes (i.e. tools,spmtools and dti/matlabCommon)
+#
+# Example:
+#
+# cd /xnat/pipeline/amc-catalog/dti_preprocessing/resource/matlab_toolboxes
+# svn co https://3tmri.nl/svn/toolbox/tools ./tools
+# svn co https://3tmri.nl/svn/toolbox/dti/matlabCommon ./dti/matlabCommon
+# svn co https://3tmri.nl/svn/toolbox/spmtools ./spmtools
