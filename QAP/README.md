@@ -25,7 +25,10 @@ Analizes the quality of functional scan(s) —either or both in the temporal and
 ## Requisites
 - XNAT platform (1.6 or +) and its prerequisites should be installed in the system before installing QAP pipelines. 
 
-- QAP package (1.0.4 or +) and its prerequisites should be installed in the system before installing QAP pipelines.
+- QAP package (version 1.0.5) and its prerequisites should be installed in the system before installing QAP pipelines. Find [here](https://github.com/jhuguetn/quality-assessment-protocol) a forked version of the code which includes fixes to some found bugs. Note:
+   - numpy. Do not use numpy latest version (1.12.x) since it does not support anymore floats as indexes which are used in QAP. See [here](https://groups.google.com/forum/#!topic/pcp_forum/uA5_LqG8Bik).
+   - xhtml2pdf. Crashes importing dependency package html5lib components at its lattest version. Use `pip install html5lib==1.0b8` as workaround. See [here](https://github.com/xhtml2pdf/xhtml2pdf/issues/318).
+   - nipype. Newest version (0.12.1) crashes at finding dependency package configparser. A workaround is installing configparser (although is part of the Python standard library), see [here](https://github.com/nipy/nipype/issues/1699).
 
 - The QAP pipelines ingest computed QA metrics to XNAT database as customized data-types. Thus, [QAPData module](https://github.com/jhuguetn/xnat-modules/tree/master/QAPData-0.4) must be conveniently installed in the XNAT instance before running such pipelines. QAPData module aims at modelling and structuring QAP measurements into custom XNAT data-types. Important: if using 1.7 or higher, QAP module content should be ported to XNAT plugin technology (TO-DO).
 
