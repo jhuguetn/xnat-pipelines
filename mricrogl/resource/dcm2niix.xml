@@ -12,11 +12,11 @@
 			<pip:name>f</pip:name>
 			<pip:description>filename composition token</pip:description>
 		</pip:argument>
-        <pip:argument id="compress" >
+		<pip:argument id="compress" >
 			<pip:name>z</pip:name>
-			<pip:description>gzip compression [y|n]</pip:description>
+			<pip:description>gzip compression [y|i|n]</pip:description>
 		</pip:argument>
-        <pip:argument id="output" >
+		<pip:argument id="output" >
 			<pip:name>o</pip:name>
 			<pip:description>Output folder</pip:description>
 		</pip:argument>
