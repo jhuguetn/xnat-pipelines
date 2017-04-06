@@ -6,7 +6,7 @@
     <pip:type>Executable</pip:type>
     <pip:description>Computes QA spatial metrics on functional MRI scan data (QAP pipeline)</pip:description>
     <!--<pip:commandPrefix>source /etc/profile.d/modules.sh; module load afni fsl development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>-->
-    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load afni fsl development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load afni fsl devel/python/2.7.12;</pip:commandPrefix>
     <pip:estimated_time>00:50:00</pip:estimated_time>
     <pip:input>
         <pip:argument id="scan_list_file" >

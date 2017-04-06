@@ -89,10 +89,10 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=3600)
+            #connection = httplib.HTTPSConnection(netloc, timeout=3600, context=ssl._create_unverified_context())
         else :
-            connection = httplib.HTTPConnection(netloc, timeout=100)
+            connection = httplib.HTTPConnection(netloc, timeout=3600)
         
         if options != None :
             path += '?%s' % options
@@ -122,10 +122,10 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=360)
+            #connection = httplib.HTTPSConnection(netloc, timeout=360, context=ssl._create_unverified_context())
         else :
-            connection = httplib.HTTPConnection(netloc, timeout=100)
+            connection = httplib.HTTPConnection(netloc, timeout=360)
         
         if options != None :
             path += '?%s' % options
