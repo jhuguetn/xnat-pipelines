@@ -5,7 +5,7 @@
     <pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>
     <pip:type>Executable</pip:type>
     <pip:description>Creates a QAP specific configuration file (YAML format) for running the QAP package.</pip:description>
-    <pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>
+    <!--<pip:commandPrefix>...</pip:commandPrefix>-->
     <pip:estimated_time>00:00:05</pip:estimated_time>
     <pip:input>
         <pip:argument id="output_dir" >

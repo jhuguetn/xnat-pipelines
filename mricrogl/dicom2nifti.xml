@@ -20,7 +20,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>1.2</version>
+		<version>1.1</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
@@ -64,13 +64,6 @@
 				</values>
 					<description>Set this value to Y to reorient image to nearest orthogonal. Set it to N otherwise</description>
 			</parameter>-->
-			<parameter>
-				<name>compress</name>
-				<values>
-					<csv>y</csv>
-				</values>
-					<description>gz compress images [y=pigz (parallel implementation of gzip), i=internal (baseline gzip), n=no (uncompressed)]</description>
-			</parameter>
 			<parameter>
 				<name>notify</name>
 				<values>
@@ -136,7 +129,7 @@
 					<value>^concat(/Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'_%3s_%d_%t')^</value>
 				</argument>
                 <argument id="compress">
-					<value>^/Pipeline/parameters/parameter[name='compress']/values/unique/text()^</value>
+					<value>n</value>
 				</argument>
 				<argument id="output">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
