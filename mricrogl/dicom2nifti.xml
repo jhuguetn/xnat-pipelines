@@ -67,7 +67,7 @@
 			<parameter>
 				<name>compress</name>
 				<values>
-					<csv>n</csv>
+					<csv>y</csv>
 				</values>
 					<description>gz compress images [y=pigz (parallel implementation of gzip), i=internal (baseline gzip), n=no (uncompressed)]</description>
 			</parameter>
