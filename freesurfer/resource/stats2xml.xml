@@ -5,7 +5,7 @@
 	<pip:location>/xnat/pipeline/amc-catalog/freesurfer/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Parses FreeSurfer processing results into an XML file representing an assessment</pip:description>
-	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load devel/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
+	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
 	<pip:estimated_time>00:01:00</pip:estimated_time>
 	<pip:input>
 		<pip:argument id="input_directory">

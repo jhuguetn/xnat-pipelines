@@ -6,7 +6,7 @@
     <description>Compute Quality Assessment Package metrics on structural MRI scan data</description>
     <resourceRequirements>
         <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
-        <property name="DRMAA_JobTemplate_JobResource">-q xnat.q</property>
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
     </resourceRequirements>
     <documentation>
        <authors>

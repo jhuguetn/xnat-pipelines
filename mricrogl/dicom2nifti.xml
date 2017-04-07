@@ -8,7 +8,7 @@
     <description>New DICOM to NIFTI image data converter (dcm2niix)</description>
     <resourceRequirements>
         <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
-        <property name="DRMAA_JobTemplate_JobResource">-q xnat.q</property>
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
     </resourceRequirements>
 	<documentation>
 		<authors>
