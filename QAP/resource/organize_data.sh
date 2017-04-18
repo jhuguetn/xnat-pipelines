@@ -83,7 +83,7 @@ if [ $# != 5 ]
                 fi
 
                 #re-do the find search command for new NIFTI files
-                NIFTIs=$(find $scanID_dir -type f -iname "*.nii") #-o -iname "*.bvec" -o -iname "*.bval" )
+                NIFTIs=$(find $scanID_dir -type f -iname "*.nii" -o -iname "*.nii.gz") #-o -iname "*.bvec" -o -iname "*.bval" )
                 # -z checks for an empty string (i.e. no NIFTI data directories found)
                 if [[ -z $NIFTIs ]]
                   then
@@ -93,7 +93,10 @@ if [ $# != 5 ]
                     for NIFTI_file in $NIFTIs; do
                         # for each NIFTI file move it to BIDS directory and gzip it (replacing uncompressed file)
                         mv -v $NIFTI_file $bids_scan_path
-                        gzip -v $bids_scan_path/$(basename $NIFTI_file)
+                        if [ $(basename $NIFTI_file) == "*.nii" ]
+                          then
+                            gzip -v $bids_scan_path/$(basename $NIFTI_file)
+                        fi
                     done
                 fi
             done
