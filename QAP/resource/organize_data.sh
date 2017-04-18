@@ -93,7 +93,7 @@ if [ $# != 5 ]
                     for NIFTI_file in $NIFTIs; do
                         # for each NIFTI file move it to BIDS directory and gzip it (replacing uncompressed file)
                         mv -v $NIFTI_file $bids_scan_path
-                        if [ $(basename $NIFTI_file) == "*.nii" ]
+                        if [[ $(basename $NIFTI_file) == *.nii ]]
                           then
                             gzip -v $bids_scan_path/$(basename $NIFTI_file)
                         fi
