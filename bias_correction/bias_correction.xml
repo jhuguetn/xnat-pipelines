@@ -143,6 +143,9 @@
                 <argument id="debug_flag">
                     <value>^/Pipeline/parameters/parameter[name='debug_mode']/values/unique/text()^</value>
                 </argument>
+                <argument id="session_label">
+                    <value>^/Pipeline/parameters/parameter[name='sessionName']/values/unique/text()^</value>
+                </argument>
             </resource>
         </step>
         <!-- ... -->
