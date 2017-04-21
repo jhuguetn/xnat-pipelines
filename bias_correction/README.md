@@ -38,12 +38,12 @@ Once enabled, pipeline can be easily triggered for an imaging session in the pro
 * From the XNAT GUI, see [here](https://wiki.xnat.org/display/XNAT16/Working+with+Processing+Pipelines#WorkingwithProcessingPipelines-RunningPipelinesonyourProject)
 
 * Programmatically (RESTful API), via an HTTP-post command at the following resource: 
-  ```
-[POST] /data/archive/projects/{PROJECT_ID}/pipelines/{PIPELINE_ID}/experiments/{EXPERIMENT_ID}
-  ```
-  See also [here](https://github.com/jhuguetn/xnat-scripts/tree/master/pipeline_launcher).
 
-Completed pipeline will generate imaging assessments with a full report of the analysis performed. 
+  ```
+  [POST] /data/archive/projects/{PROJECT_ID}/pipelines/{PIPELINE_ID}/experiments/{EXPERIMENT_ID}
+  ```
+  
+  See also [here](https://github.com/jhuguetn/xnat-scripts/tree/master/pipeline_launcher).
 
 Note that pipeline can also be initially setup to launch automatically when session is archived.
 
