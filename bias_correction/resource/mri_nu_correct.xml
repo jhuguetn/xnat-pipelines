@@ -17,6 +17,9 @@
         <pip:argument id="debug_flag" >
             <pip:description>turn on debugging [Y|N]</pip:description>
         </pip:argument>
+        <pip:argument id="session_label" >
+            <pip:description>XNAT session label</pip:description>
+        </pip:argument>
     </pip:input>
 </pip:Resource>
 

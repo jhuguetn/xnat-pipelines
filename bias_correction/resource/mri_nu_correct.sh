@@ -5,12 +5,14 @@
 ##                   
 ## inputs:           (1) input data directory
 ##                   (2) output data directory
+##                   (3) debug flag
+##                   (4) XNAT session label
 ## author:           Jordi Huguet (AMC)
 ## date:             20170421
-## version:          0.2
-## usage:            bash mri_nu_correct.sh [input_dir] [output_dir] [debug_flag]
+## version:          0.3
+## usage:            bash mri_nu_correct.sh [input_dir] [output_dir] [debug_flag] [session_label]
 
-if [ $# != 3 ]
+if [ $# != 4 ]
   then
         echo "Prepare data and compute mri_nu_correct for bias correction - v0.2"
         exit 1
@@ -18,6 +20,7 @@ if [ $# != 3 ]
         INPUT_DIR=$1
         OUTPUT_DIR=$2
         DEBUG_FLAG=$3
+        SESSION_NAME=$4
 
     # initial checkings for working directory names provided
     if [ ! -d $INPUT_DIR ]; then
@@ -49,7 +52,7 @@ if [ $# != 3 ]
             fi
             
             #LOG_FILENAME=$OUTPUT_DIR/matlab_s$(basename $scanID_dir)_$(date +"%Y%m%d%H%M%S").log
-            OUTPUT_FILE=$OUTPUT_SCAN_DIR/s$(basename $scanID_dir)_bcorr.nii.gz
+            OUTPUT_FILE=$OUTPUT_SCAN_DIR/$SESSION_NAME_s$(basename $scanID_dir)_biascorr.nii.gz
             
             if [ "$DEBUG_FLAG" == "Y" ]; then
                 mri_nu_correct.mni --debug --i $INPUT_FILE --o $OUTPUT_FILE
