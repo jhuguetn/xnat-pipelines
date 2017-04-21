@@ -15,7 +15,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.2</version>
+        <version>0.3</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -148,7 +148,107 @@
                 </argument>
             </resource>
         </step>
-        <!-- ... -->
+        <step id="4" description="Zip the directory with the result files (derived data)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+            <resource name="zip" location="commandlineTools" >
+                <argument id="recursive"/>
+                <argument id="archive">
+                    <value>'bias_correction_output.zip'</value>
+                </argument>
+                <argument id="folder">
+                    <value>OUT_DIR</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="5" description="Create a resource collection for pipeline-related derived data and upload it" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+            <resource name="XnatDataClient" location="xnat_tools">
+                <!--<argument id="sessionId">
+                    <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+                </argument>-->
+                <argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/bias_correction?format=ZIP&amp;content=BIAS_CORR"')^</value>
+                </argument>
+            </resource>
+            <resource name="XnatDataClient" location="xnat_tools">
+                <!--<argument id="sessionId">
+                    <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+                </argument>-->
+                <argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/bias_correction/files/w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_bias_correction_output.zip?format=ZIP&amp;extract=true&amp;content=BIAS_CORR"')^</value>
+                </argument>
+                <argument id="infile">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/bias_correction_output.zip')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="6" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^</value>
+                </argument>
+            </resource>
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/bias_correction_output.zip')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="7" description="Create a workflow resource collection for pipeline-related metadata and upload pipeline XML file(s)" continueOnFailure="true">
+            <resource name="XnatDataClient" location="xnat_tools">
+                <argument id="sessionId">
+                    <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/workflows?format=XML&amp;content=PIPELINE_DEFINITION"')^</value>
+                </argument>
+            </resource>
+            <resource name="XnatDataClient" location="xnat_tools">
+                <argument id="sessionId">
+                    <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/workflows/files/',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.xml?format=XML&amp;inbody=true&amp;content=',/Pipeline/name/text(),'"')^</value>
+                </argument>
+                <argument id="infile">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/',/Pipeline/name/text(),'_',/Pipeline/name/text(),'.xml')^</value>
+                </argument>
+            </resource>
+        </step>
+        
         <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
             <resource name="Notifier" location="notifications">
                 <argument id="user">
