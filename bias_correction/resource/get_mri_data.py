@@ -128,7 +128,7 @@ def is_flair_scan(philips_scan_type_info, scan_type, scanID):
     if philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
-        if acq_contrast == 'T2' and pulse_seq == 'TIR' and scan_type.lower() in flair_type_token:
+        if acq_contrast == 'T2' and pulse_seq == 'TIR' and scan_type.lower() in flair_type_tokens:
             is_flair = True        
     else :
     # Not Philips data or private group 0x2005 removed/emptied'
