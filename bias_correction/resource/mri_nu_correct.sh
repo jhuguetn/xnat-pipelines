@@ -55,6 +55,7 @@ if [ $# != 3 ]
                 echo mri_nu_correct.mni --debug --i $INPUT_FILE --o $OUTPUT_FILE
             else
                 echo mri_nu_correct.mni --i $INPUT_FILE --o $OUTPUT_FILE
+            fi
         done
     done
 fi
