@@ -14,7 +14,7 @@
 
 if [ $# != 4 ]
   then
-        echo "Prepare data and compute mri_nu_correct for bias correction - v0.2"
+        echo "Prepare data and compute mri_nu_correct for bias correction - v0.3"
         exit 1
   else
         INPUT_DIR=$1
