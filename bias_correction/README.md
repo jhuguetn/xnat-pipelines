@@ -43,7 +43,7 @@ Once enabled, pipeline can be easily triggered for an imaging session in the pro
   [POST] /data/archive/projects/{PROJECT_ID}/pipelines/{PIPELINE_ID}/experiments/{EXPERIMENT_ID}
   ```
   
-See also [here](https://github.com/jhuguetn/xnat-scripts/tree/master/pipeline_launcher).
+  See also [here](https://github.com/jhuguetn/xnat-scripts/tree/master/pipeline_launcher).
 
 Note that pipeline can also be initially setup to launch automatically when session is archived.
 
