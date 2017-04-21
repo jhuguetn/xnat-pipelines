@@ -52,9 +52,9 @@ if [ $# != 3 ]
             OUTPUT_FILE=$OUTPUT_DIR/s$(basename $scanID_dir)_bcorr.nii.gz
             
             if [ "$DEBUG_FLAG" == "Y" ]; then
-                echo mri_nu_correct.mni --debug --i $INPUT_FILE --o $OUTPUT_FILE
+                mri_nu_correct.mni --debug --i $INPUT_FILE --o $OUTPUT_FILE
             else
-                echo mri_nu_correct.mni --i $INPUT_FILE --o $OUTPUT_FILE
+                mri_nu_correct.mni --i $INPUT_FILE --o $OUTPUT_FILE
             fi
         done
     done
