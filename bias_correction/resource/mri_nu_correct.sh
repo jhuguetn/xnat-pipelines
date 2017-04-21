@@ -33,8 +33,8 @@ if [ $# != 3 ]
         for scanID_dir in $(find $scans_dir -maxdepth 1 -mindepth 1 -type d); do
         
             #create a subdirectory (SCAN-ID named) under main output directory
-            #OUTPUT_SCAN_DIR=$OUTPUT_DIR/$(basename $scanID_dir)
-            #mkdir -v -p $OUTPUT_SCAN_DIR
+            OUTPUT_SCAN_DIR=$OUTPUT_DIR/$(basename $scanID_dir)
+            mkdir -v -p $OUTPUT_SCAN_DIR
             
             #get a NIFTI (preferably) or a DICOM random file from the SCAN raw data directory
             INPUT_FILE=$(find $scanID_dir -type f -iname '*.nii' -o  -iname '*.nii.gz' | shuf -n 1)
@@ -49,7 +49,7 @@ if [ $# != 3 ]
             fi
             
             #LOG_FILENAME=$OUTPUT_DIR/matlab_s$(basename $scanID_dir)_$(date +"%Y%m%d%H%M%S").log
-            OUTPUT_FILE=$OUTPUT_DIR/s$(basename $scanID_dir)_bcorr.nii.gz
+            OUTPUT_FILE=$OUTPUT_SCAN_DIR/s$(basename $scanID_dir)_bcorr.nii.gz
             
             if [ "$DEBUG_FLAG" == "Y" ]; then
                 mri_nu_correct.mni --debug --i $INPUT_FILE --o $OUTPUT_FILE
