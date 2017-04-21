@@ -52,7 +52,7 @@ if [ $# != 4 ]
             fi
             
             #LOG_FILENAME=$OUTPUT_DIR/matlab_s$(basename $scanID_dir)_$(date +"%Y%m%d%H%M%S").log
-            OUTPUT_FILE=$OUTPUT_SCAN_DIR/$SESSION_NAME_s$(basename $scanID_dir)_biascorr.nii.gz
+            OUTPUT_FILE=$OUTPUT_SCAN_DIR/${SESSION_NAME}_s$(basename $scanID_dir)_biascorr.nii.gz
             
             if [ "$DEBUG_FLAG" == "Y" ]; then
                 mri_nu_correct.mni --debug --i $INPUT_FILE --o $OUTPUT_FILE
