@@ -13,6 +13,7 @@ XNAT pipelines repository
 * [mricrogl](https://github.com/jhuguetn/xnat-pipelines/tree/master/mricrogl) :: New generation of DICOM-to-NIFTI format conversion pipeline (using dcm2niix)
 * [DTI-preprocessing](https://github.com/jhuguetn/xnat-pipelines/tree/master/dti_preprocessing) ::  Compute preprocessing corrections on MRI DTI scans
 * [MRI bias field correction](https://github.com/jhuguetn/xnat-pipelines/tree/master/bias_correction) :: correcting intensity non-uniformity (i.e. bias fields)
+* [MRI anatomical defacer](https://github.com/jhuguetn/xnat-pipelines/tree/master/mri_anat_deface) :: Automated facial traits removal (defacing) of anatomical scan data.
 
 
 
