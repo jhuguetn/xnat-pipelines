@@ -3,14 +3,14 @@
 ## Introduction
 Due to the increasing concerns for subject privacy in neuroimaging field, the ability to automatically deidentify structural MR scan images so that they do not provide identifiable details is desirable. This pipeline wraps [mri_deface](https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface), a tool that uses models of nonbrain structures for removing potentially identifying facial features.
 
-The mri_deface tool locates the subject's facial features and removes them without disturbing brain tissue. The algorithm was devised to work on T1-weighted structural MRI; it outputs a defaced structural image. 
+The **mri_deface** tool locates the subject's facial features and removes them without disturbing brain tissue. The algorithm was devised to work on T1-weighted structural MRI; it outputs a defaced structural image. 
 
-Note I: The mri_deface algorithm is under the validation phase, use it at your own risk.
-Note II: Differently from FreeSurfer suite, a license file is no longer necessary to use these tool.
+* Note I: The **mri_deface** inner algorithm is under the validation phase, use it at your own risk.
+* Note II: Differently from FreeSurfer main tools, a license file is no longer necessary to use this tool.
 
-All credits to the authors of mri_deface for their work. Cite this paper if using mri_deface standalone or via this pipeline: [A Technique for the Deidentification of Structural Brain MR Images](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2408762)
+All credits to the authors of **mri_deface** for their work. Please, cite this paper if using mri_deface standalone or via this pipeline: [A Technique for the Deidentification of Structural Brain MR Images](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2408762)
 
-The mri_anat_deface pipeline is designed for automatically: 
+The **mri_anat_deface pipeline** is designed for automatically: 
 
 1. fetch T1/anatomical scans in XNAT MRI sessions, note that pipeline supports data either in DICOM or NIFTI format
 2. process the scans to obtain a defaced output image per each
