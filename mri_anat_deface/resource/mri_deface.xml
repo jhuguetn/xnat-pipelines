@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
-    <pip:name>mri_nu_correct.sh</pip:name>
+    <pip:name>mri_deface.sh</pip:name>
     <pip:location>/xnat/pipeline/amc-catalog/mri_anat_deface/resource</pip:location>
     <pip:type>Executable</pip:type>
     <pip:description>Wrapper for mri_deface, a tool for automated facial identifiable traits removal on structural MRI scan data</pip:description>
