@@ -63,9 +63,9 @@ def is_func_scan(philips_scan_type_info, scan_type, scanID):
     functional_type_tokens = [ 'bold', 'resting', 'rsmri', 'fmri', 'fbirn']
     is_func = None
 
-	if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
-		is_func = True
-	elif philips_scan_type_info :
+    if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
+        is_func = True
+    elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'PROTON_DENSITY' and 'EPI' in pulse_seq :
@@ -83,9 +83,9 @@ def is_struct_scan(philips_scan_type_info, scan_type, scanID):
     is_struct = None
 
     if [scanID for ftype in structural_type_tokens if ftype in scan_type.lower()] :
-		# let's asume it is an structural scan
-		is_struct = True
-	elif philips_scan_type_info :
+        # let's asume it is an structural scan
+        is_struct = True
+    elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'T1' and ('T1' in pulse_seq or 'TFE' in pulse_seq) and scan_type.lower() not in unprocessable_type_tokens:
