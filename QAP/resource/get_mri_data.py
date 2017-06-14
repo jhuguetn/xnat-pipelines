@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.1.5'         ##
-__versionDate__ = '20161124'      ##
+__version__     = '0.1.6'         ##
+__versionDate__ = '20170614'      ##
 ####################################
 
 # get_mri_data
@@ -60,10 +60,12 @@ def get_scan_type_philips_info(xnat_connection,project,subjectID,experimentID, s
 
 def is_func_scan(philips_scan_type_info, scan_type, scanID):
 
-    functional_type_tokens = ['resting', 'rsmri', 'fmri', 'fbirn']
+    functional_type_tokens = [ 'bold', 'resting', 'rsmri', 'fmri', 'fbirn']
     is_func = None
 
-    if philips_scan_type_info :
+	if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
+		is_func = True
+	elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'PROTON_DENSITY' and 'EPI' in pulse_seq :
@@ -71,12 +73,7 @@ def is_func_scan(philips_scan_type_info, scan_type, scanID):
         # Specific fBIRN phantom scan data case
         elif acq_contrast == 'T2' and 'EPI' in pulse_seq and scan_type.lower() in functional_type_tokens:
             is_func = True
-    else :
-    # Not Philips data or private group 0x2005 removed/emptied'
-        if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
-            # let's asume it is a functional scan
-            is_func = True
-
+    
     return is_func
    
 def is_struct_scan(philips_scan_type_info, scan_type, scanID):
@@ -85,17 +82,15 @@ def is_struct_scan(philips_scan_type_info, scan_type, scanID):
     unprocessable_type_tokens = ['survey']
     is_struct = None
 
-    if philips_scan_type_info :
+    if [scanID for ftype in structural_type_tokens if ftype in scan_type.lower()] :
+		# let's asume it is an structural scan
+		is_struct = True
+	elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
-        if acq_contrast == 'T1' and 'T1' in pulse_seq and scan_type.lower() not in unprocessable_type_tokens:
+        if acq_contrast == 'T1' and ('T1' in pulse_seq or 'TFE' in pulse_seq) and scan_type.lower() not in unprocessable_type_tokens:
             is_struct = True
-    else :
-    # Not Philips data or private group 0x2005 removed/emptied'
-        if [scanID for ftype in structural_type_tokens if ftype in scan_type.lower()] :
-            # let's asume it is an structural scan
-            is_struct = True
-
+    
     return is_struct
 
 
