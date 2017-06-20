@@ -5,12 +5,12 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.3.0'         ##
-__versionDate__ = '20170421'      ##
+__version__     = '0.3.5'         ##
+__versionDate__ = '20170620'      ##
 ####################################
 
 # get_mri_data
-# get suitable raw MRI scans for computing specific XNAT pipeline based on scan type (i.e.{func, anat, dti, flair})
+# get suitable raw MRI scans for computing specific XNAT pipeline based on scan type (i.e.{func, anat, dti, flair, dce})
 
 
 # IMPORT FUNCTIONS
@@ -57,13 +57,47 @@ def get_scan_type_philips_info(xnat_connection,project,subjectID,experimentID, s
 
     return scan_type_params
 
+    
+def get_num_temp_positions(xnat_connection,project,subjectID,experimentID, scan_id):
+    ''' Figures out the number of temporal positions each scan has by querying XNAT for some DICOM attributes'''
+    ''' Returns a dict with scansIDs and their  attribute (values list) to be used afterwards for scan type detection'''
+
+    # Use dcmdump service to pull out the scan DICOM attributes
+    # compose the URL's resource path
+    URL_path = '/data/services/dicomdump'
+    # encode query options
+    options = 'src=/archive/projects/%s/subjects/%s/experiments/%s/scans/%s&field=00200105' %(project,subjectID,experimentID,scan_id)
+    # compose the whole URL string
+    URL = xnat_connection.host + URL_path + '?' + options
+    # query XNAT dcmdump service
+    dcmdump_result,response = xnat_connection.queryURL(URL, options)
+
+    # get the relevant DICOM attribute value "Number of Temporal Positions" (0020,0105)
+    matching_dcm_attribute_value1 = [current_dump['value'] for current_dump in dcmdump_result if current_dump['tag1'] == '(0020,0105)']
+    assert(len(matching_dcm_attribute_value1) <= 1) 
+
+    # compose a dict with scanID and the values of the Philips private attributes (replace unicode by string)
+    if len(matching_dcm_attribute_value1) == 1 :
+        nTemporalPositions = str(matching_dcm_attribute_value1[0])
+    else:
+        # either is not Philips or has been anonymized, thus private group 0x2005 removed
+        nTemporalPositions = None
+
+    # Strange scenario fix: if any of the Philips fields are set to UNKNOWN, their info is useless
+    if nTemporalPositions and 'UNKNOWN' in (item.upper() for item in nTemporalPositions):
+        nTemporalPositions = None
+
+    return nTemporalPositions
+    
 
 def is_func_scan(philips_scan_type_info, scan_type, scanID):
 
-    functional_type_tokens = ['resting', 'rsmri', 'fmri', 'fbirn']
+    functional_type_tokens = [ 'bold', 'rest', 'rsmri', 'fmri', 'fbirn']
     is_func = None
 
-    if philips_scan_type_info :
+    if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
+        is_func = True
+    elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'PROTON_DENSITY' and 'EPI' in pulse_seq :
@@ -71,52 +105,42 @@ def is_func_scan(philips_scan_type_info, scan_type, scanID):
         # Specific fBIRN phantom scan data case
         elif acq_contrast == 'T2' and 'EPI' in pulse_seq and scan_type.lower() in functional_type_tokens:
             is_func = True
-    else :
-    # Not Philips data or private group 0x2005 removed/emptied'
-        if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
-            # let's asume it is a functional scan
-            is_func = True
-
+    
     return is_func
+   
    
 def is_struct_scan(philips_scan_type_info, scan_type, scanID):
 
-    structural_type_tokens = ['t1', 'adni', 'mprage']
+    structural_type_tokens = ['epi', 't1', 'adni', 'mprage']
     unprocessable_type_tokens = ['survey']
     is_struct = None
 
-    if philips_scan_type_info :
+    if [scanID for ftype in structural_type_tokens if ftype in scan_type.lower()] :
+        # let's asume it is an structural scan
+        is_struct = True
+    elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
-        if acq_contrast == 'T1' and 'T1' in pulse_seq and scan_type.lower() not in unprocessable_type_tokens:
+        if acq_contrast == 'T1' and ('T1' in pulse_seq or 'TFE' in pulse_seq) and scan_type.lower() not in unprocessable_type_tokens:
             is_struct = True
-    else :
-    # Not Philips data or private group 0x2005 removed/emptied'
-        if [scanID for ftype in structural_type_tokens if ftype in scan_type.lower()] :
-            # let's asume it is an structural scan
-            is_struct = True
-
-    return is_struct
-
     
+    return is_struct   
+
+
 def is_dti_scan(philips_scan_type_info, scan_type, scanID):
 
     diffusion_type_tokens = ['dti', 'dwi', 'diffusion']
     is_dti = None
-
-    if philips_scan_type_info :
+    
+    if [scanID for ctype in diffusion_type_tokens if ctype in scan_type.lower()] :
+        # let's asume it is a DTI scan
+        is_dti = True
+    elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
-        if acq_contrast == 'DIFFUSION' and 'dwi' in pulse_seq.lower():
-            # Specific for excluding processed DTI scan sequences
-            if scanID.endswith('1')  :
-               is_dti = True
-    else :
-    # Not Philips data or private group 0x2005 removed/emptied'
-        if [scanID for ctype in diffusion_type_tokens if ctype in scan_type.lower()] :
-            # let's asume it is a DTI scan
+        if acq_contrast == 'DIFFUSION' and 'dwi' in pulse_seq.lower() and scanID.endswith('1') :
             is_dti = True
-
+    
     return is_dti
     
     
@@ -125,18 +149,31 @@ def is_flair_scan(philips_scan_type_info, scan_type, scanID):
     flair_type_tokens = ['flair']
     is_flair = None
 
-    if philips_scan_type_info :
+    if [scanID for ftype in flair_type_tokens if ftype in scan_type.lower()] :
+        # let's asume it is a functional scan
+        is_flair = True
+    elif philips_scan_type_info :
     # Philips dataset
         acq_contrast,pulse_seq = philips_scan_type_info
         if acq_contrast == 'T2' and pulse_seq == 'TIR' and scan_type.lower() in flair_type_tokens:
             is_flair = True        
-    else :
-    # Not Philips data or private group 0x2005 removed/emptied'
-        if [scanID for ftype in flair_type_tokens if ftype in scan_type.lower()] :
-            # let's asume it is a functional scan
-            is_flair = True
-
+    
     return is_flair
+
+
+def is_dce_scan(num_temp_positions, scan_type, scanID):
+
+    dce_type_tokens = ['dyn', 'dce']
+    is_dce = None
+
+    if num_temp_positions:
+    # Philips dataset
+        if int(num_temp_positions) > 1  and [scanID for ctype in dce_type_tokens if ctype in scan_type.lower()] :
+            is_dce = True        
+    #else :
+    # Not Philips data or tag removed/emptied'
+        
+    return is_dce
     
     
 def get_scans_list(connection,project,subjectID,experimentID,required_type):
@@ -154,7 +191,7 @@ def get_scans_list(connection,project,subjectID,experimentID,required_type):
         if scans[scanID]['quality'] == 'usable' :
             # first get Philips scan type info (if available!)
             philips_scan_type_info = get_scan_type_philips_info(connection,project,subjectID,experimentID,scanID)
-
+            
             if 'dti' == required_type.lower() and is_dti_scan(philips_scan_type_info,scans[scanID]['type'],scanID):
                 process_scan_list.append(scanID)
             
@@ -166,6 +203,11 @@ def get_scans_list(connection,project,subjectID,experimentID,required_type):
             
             elif 'flair' == required_type.lower() and is_flair_scan(philips_scan_type_info,scans[scanID]['type'],scanID):
                 process_scan_list.append(scanID)
+            
+            elif 'dce' == required_type.lower():
+                num_temp_positions = get_num_temp_positions(connection,project,subjectID,experimentID,scanID)
+                if is_dce_scan(num_temp_positions,scans[scanID]['type'],scanID):
+                    process_scan_list.append(scanID)
 
     return process_scan_list
 
