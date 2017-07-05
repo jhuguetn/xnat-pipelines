@@ -268,7 +268,7 @@ def main():
     required_type = sys.argv[6]
     output_directory = sys.argv[7]
 
-    resource_format = 'DICOM,NIFTI'
+    resource_format = 'NIFTI' # all datasets should be converted to NIFTI
 
     #basic checkings on output directory status
     if not os.path.isdir(output_directory):
