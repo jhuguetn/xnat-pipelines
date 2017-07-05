@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.3.5'         ##
-__versionDate__ = '20170620'      ##
+__version__     = '0.3.6'         ##
+__versionDate__ = '20170705'      ##
 ####################################
 
 # get_mri_data
@@ -92,7 +92,7 @@ def get_num_temp_positions(xnat_connection,project,subjectID,experimentID, scan_
 
 def is_func_scan(philips_scan_type_info, scan_type, scanID):
 
-    functional_type_tokens = [ 'bold', 'rest', 'rsmri', 'fmri', 'fbirn']
+    functional_type_tokens = [ 'bold', 'rest', 'rsmri', 'fmri', 'fbirn', 'epi' ]
     is_func = None
 
     if [scanID for ftype in functional_type_tokens if ftype in scan_type.lower()] :
@@ -111,7 +111,7 @@ def is_func_scan(philips_scan_type_info, scan_type, scanID):
    
 def is_struct_scan(philips_scan_type_info, scan_type, scanID):
 
-    structural_type_tokens = ['epi', 't1', 'adni', 'mprage']
+    structural_type_tokens = ['t1', 'adni', 'mprage']
     unprocessable_type_tokens = ['survey']
     is_struct = None
 
