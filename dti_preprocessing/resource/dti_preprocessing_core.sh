@@ -53,7 +53,7 @@ if [ $# != 3 ]
             mkdir -v -p $OUTPUT_SCAN_DIR
             
             #get a NIFTI (preferably) or a DICOM random file from the SCAN raw data directory
-            INPUT_FILE=$(find $scanID_dir -type f -iname '*.nii' | shuf -n 1)
+            INPUT_FILE=$(find $scanID_dir -type f -iname '*.nii' -o -iname '*.nii.gz' | shuf -n 1)
             # -z checks for an empty string (i.e. no NIFTI data directories found)
             if [[ -z $INPUT_FILE ]]; then    
                 #no NIFTI data, lets look for DICOMs
