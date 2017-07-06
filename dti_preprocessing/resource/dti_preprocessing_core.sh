@@ -7,8 +7,8 @@
 ##                   (2) input data directory
 ##                   (3) output data directory
 ## author:           Jordi Huguet (AMC)
-## date:             20170228
-## version:          0.6
+## date:             20170706
+## version:          0.7
 ## usage:            bash dti_preprocessing_core.sh [toolboxes_dir] [input_dir] [output_dir]
 
 #So Matlab can use some system calls, lets specify a SHELL
