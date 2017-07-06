@@ -65,6 +65,13 @@ if [ $# != 3 ]
               else
                 #good: NIFTI data found!
                 
+                #[workaround] since code does not accept gzipped NIFTIs, if is the case is gzip -> decompress it 
+                if [[ $(basename $INPUT_FILE) == *.nii.gz ]]
+                  then
+                    gzip -d $INPUT_FILE
+                    INPUT_FILE=${INPUT_FILE::-3}
+                fi
+                
                 # check for existence of required bvec/bval files
                 filedirpath=$(dirname "$INPUT_FILE")
                 
