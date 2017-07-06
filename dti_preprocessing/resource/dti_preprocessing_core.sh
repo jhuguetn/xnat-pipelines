@@ -68,7 +68,7 @@ if [ $# != 3 ]
                 #[workaround] since code does not accept gzipped NIFTIs, if is the case is gzip -> decompress it 
                 if [[ $(basename $INPUT_FILE) == *.nii.gz ]]
                   then
-                    gzip -d $INPUT_FILE
+                    gzip -v -d $INPUT_FILE
                     INPUT_FILE=${INPUT_FILE::-3}
                 fi
                 
@@ -91,6 +91,7 @@ if [ $# != 3 ]
             LOG_FILENAME=$OUTPUT_DIR/matlab_s$(basename $scanID_dir)_$(date +"%Y%m%d%H%M%S").log
     
             #-nojvm flag option is making figure() crash with latest MATLAB versions (R2016 or so), skip it
+            echo matlab -nodisplay -nosplash -r "try addpath(genpath('$TOOLBOXES_DIR')); addpath(genpath(spm('dir'))); mainConvertDTI('$INPUT_FILE','$OUTPUT_SCAN_DIR'); catch; end; exit" -logfile $LOG_FILENAME
             matlab -nodisplay -nosplash -r "try addpath(genpath('$TOOLBOXES_DIR')); addpath(genpath(spm('dir'))); mainConvertDTI('$INPUT_FILE','$OUTPUT_SCAN_DIR'); catch; end; exit" -logfile $LOG_FILENAME
         done
     done
