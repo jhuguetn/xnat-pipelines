@@ -68,7 +68,7 @@ if [ $# != 3 ]
                 #[workaround] since code does not accept gzipped NIFTIs, if is the case is gzip -> decompress it 
                 if [[ $(basename $INPUT_FILE) == *.nii.gz ]]
                   then
-                    gzip -d $INPUT_FILE
+                    gzip -v -d $INPUT_FILE
                     INPUT_FILE=${INPUT_FILE::-3}
                 fi
                 
