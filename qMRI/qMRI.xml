@@ -163,6 +163,20 @@
                 </argument>
             </resource>
         </step>
+        <step id="3" description="Reshape multivolumetric imaging files easing its processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+            <resource name="split_nii_files" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="input_data_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="4" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+            <resource name="organize_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="input_data_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
         <!--<step id="3" description="Compute qMRI processing (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="toolboxes_directory">
