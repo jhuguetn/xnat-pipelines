@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+	<pip:name>organize_data.sh</pip:name>
+	<pip:location>/xnat/pipeline/amc-catalog/qMRI/resource</pip:location>
+	<pip:type>Executable</pip:type>
+	<pip:description>Organize XNAT downloaded scan data for qMRI pipeline analysis</pip:description>
+	<!--<pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>-->
+	<pip:estimated_time>00:00:30</pip:estimated_time>
+	<pip:input>
+		<pip:argument id="input_data_directory" >
+			<pip:description>location where raw imaging data is stored</pip:description>
+		</pip:argument>
+	</pip:input>
+</pip:Resource>
