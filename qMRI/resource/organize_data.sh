@@ -5,8 +5,8 @@
 ##                   and reshape the file/directory structure for simplicity.
 ## inputs:           (1) Locally accessible copy of XNAT retrieved imaging data 
 ## author:           Jordi Huguet (AMC)
-## date:             20170710
-## version:          0.2
+## date:             20170711
+## version:          0.3
 ## usage:            bash organize_data.sh [input directory]
 
 
@@ -29,7 +29,7 @@ if [ $# != 1 ]
         
         for SCAN_DIR in $(find $SCANS_DIR -mindepth 1 -maxdepth 1 -type d -iname '*B1'); do
             
-            # TO-DO: assert that there are 4 files (2 Magn + 2 Phase)
+            # TO-DO: assert that there are 4 files (2 Magn + 2 Phase) or 6 files (3 Magn + 3 Phase)
             
             B1_NIFTIs=$(find $SCAN_DIR -type f -iname "*.nii" -o -iname "*.nii.gz")
             if [[ -z $B1_NIFTIs ]]; then
@@ -56,9 +56,9 @@ if [ $# != 1 ]
             done            
         done
         
-        for SCAN_DIR in $(find $SCANS_DIR -mindepth 1 -maxdepth 1 -type d -iname '*T1*M'); do
+        for SCAN_DIR in $(find $SCANS_DIR -mindepth 1 -maxdepth 1 -type d -iname '*T1*M' -o -iname '*T1*P' ); do
             
-            # TO-DO: assert that there are either 5 (Magn only) or 10 files (5 Magn + 5 Phase)
+            # TO-DO: assert that there are either 5 (Magn/Phase only) or 10 files (5 Magn + 5 Phase)
             
             T1_NIFTIs=$(find $SCAN_DIR -type f -iname "*.nii" -o -iname "*.nii.gz")
             if [[ -z $T1_NIFTIs ]]; then 
@@ -69,7 +69,7 @@ if [ $# != 1 ]
             for T1_NII_FILE in $T1_NIFTIs; do
                 
                 # TO-DO: rename or refactor the name scheme used to be homogeneous (?)
-                # TO-DO: remove unnecessary Phase files
+                # TO-DO: remove unnecessary Phase files (??)
                 # HINT --> use file size to distinguish between Phase and Magnitude files
                 
                 mv -v $T1_NII_FILE $PARENT_SCANS_DIR/SORTED/T1

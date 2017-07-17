@@ -5,8 +5,8 @@
 ##                   the multivolumetric NIFTI files easing its processing.
 ## inputs:           (1) Locally accessible copy of XNAT retrieved imaging data 
 ## author:           Jordi Huguet (AMC)
-## date:             20170710
-## version:          0.1
+## date:             20170711
+## version:          0.2
 ## usage:            bash split_nii_files.sh [input directory]
 
 
@@ -69,9 +69,9 @@ if [ $# != 1 ]
                     #NII_FILE_EXT=${NII_FILE_BASENAME#*.}
                     
                     # dcm2niix naming inconsistency, rename original names 
-                    if [[ ${NII_FILE_ROOT: -3} != "_e"* ]]; then
-                        NII_FILE_ROOT="$NII_FILE_ROOT"_e1
-                    fi
+                    #if [[ ${NII_FILE_ROOT: -3} != "_e"* ]]; then
+                    #    NII_FILE_ROOT="$NII_FILE_ROOT"_e1
+                    #fi
                     
                     if hash fslsplit 2>/dev/null; then
                         fslsplit "$NII_FILE" "$NII_FILE_DIRNAME"/"$NII_FILE_ROOT"_ -t
