@@ -91,6 +91,7 @@ if [ $# != 1 ]
                 fi
                 if [ -f $T1_NII_FILE_DIRNAME/$T1_NII_FILE_BASENAME_NO_EXT.json ]; then
                     mv -v $T1_NII_FILE_DIRNAME/$T1_NII_FILE_BASENAME_NO_EXT.json $PARENT_SCANS_DIR/SORTED/T1
+                fi
             done            
         done
         
