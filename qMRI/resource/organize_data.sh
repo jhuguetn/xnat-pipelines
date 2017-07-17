@@ -5,14 +5,14 @@
 ##                   and reshape the file/directory structure for simplicity.
 ## inputs:           (1) Locally accessible copy of XNAT retrieved imaging data 
 ## author:           Jordi Huguet (AMC)
-## date:             20170711
-## version:          0.3
+## date:             20170717
+## version:          0.3.1
 ## usage:            bash organize_data.sh [input directory]
 
 
 if [ $# != 1 ]
   then
-        echo "organize XNAT downloaded scan data for qMRI pipeline analysis - v0.2"
+        echo "organize XNAT downloaded scan data for qMRI pipeline analysis - v0.3.1"
         exit 1        
   else
         INPUT_DIRECTORY=$1
@@ -51,8 +51,7 @@ if [ $# != 1 ]
                     gzip -v -d $NEW_FILE_PATH
                     NEW_FILE_PATH=${NEW_FILE_PATH::-3}
                 fi
-                
-                # TO-DO: move json/csv file as well (with scan details from get_scan_details step)?
+                                
             done            
         done
         
