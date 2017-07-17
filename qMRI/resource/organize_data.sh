@@ -6,7 +6,7 @@
 ## inputs:           (1) Locally accessible copy of XNAT retrieved imaging data 
 ## author:           Jordi Huguet (AMC)
 ## date:             20170717
-## version:          0.3.1
+## version:          0.3.2
 ## usage:            bash organize_data.sh [input directory]
 
 
@@ -70,18 +70,27 @@ if [ $# != 1 ]
                 # TO-DO: rename or refactor the name scheme used to be homogeneous (?)
                 # TO-DO: remove unnecessary Phase files (??)
                 # HINT --> use file size to distinguish between Phase and Magnitude files
-                
+                T1_NII_FILE_BASENAME=$(basename "$T1_NII_FILE")
+                T1_NII_FILE_DIRNAME=$(dirname "$T1_NII_FILE")
+                    
                 mv -v $T1_NII_FILE $PARENT_SCANS_DIR/SORTED/T1
-                NEW_FILE_PATH=$PARENT_SCANS_DIR/SORTED/T1/$(basename $T1_NII_FILE)
+                NEW_FILE_PATH=$PARENT_SCANS_DIR/SORTED/T1/$T1_NII_FILE_BASENAME
                 
                 #decompress (gzip) for compatibility with Matlab code?
-                if [[ $(basename $T1_NII_FILE) == *.nii.gz ]]
+                if [[ $T1_NII_FILE_BASENAME == *.nii.gz ]]
                   then
                     gzip -v -d $NEW_FILE_PATH
                     NEW_FILE_PATH=${NEW_FILE_PATH::-3}
                 fi
                 
-                # TO-DO: move json/csv file as well (with scan details from get_scan_details step)?
+                # TO-DO: move json/csv file as well (with scan details from get_scan_details step)
+                if [[ $T1_NII_FILE_BASENAME == *.nii.gz ]]; then 
+                    $T1_NII_FILE_BASENAME_NO_EXT=${T1_NII_FILE_BASENAME::-7}
+                elif [[ $T1_NII_FILE_BASENAME == *.nii ]]; then 
+                    $T1_NII_FILE_BASENAME_NO_EXT=${T1_NII_FILE_BASENAME::-3}
+                fi
+                if [ -f $T1_NII_FILE_DIRNAME/$T1_NII_FILE_BASENAME_NO_EXT.json ]; then
+                    mv -v $T1_NII_FILE_DIRNAME/$T1_NII_FILE_BASENAME_NO_EXT.json $PARENT_SCANS_DIR/SORTED/T1
             done            
         done
         
