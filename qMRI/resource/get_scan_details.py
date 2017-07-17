@@ -24,6 +24,7 @@ import urllib
 import zipfile
 import StringIO
 import subprocess
+import shutil
 
 
 # FUNCTIONS
