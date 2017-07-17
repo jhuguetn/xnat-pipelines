@@ -5,7 +5,7 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20170707'      ##
-__version__     = '0.2.1'         ##
+__version__     = '0.2.2'         ##
 __versionDate__ = '20170717'      ##
 ####################################
 
@@ -246,6 +246,9 @@ def get_scans_details(connection,experimentID,in_directory):
                 for i,te_value in enumerate(sorted(te_values)) :
                     key_name = 'MultiEcho_TE%s' %(str(i+1))
                     te[key_name] = str(te_value)
+                
+                # finally remove the downloaded DICOM directory tree
+                shutil.rmtree(dicom_download_location)
                 
                 ### ------ ###
                 #check images to TE values consistency
