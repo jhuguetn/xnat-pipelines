@@ -170,7 +170,23 @@
                 </argument>
             </resource>
         </step>
-        <step id="4" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+        <step id="4" description="Get MRI scan details required for the QMRI processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+            <resource name="get_scan_details" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="auth_token">
+                    <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
+                </argument>
+                <argument id="hostname">
+                    <value>^/Pipeline/parameters/parameter[name='host']/values/unique/text()^</value>
+                </argument>
+                <argument id="experimentID">
+                    <value>^/Pipeline/parameters/parameter[name='sessionID']/values/unique/text()^</value>
+                </argument>
+                <argument id="input_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="5" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
             <resource name="organize_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="input_data_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
