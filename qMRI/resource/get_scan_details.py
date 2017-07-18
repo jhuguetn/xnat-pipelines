@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20170707'      ##
-__version__     = '0.2.2'         ##
-__versionDate__ = '20170717'      ##
+__version__     = '0.2.3'         ##
+__versionDate__ = '20170718'      ##
 ####################################
 
 # get_scan_details
@@ -246,7 +246,7 @@ def get_scans_details(connection,experimentID,in_directory):
                 # create a dict with sorted TE values
                 for i,te_value in enumerate(sorted(te_values)) :
                     key_name = 'MultiEcho_TE%s' %(str(i+1))
-                    te[key_name] = str(te_value)
+                    te[key_name] = te_value
                 
                 # finally remove the downloaded DICOM directory tree
                 shutil.rmtree(dicom_download_location)
