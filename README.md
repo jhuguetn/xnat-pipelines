@@ -1,10 +1,16 @@
 # xnat-pipelines
 
-## TO-DO
-* Add brief read-me documentation for each pipeline
+## Intro
+XNAT Pipeline-engine is a Java-based workflow framework nicely integrated (that's basically its inception purpose) in XNAT. Pipeline-engine uses XML-based workflow definitions for processing data hosted in XNAT by linking sequential activities or steps. 
 
-## Synopsis
-XNAT pipelines repository
+
+## Main features
+- Provides mechanisms for [batch-mode triggering](https://github.com/jhuguetn/xnat-scripts/tree/master/pipeline_launcher) pipeline instances (via REST API).
+- Enables submission of jobs to a Distributed Resource Management (DRM) system supporting the Distributed Resource Management Application API (DRMAA) specification, e.g. [SGE](https://en.wikipedia.org/wiki/Oracle_Grid_Engine).  
+
+
+## Content list
+XNAT pipelines repository, see the [wishlist](https://github.com/jhuguetn/xnat-pipelines/wiki/Wishlist) for incomming apps.
 
 * [ExamCard extractor](https://github.com/jhuguetn/xnat-pipelines/tree/master/examcardExtractor) :: Extracts Philips ExamCard objects embedded in DICOM object files
 * [FreeSurfer](https://github.com/jhuguetn/xnat-pipelines/tree/master/freesurfer) :: FreeSurfer recon-all pipeline with XNAT assessor output with stats metrics
@@ -16,9 +22,9 @@ XNAT pipelines repository
 * [MRI anatomical defacer](https://github.com/jhuguetn/xnat-pipelines/tree/master/mri_anat_deface) :: Automated facial traits removal (defacing) of anatomical scan data.
 
 
-
 ## Contributors
 Jordi Huguet, Department of Neuroradiology & Brain Imaging Centre, AMC-UvA Amsterdam
+
 
 ## License
 This work is licensed under the terms of the GNU GPLv3 license.
