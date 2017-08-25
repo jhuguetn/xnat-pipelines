@@ -1,0 +1,11 @@
+## author:           Jordi Huguet (AMC)
+## date:             20170825
+## version:          0.1
+
+# This is an informative file solely. 
+# GIT clone or manually include in this very location all required Matlab home-brewed toolboxes
+#
+# Example:
+#
+# cd /xnat/pipeline/amc-catalog/qMRI/resource/matlab_toolboxes
+# git clone https://github.com/pfcgroot/toolboxes-amc.git
