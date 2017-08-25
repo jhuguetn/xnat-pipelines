@@ -5,12 +5,12 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20170707'      ##
-__version__     = '0.2.3'         ##
-__versionDate__ = '20170718'      ##
+__version__     = '0.2.4'         ##
+__versionDate__ = '20170825'      ##
 ####################################
 
 # get_scan_details
-# Given an MRI scan image, get some scan details for later usage (qMRI pipeline analysis)
+# Given a directory with MRI scan images, find T1w ones and get some scan metadata for later usage (qMRI pipeline analysis)
 
 
 # IMPORT FUNCTIONS
@@ -186,7 +186,7 @@ def create_scan_details_struct(file_list, flip_angle, tr, te, image_type):
     
     
 def get_scans_details(connection,experimentID,in_directory):
-    ''' Given an XNAT connection and downloaded datasets pull out some scan details '''
+    ''' Given an XNAT connection and a set of datasets find out the T1w and pull out some scan metadata from XNAT '''
     
     # find scans subdirectory in the main input directory
     scans_dir = find_dir('scans', in_directory)
@@ -211,9 +211,10 @@ def get_scans_details(connection,experimentID,in_directory):
             t1_image_type = "PHASE"
         
         scan_details = {}
-            
+        
+        # exclude non-T1w scans    
         if t1_image_type :
-            print scan_id, scan_type, t1_image_type
+            #print scan_id, scan_type, t1_image_type
             
             # find all NIFTI files
             scan_nii_files = find_files('*.nii*', scan_abs_dir)
