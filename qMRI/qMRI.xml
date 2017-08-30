@@ -9,16 +9,16 @@
         <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
     </resourceRequirements>
     <documentation>
-       <authors>
-           <author>
-               <lastname>Jordi</lastname>
-            <firstname>Huguet</firstname>
-           </author>
-           <author>
-               <lastname>Matthan</lastname>
-            <firstname>Caan</firstname>
-           </author>
-       </authors>
+        <authors>
+            <author>
+                <lastname>Jordi</lastname>
+                <firstname>Huguet</firstname>
+            </author>
+            <author>
+                <lastname>Matthan</lastname>
+                <firstname>Caan</firstname>
+            </author>
+        </authors>
         <version>0.2</version>
         <input-parameters>
             <parameter>
@@ -193,7 +193,7 @@
                 </argument>
             </resource>
         </step>
-        <step id="6" description="Run qMRI fitting script (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+        <step id="6a" description="Run qMRI fitting script (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="toolboxes_directory">
                     <value>^/Pipeline/parameters/parameter[name='TOOLBOX_DIR']/values/unique/text()^</value>
@@ -206,6 +206,15 @@
                 </argument>
             </resource>
         </step>
+        <step id="6b" description="Remove large .mat file from the output directory" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR/*.mat')^</value>
+                </argument>
+            </resource>
+		</step>
         <step id="7" description="Zip the output directory with the resulting files (derived data)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="zip" location="commandlineTools" >
                 <argument id="recursive"/>
