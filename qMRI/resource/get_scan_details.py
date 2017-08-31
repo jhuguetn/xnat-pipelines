@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20170707'      ##
-__version__     = '0.2.4'         ##
-__versionDate__ = '20170825'      ##
+__version__     = '0.2.5'         ##
+__versionDate__ = '20170831'      ##
 ####################################
 
 # get_scan_details
@@ -157,11 +157,11 @@ def create_scan_details_struct(file_list, flip_angle, tr, te, image_type):
             file_basename = file_basename[:-4]
             file_extension = '.nii'
         
-        scan_files_struct[file_basename] = {'dirname' : file_dirname, 'flip_angle' : flip_angle, 'tr' : tr }                    
+        scan_files_struct[file_basename] = {'dirname' : file_dirname, 'flip_angle' : str(flip_angle), 'tr' : str(tr) }                    
         if len(te) == 1 :
-            scan_files_struct[file_basename].update({'te': te['SingleEcho']})
+            scan_files_struct[file_basename].update({'te': str(te['SingleEcho'])})
         else :
-            scan_files_struct[file_basename].update({'te': te[sorted_te_keys[i]]})
+            scan_files_struct[file_basename].update({'te': str(te[sorted_te_keys[i]])})
             
         # WARNING: renaming will come later!                    
         #if file_basename[-5] == '_0000' :
