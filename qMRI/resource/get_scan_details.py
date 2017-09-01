@@ -267,19 +267,36 @@ def get_scans_details(connection,experimentID,in_directory):
                     
                     # detect and exclude phase images (ASSUMPTION: phase images are double size the magnitude ones)
                     # create an ordered struct with filenames and sizes of the given files
+                    # # #
+                    # [IMPORTANT] :: assumption made not always works, use alphabetical sort ruling when it does not
+                    # # #
                     sizes_struct = { file : os.path.getsize(file) for file in scan_nii_files }
                     sizes_sorted_tuple = sorted(sizes_struct.items(), key=lambda x:x[1])
+                    name_sorted_tuple = sorted(sizes_struct.items(), key=lambda x:x[0])
                     sorted_sizes_list = [i[1] for i in sizes_sorted_tuple]
                     
                     # determine the largest size gap between neighbouring ordered files        
-                    last_item_index = split_numlist_by_proximity(sorted_sizes_list)
+                    max_diff = split_numlist_by_proximity(sorted_sizes_list)
+                    last_item_index = max_diff[0]
                     assert(last_item_index > -1)
-                    if 
-                    for i,tuple in enumerate(sizes_sorted_tuple):
-                        #discard all phase image files        
-                        if i > last_item_index :
-                            # big file size difference --> phase image
-                            scan_nii_files.remove(tuple[0])
+                    # threshold for proximity index to be meaningful, otherwise cannot be used 
+                    if max_diff[1] >= 200000 :
+                        
+                        for i,tuple in enumerate(sizes_sorted_tuple):
+                            #discard all phase image files        
+                            if i > last_item_index :
+                                # big file size difference --> phase image
+                                scan_nii_files.remove(tuple[0])
+                    else :
+                        # since size proximity clusterin rule didn't work, lets use alphabetical order
+                        # ASSUMPTION: phase images are the last ones
+                        last_item_index = (len(scan_nii_files)/2 - 1)
+                        
+                        for i,tuple in enumerate(name_sorted_tuple):
+                            #discard all phase image files        
+                            if i > last_item_index :
+                                # big file size difference --> phase image
+                                scan_nii_files.remove(tuple[0])
                     
                     assert(len(te) == len(scan_nii_files))
                     scan_details = create_scan_details_struct(scan_nii_files, flip_angle, tr, te, t1_image_type) 
