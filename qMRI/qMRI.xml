@@ -19,7 +19,7 @@
                 <firstname>Caan</firstname>
             </author>
         </authors>
-        <version>0.2</version>
+        <version>0.3</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -215,6 +215,28 @@
                 </argument>
             </resource>
 		</step>
+        <step id="6c" description="Parse QMRI stats and bundle them as an XNAT assessment" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^" continueOnFailure="true">
+            <resource name="qmri_output_ingestor" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="auth_token">
+                    <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
+                </argument>
+                <argument id="hostname">
+                    <value>^/Pipeline/parameters/parameter[name='host']/values/unique/text()^</value>
+                </argument>
+                <argument id="project">
+                    <value>^/Pipeline/parameters/parameter[name='projectID']/values/unique/text()^</value>
+                </argument>
+                <argument id="subject_name">
+                    <value>^/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text()^</value>
+                </argument>
+                <argument id="session_name">
+                    <value>^/Pipeline/parameters/parameter[name='sessionName']/values/unique/text()^</value>
+                </argument>
+                <argument id="results_csv_file">
+                    <value>qmri_stats.csv</value>
+                </argument>                
+            </resource>
+        </step>
         <step id="7" description="Zip the output directory with the resulting files (derived data)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="zip" location="commandlineTools" >
                 <argument id="recursive"/>

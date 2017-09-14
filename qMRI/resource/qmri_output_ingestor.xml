@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Jordi Huguet (AMC) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>qmri_output_ingestor.py</pip:name>
+    <pip:location>/xnat/pipeline/amc-catalog/qMRI/resource</pip:location>
+    <pip:type>Executable</pip:type>
+    <pip:description>Parse QMRI stats, populate XNAT-compliant XML objects and upload them to XNAT</pip:description>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>
+    <pip:estimated_time>00:05:00</pip:estimated_time>
+    <pip:input>
+        <pip:argument id="auth_token" isSensitive="true">
+            <pip:description>basic user authentication string</pip:description>
+        </pip:argument>
+        <pip:argument id="hostname" >
+            <pip:description>XNAT hostname</pip:description>
+        </pip:argument>
+        <pip:argument id="project" >
+            <pip:description>project ID</pip:description>
+        </pip:argument>
+        <pip:argument id="subject_name" >
+            <pip:description>subject label</pip:description>
+        </pip:argument>
+        <pip:argument id="session_name" >
+            <pip:description>session label</pip:description>
+        </pip:argument>
+        <pip:argument id="stats_csv_file" >
+            <pip:description>qMRI output csv file path</pip:description>
+        </pip:argument>        
+    </pip:input>
+</pip:Resource>
