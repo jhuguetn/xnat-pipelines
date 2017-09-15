@@ -19,7 +19,7 @@
                 <firstname>Caan</firstname>
             </author>
         </authors>
-        <version>0.3</version>
+        <version>0.4</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -232,7 +232,7 @@
                 <argument id="session_name">
                     <value>^/Pipeline/parameters/parameter[name='sessionName']/values/unique/text()^</value>
                 </argument>
-                <argument id="results_csv_file">
+                <argument id="stats_csv_file">
                     <value>qmri_stats.csv</value>
                 </argument>                
             </resource>
