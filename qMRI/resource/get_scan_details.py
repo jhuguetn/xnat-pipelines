@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20170707'      ##
-__version__     = '0.2.6'         ##
-__versionDate__ = '20170901'      ##
+__version__     = '0.2.7'         ##
+__versionDate__ = '20170929'      ##
 ####################################
 
 # get_scan_details
@@ -213,7 +213,10 @@ def get_scans_details(connection,experimentID,in_directory):
         scan_details = {}
         
         # exclude non-T1w scans    
-        if t1_image_type :
+        if not t1_image_type :
+            print '[error] Unable to determine which type of scan was supplied (%s)' %scan_type
+            sys.exit(1)
+        else :
             #print scan_id, scan_type, t1_image_type
             
             # find all NIFTI files
