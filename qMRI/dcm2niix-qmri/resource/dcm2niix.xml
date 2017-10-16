@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC - UvA) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>dcm2niix</pip:name>
+    <pip:type>Executable</pip:type>
+    <!--<pip:location></pip:location>-->
+    <pip:description>Convert DICOM datasets to NIFTI (mricroGL dcm2niix)</pip:description>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load mricrogl;</pip:commandPrefix>
+    <pip:estimated_time>00:10:00</pip:estimated_time>year
+	<pip:input>
+		<pip:argument id="filename" >
+			<pip:name>f</pip:name>
+			<pip:description>filename composition token</pip:description>
+		</pip:argument>
+		<pip:argument id="compress" >
+			<pip:name>z</pip:name>
+			<pip:description>gzip compression [y|i|n]</pip:description>
+		</pip:argument>
+		<pip:argument id="output" >
+			<pip:name>o</pip:name>
+			<pip:description>Output folder</pip:description>
+		</pip:argument>
+		<pip:argument id="input"/>        
+	</pip:input>
+</pip:Resource>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC - UvA) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>B1_nii_intercept_fix</pip:name>
+    <pip:type>Executable</pip:type>
+    <!--<pip:location></pip:location>-->
+    <pip:description>Fix scale intercept values on NIFTI-converted (dcm2niix) B1 scans</pip:description>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load fsl development/python/2.7.12; python</pip:commandPrefix>
+    <pip:estimated_time>00:10:00</pip:estimated_time>year
+	<pip:input>
+		<pip:argument id="input_dir" >
+			<pip:name>indir</pip:name>			
+		</pip:argument>
+		<pip:argument id="output_dir" >
+			<pip:name>outdir</pip:name>			
+		</pip:argument>   
+	</pip:input>
+</pip:Resource>
