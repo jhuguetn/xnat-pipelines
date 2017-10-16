@@ -3,8 +3,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20170616'      ##
-__version__     = '0.0.2'         ##
-__versionDate__ = '20170706'      ##
+__version__     = '0.1.1'         ##
+__versionDate__ = '20171016'      ##
 ####################################
 
 # B1_nii_intercept_fix
@@ -33,7 +33,8 @@ def process_B1_files(b1_indir, b1_outdir):
             curr_slope = b1_img.dataobj.slope 
             curr_inter = b1_img.dataobj.inter
             
-            if curr_inter < 0 and (('e2_ph_1.nii' in current_file) or ('e2_ph_2.nii' in current_file)) :
+            #if curr_inter < 0 and (('e2_ph_1.nii' in current_file) or ('e2_ph_2.nii' in current_file)) :
+            if curr_inter < 0 :
                 # wrong intercept: let's do something (fix)
                 
                 data = b1_img.get_data()
