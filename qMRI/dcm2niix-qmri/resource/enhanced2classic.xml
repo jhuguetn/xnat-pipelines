@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC - UvA) -->
+<pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
+    <pip:name>enhanced2classic</pip:name>
+    <pip:type>Executable</pip:type>
+    <!--<pip:location></pip:location>-->
+    <pip:description>Converts enhanced DICOM files to non-enhanced series</pip:description>
+    <pip:commandPrefix>source /etc/profile.d/modules.sh; module load dcmtk dicom3tools;</pip:commandPrefix>
+    <pip:estimated_time>00:10:00</pip:estimated_time>year
+	<pip:input>
+		<pip:argument id="input" >
+			<pip:description>Input folder</pip:description>
+		</pip:argument>
+        <pip:argument id="output" >
+			<pip:description>Generated output folder</pip:description>
+		</pip:argument>		
+	</pip:input>
+</pip:Resource>
