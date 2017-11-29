@@ -151,10 +151,10 @@
 		</step>
 		<step id="3c" description="Fix Scale Intercept values (via FSL tools) in wrongly converted B1 scan NIFTI files" continueOnFailure="false">
 			<resource name="B1_nii_intercept_fix" location="/xnat/pipeline/amc-catalog/qMRI/dcm2niix-qmri/resource">
-				<argument id="indir">
+				<argument id="input_dir">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
 				</argument>
-                <argument id="outdir">
+                <argument id="output_dir">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
 				</argument>
 			</resource>
