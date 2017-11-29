@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- created by Jordi Huguet (AMC - UvA) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
-    <pip:name>enhanced2classic</pip:name>
+    <pip:name>enhanced2classic.sh</pip:name>
     <pip:type>Executable</pip:type>
     <!--<pip:location></pip:location>-->
     <pip:description>Converts enhanced DICOM files to non-enhanced series</pip:description>
