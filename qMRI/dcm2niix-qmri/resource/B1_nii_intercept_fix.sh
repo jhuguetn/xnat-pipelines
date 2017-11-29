@@ -4,7 +4,7 @@ set -e
 # Script for fixing scale intercept value on NIFTI-converted (dcm2niix) B1 scans 
 # creator: jhuguet (AMC)
 # project: fab4v (2017)
-# version: 0.0.1
+# version: 0.0.2
  
  
 function run_fslmaths() {
@@ -47,7 +47,7 @@ if [ $# != 3 ]
     # let's add the following control flow statement for consistency
     # (if name extension was non-compressed NIFTI, decompress file)
     if [ ${OUTPUT_FILE: -4} == ".nii" ]; then
-        gzip -d "$OUTPUT_FILE.gz"
+        gzip -q -d "$OUTPUT_FILE.gz"
     fi
     
 fi
