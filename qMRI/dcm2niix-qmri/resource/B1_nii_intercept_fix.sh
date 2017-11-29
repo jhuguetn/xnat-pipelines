@@ -47,7 +47,7 @@ if [ $# != 3 ]
     # let's add the following control flow statement for consistency
     # (if name extension was non-compressed NIFTI, decompress file)
     if [ ${OUTPUT_FILE: -4} == ".nii" ]; then
-        gzip -q -d "$OUTPUT_FILE.gz"
+        gzip -q -f -d "$OUTPUT_FILE.gz"
     fi
     
 fi
