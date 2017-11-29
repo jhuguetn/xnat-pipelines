@@ -55,7 +55,8 @@ def process_B1_files(b1_indir, b1_outdir):
                 print '[info] File: %s, Slope: %f, Intercept: %f' %(current_file, scaled_slope,scaled_inter)
                 print '[info] Data range [%f : %f]' %(scaled_data.min(), scaled_data.max())
                 print ''
-
+            else :
+                print '[info] Do NOT process image. Slope: %f, Intercept: %f' %(curr_slope, curr_inter)
 
 def main():
     ''' main script function '''
