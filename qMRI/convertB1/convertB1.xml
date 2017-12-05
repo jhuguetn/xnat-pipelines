@@ -19,7 +19,7 @@
                 <firstname>Caan</firstname>
             </author>
         </authors>
-        <version>0.2</version>
+        <version>0.3</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -161,16 +161,7 @@
                 </argument>
             </resource>
         </step>
-        <!--<step id="6b" description="Remove large .mat file from the output directory" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
-            <resource name="rm" location="commandlineTools">
-                <argument id="f"/>
-                <argument id="r"/>
-                <argument id="file">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR/*.mat')^</value>
-                </argument>
-            </resource>
-		</step>-->
-        <!--<step id="6c" description="Parse QMRI stats and bundle them as an XNAT assessment" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^" continueOnFailure="true">
+        <!--<step id="6" description="Parse B1 stats and bundle them as an XNAT assessment" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^" continueOnFailure="true">
             <resource name="qmri_output_ingestor" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
@@ -236,7 +227,7 @@
                 </argument>
             </resource>
         </step>
-        <!--<step id="9" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+        <step id="9" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="rm" location="commandlineTools">
                 <argument id="f"/>
                 <argument id="r"/>
@@ -255,10 +246,10 @@
                 <argument id="f"/>
                 <argument id="r"/>
                 <argument id="file">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/qmri_output.zip')^</value>
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/b1map_output.zip')^</value>
                 </argument>
             </resource>
-        </step>-->
+        </step>
         <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
             <resource name="Notifier" location="notifications">
                 <argument id="user">
