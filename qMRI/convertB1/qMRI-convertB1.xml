@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- created by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
-    <name>convertB1</name>
+    <name>qMRI-convertB1</name>
     <location>/xnat/pipeline/amc-catalog/qMRI/convertB1</location>
     <description>Convert B1 pipeline</description>
     <!-- Only for SGE usage, remove it otherwise -->

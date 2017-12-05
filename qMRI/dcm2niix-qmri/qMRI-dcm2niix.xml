@@ -2,7 +2,7 @@
 <!-- created and modified by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
 	<!--Should be name of the pipeline XML file -->
-	<name>dcm2niix-qmri</name>
+	<name>qMRI-dcm2niix</name>
 	<!-- Filesystem path to the pipeline XML -->
 	<location>/xnat/pipeline/amc-catalog/qMRI/dcm2niix-qmri</location>
     <description>DICOM to NIFTI image data converter (via dcm2niix) with additional qMRI-related B1 scans fix</description>
