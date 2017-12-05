@@ -8,8 +8,11 @@
 	<!--<pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>-->
 	<pip:estimated_time>00:00:30</pip:estimated_time>
 	<pip:input>
-		<pip:argument id="input_data_directory" >
-			<pip:description>location where raw imaging data is stored</pip:description>
+		<pip:argument id="input_T1_directory" >
+			<pip:description>location where raw T1w imaging data is stored</pip:description>
+		</pip:argument>
+        <pip:argument id="input_B1_directory" >
+			<pip:description>location where B1 map resource is stored</pip:description>
 		</pip:argument>
 	</pip:input>
 </pip:Resource>

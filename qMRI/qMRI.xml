@@ -19,7 +19,7 @@
                 <firstname>Caan</firstname>
             </author>
         </authors>
-        <version>0.4</version>
+        <version>1.1</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -82,13 +82,7 @@
             <description>The subject label (Intermediate Schematron XSL File)</description>
         </parameter>
         <parameter>
-            <name>scans_type1</name>
-            <values>
-                <unique>b1</unique>
-            </values>
-        </parameter>
-        <parameter>
-            <name>scans_type2</name>
+            <name>scans_type</name>
             <values>
                 <unique>anat</unique>
             </values>
@@ -111,11 +105,17 @@
             <resource name="mkdir" location="commandlineTools" >
                 <argument id="p"/>
                 <argument id="dirname">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/B1_DIR')^</value>
+                </argument>
+            </resource>
+            <resource name="mkdir" location="commandlineTools" >
+                <argument id="p"/>
+                <argument id="dirname">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^</value>
                 </argument>
             </resource>
         </step>
-        <step id="2" description="Get suitable B1/T1 datasets and place it into the input folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+        <step id="2" description="Get suitable T1 datasets and place it into the input folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
             <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
@@ -133,44 +133,36 @@
                     <value>^/Pipeline/parameters/parameter[name='sessionID']/values/unique/text()^</value>
                 </argument>
                 <argument id="scans_type">
-                    <value>^/Pipeline/parameters/parameter[name='scans_type1']/values/unique/text()^</value>
+                    <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
                 </argument>
                 <argument id="output_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>
-            </resource>
-            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
-                <argument id="auth_token">
-                    <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
+            </resource>            
+        </step>
+        <step id="3" description="HTTP-GET B1 resource and place it into B1_DIR folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/B1_DIR/')^" continueOnFailure="false">
+            <resource name="XnatDataClient" location="xnat_tools">
+                <argument id="sessionId">
+                    <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
                 </argument>
-                <argument id="hostname">
-                    <value>^/Pipeline/parameters/parameter[name='host']/values/unique/text()^</value>
+                <argument id="absolutePath"/>
+                <argument id="batch" />
+                <argument id="method">
+                    <value>GET</value>
                 </argument>
-                <argument id="project">
-                    <value>^/Pipeline/parameters/parameter[name='projectID']/values/unique/text()^</value>
-                </argument>
-                <argument id="subjectID">
-                    <value>^/Pipeline/parameters/parameter[name='subjectID']/values/unique/text()^</value>
-                </argument>
-                <argument id="experimentID">
-                    <value>^/Pipeline/parameters/parameter[name='sessionID']/values/unique/text()^</value>
-                </argument>
-                <argument id="scans_type">
-                    <value>^/Pipeline/parameters/parameter[name='scans_type2']/values/unique/text()^</value>
-                </argument>
-                <argument id="output_directory">
-                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/B1_MAP/files"')^</value>
                 </argument>
             </resource>
         </step>
-        <step id="3" description="Reshape multivolumetric imaging files easing its processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+        <step id="4" description="Reshape multivolumetric imaging files easing its processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
             <resource name="split_nii_files" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="input_data_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>
             </resource>
         </step>
-        <step id="4" description="Get MRI scan details required for the QMRI processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+        <step id="5" description="Get MRI scan details required for the QMRI processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
             <resource name="get_scan_details" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
@@ -186,14 +178,17 @@
                 </argument>
             </resource>
         </step>
-        <step id="5" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+        <step id="6" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text())^" continueOnFailure="false">
             <resource name="organize_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
-                <argument id="input_data_directory">
+                <argument id="input_T1_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+                <argument id="input_B1_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/B1_DIR')^</value>
                 </argument>
             </resource>
         </step>
-        <step id="6a" description="Run qMRI fitting script (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+        <step id="7" description="Run qMRI fitting script (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="toolboxes_directory">
                     <value>^/Pipeline/parameters/parameter[name='TOOLBOX_DIR']/values/unique/text()^</value>
@@ -206,7 +201,7 @@
                 </argument>
             </resource>
         </step>
-        <step id="6b" description="Remove large .mat file from the output directory" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+        <step id="8" description="Remove large .mat file from the output directory" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
             <resource name="rm" location="commandlineTools">
                 <argument id="f"/>
                 <argument id="r"/>
@@ -214,8 +209,8 @@
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR/*.mat')^</value>
                 </argument>
             </resource>
-		</step>
-        <step id="6c" description="Parse QMRI stats and bundle them as an XNAT assessment" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^" continueOnFailure="true">
+        </step>
+        <step id="9" description="Parse QMRI stats and bundle them as an XNAT assessment" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^" continueOnFailure="true">
             <resource name="qmri_output_ingestor" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
@@ -237,7 +232,7 @@
                 </argument>                
             </resource>
         </step>
-        <step id="7" description="Zip the output directory with the resulting files (derived data)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+        <step id="10" description="Zip the output directory with the resulting files (derived data)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="zip" location="commandlineTools" >
                 <argument id="recursive"/>
                 <argument id="archive">
@@ -248,13 +243,13 @@
                 </argument>
             </resource>
         </step>
-        <step id="8" description="Create a qMRI resource collection for pipeline-related derived data and upload it" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+        <step id="11" description="Create a qMRI resource collection for pipeline-related derived data and upload it" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="XnatDataClient" location="xnat_tools">
                 <argument id="user">
-					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                    <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
                 <argument id="password">
-					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                    <value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
                 <argument id="method">
                     <value>PUT</value>
@@ -265,10 +260,10 @@
             </resource>
             <resource name="XnatDataClient" location="xnat_tools">
                 <argument id="user">
-					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                    <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
                 </argument>
                 <argument id="password">
-					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                    <value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
                 </argument>
                 <argument id="method">
                     <value>PUT</value>
@@ -281,7 +276,7 @@
                 </argument>
             </resource>
         </step>
-        <!--<step id="9" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+        <!--<step id="12" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="rm" location="commandlineTools">
                 <argument id="f"/>
                 <argument id="r"/>
