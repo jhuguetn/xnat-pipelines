@@ -2,7 +2,7 @@
 <!-- edited by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>organize_b1_data.sh</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/qMRI/convertB1/resource</pip:location>
+	<pip:location>/xnat/pipeline/amc-catalog/qMRI/qMRI-convertB1/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Organize B1 scan data for convertB1 pipeline processing stage</pip:description>
 	<!--<pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>-->

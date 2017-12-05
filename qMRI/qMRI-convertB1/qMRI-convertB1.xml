@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
     <name>qMRI-convertB1</name>
-    <location>/xnat/pipeline/amc-catalog/qMRI/convertB1</location>
+    <location>/xnat/pipeline/amc-catalog/qMRI/qMRI-convertB1</location>
     <description>Convert B1 pipeline</description>
     <!-- Only for SGE usage, remove it otherwise -->
     <resourceRequirements>
@@ -142,14 +142,14 @@
             </resource>
         </step>
         <step id="4" description="Simplify all input data files and directory tree structure" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
-            <resource name="organize_b1_data" location="/xnat/pipeline/amc-catalog/qMRI/convertB1/resource">
+            <resource name="organize_b1_data" location="/xnat/pipeline/amc-catalog/qMRI/qMRI-convertB1/resource">
                 <argument id="input_data_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>
             </resource>
         </step>
         <step id="5" description="Run B1 conversion script code (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
-            <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/convertB1/resource">
+            <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/qMRI-convertB1/resource">
                 <argument id="toolboxes_directory">
                     <value>^/Pipeline/parameters/parameter[name='TOOLBOX_DIR']/values/unique/text()^</value>
                 </argument>
