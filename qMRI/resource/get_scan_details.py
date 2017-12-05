@@ -361,7 +361,7 @@ def get_scans_details(connection,experimentID,in_directory):
                     
                     #assert(len(te) == len(scan_nii_files))
                     if (len(te) != len(scan_nii_files)) :
-                        print '[Warning] Mismatch in TE values (%s) versus scan imaging files' %te
+                        print '[Warning] Mismatch in TE values (%s) versus #%i scan imaging files' %(te,len(scan_nii_files)) 
                     
                     scan_details = create_scan_details_struct(scan_nii_files, flip_angle, tr, te, t1_image_type)                    
                     
