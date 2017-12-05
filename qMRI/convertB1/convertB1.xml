@@ -19,7 +19,7 @@
                 <firstname>Caan</firstname>
             </author>
         </authors>
-        <version>0.1</version>
+        <version>0.2</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -141,7 +141,14 @@
                 </argument>
             </resource>
         </step>
-        <step id="4" description="Run B1 conversion script code (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+        <step id="4" description="Simplify all input data files and directory tree structure" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+            <resource name="organize_b1_data" location="/xnat/pipeline/amc-catalog/qMRI/convertB1/resource">
+                <argument id="input_data_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="5" description="Run B1 conversion script code (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/convertB1/resource">
                 <argument id="toolboxes_directory">
                     <value>^/Pipeline/parameters/parameter[name='TOOLBOX_DIR']/values/unique/text()^</value>
