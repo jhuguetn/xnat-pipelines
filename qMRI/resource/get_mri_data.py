@@ -5,8 +5,8 @@
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20160809'      ##
-__version__     = '0.3.7'         ##
-__versionDate__ = '20170705'      ##
+__version__     = '0.3.8'         ##
+__versionDate__ = '20171205'      ##
 ####################################
 
 # get_mri_data
@@ -118,11 +118,11 @@ def is_struct_scan(philips_scan_type_info, scan_type, scanID):
     if [scanID for ftype in structural_type_tokens if ftype in scan_type.lower()] :
         # let's asume it is an structural scan
         is_struct = True
-    elif philips_scan_type_info :
+    #elif philips_scan_type_info :
     # Philips dataset
-        acq_contrast,pulse_seq = philips_scan_type_info
-        if acq_contrast == 'T1' and ('T1' in pulse_seq or 'TFE' in pulse_seq) and scan_type.lower() not in unprocessable_type_tokens:
-            is_struct = True
+    #    acq_contrast,pulse_seq = philips_scan_type_info
+    #    if acq_contrast == 'T1' and ('T1' in pulse_seq or 'TFE' in pulse_seq) and scan_type.lower() not in unprocessable_type_tokens:
+    #        is_struct = True
     
     return is_struct   
 
