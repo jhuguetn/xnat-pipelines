@@ -359,7 +359,10 @@ def get_scans_details(connection,experimentID,in_directory):
                                 # big file size difference --> phase image
                                 scan_nii_files.remove(tuple[0])
                     
-                    assert(len(te) == len(scan_nii_files))
+                    #assert(len(te) == len(scan_nii_files))
+                    if (len(te) != len(scan_nii_files)) :
+                        print '[Warning] Mismatch in TE values (%s) versus scan imaging files' %te
+                    
                     scan_details = create_scan_details_struct(scan_nii_files, flip_angle, tr, te, t1_image_type)                    
                     
         if scan_details :
