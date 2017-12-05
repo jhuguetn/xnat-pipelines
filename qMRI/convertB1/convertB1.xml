@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created by Jordi Huguet (AMC) -->
+<Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
+    <name>convertB1</name>
+    <location>/xnat/pipeline/amc-catalog/qMRI/convertB1</location>
+    <description>Convert B1 pipeline</description>
+    <!-- Only for SGE usage, remove it otherwise -->
+    <resourceRequirements>
+        <property name="DRMAA_JobTemplate_JobResource">-q XNAT</property>
+    </resourceRequirements>
+    <documentation>
+        <authors>
+            <author>
+                <lastname>Jordi</lastname>
+                <firstname>Huguet</firstname>
+            </author>
+            <author>
+                <lastname>Matthan</lastname>
+                <firstname>Caan</firstname>
+            </author>
+        </authors>
+        <version>0.1</version>
+        <input-parameters>
+            <parameter>
+                <name>sessionID</name>
+                <values>
+                    <schemalink>xnat:imageSessionData/ID</schemalink>
+                </values>
+                <description>The XNAT unique ID (Accession Number) of the session</description>
+            </parameter>
+            <parameter>
+                <name>sessionName</name>
+                <values>
+                    <schemalink>xnat:imageSessionData/label</schemalink>
+                </values>
+                <description>The session label or name</description>
+            </parameter>
+            <parameter>
+                <name>projectID</name>
+                <values>
+                    <schemalink>xnat:imageSessionData/project</schemalink>
+                </values>
+                <description>Project identifier</description>
+            </parameter>
+            <parameter>
+                <name>subjectID</name>
+                <values>
+                    <schemalink>xnat:imageSessionData/subject_ID</schemalink>
+                </values>
+                <description>Subject identifier</description>
+            </parameter>
+            <parameter>
+                <name>notify</name>
+                <values>
+                    <csv>0</csv>
+                </values>
+                <description>Set the value to 1 if you want the pipeline to notify the user when complete. Set it to 0 otherwise</description>
+            </parameter>
+        </input-parameters>
+    </documentation>
+    <outputFileNamePrefix>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/',/Pipeline/name/text())^</outputFileNamePrefix>
+    <!-- Info:: Description of the Pipeline -->
+    <parameters>
+        <parameter>
+            <name>workdir</name>
+            <values>
+                <unique>^concat(/Pipeline/parameters/parameter[name='builddir']/values/unique/text(),'/',/Pipeline/parameters/parameter[name='sessionName']/values/unique/text())^</unique>
+            </values>
+        </parameter>
+        <parameter>
+            <name>JSESSION</name>
+            <values>
+                <unique>^fileUtils:getJSESSION('DUMMY')^</unique>
+            </values>
+            <description>session token</description>
+        </parameter>
+        <parameter>
+            <name>subjectLabel</name>
+            <values>
+                <unique>^fileUtils:GetColumn(/Pipeline/parameters/parameter[name='host']/values/unique/text(), /Pipeline/parameters/parameter[name='user']/values/unique/text(), /Pipeline/parameters/parameter[name='pwd']/values/unique/text(),concat('data/archive/experiments?ID=',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'&amp;columns=subject_label,subject_ID&amp;format=json'),'subject_label')^</unique>
+            </values>
+            <description>The subject label (Intermediate Schematron XSL File)</description>
+        </parameter>
+        <parameter>
+            <name>scans_type</name>
+            <values>
+                <unique>b1</unique>
+            </values>
+        </parameter>
+        <parameter>
+            <name>TOOLBOX_DIR</name>
+            <values>
+                <unique>/xnat/pipeline/amc-catalog/qMRI/resource/matlab_toolboxes</unique>
+            </values>
+        </parameter>
+    </parameters>
+    <steps>
+        <step id="1" description="Create folders for hosting input and output folders" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+            <resource name="mkdir" location="commandlineTools" >
+                <argument id="p"/>
+                <argument id="dirname">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+            <resource name="mkdir" location="commandlineTools" >
+                <argument id="p"/>
+                <argument id="dirname">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="2" description="Get suitable B1 datasets and place it into the input folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="auth_token">
+                    <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
+                </argument>
+                <argument id="hostname">
+                    <value>^/Pipeline/parameters/parameter[name='host']/values/unique/text()^</value>
+                </argument>
+                <argument id="project">
+                    <value>^/Pipeline/parameters/parameter[name='projectID']/values/unique/text()^</value>
+                </argument>
+                <argument id="subjectID">
+                    <value>^/Pipeline/parameters/parameter[name='subjectID']/values/unique/text()^</value>
+                </argument>
+                <argument id="experimentID">
+                    <value>^/Pipeline/parameters/parameter[name='sessionID']/values/unique/text()^</value>
+                </argument>
+                <argument id="scans_type">
+                    <value>^/Pipeline/parameters/parameter[name='scans_type']/values/unique/text()^</value>
+                </argument>
+                <argument id="output_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>            
+        </step>
+        <step id="3" description="Reshape multivolumetric imaging files easing its processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+            <resource name="split_nii_files" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="input_data_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="4" description="Run B1 conversion script code (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+            <resource name="matlab_runner" location="/xnat/pipeline/amc-catalog/qMRI/convertB1/resource">
+                <argument id="toolboxes_directory">
+                    <value>^/Pipeline/parameters/parameter[name='TOOLBOX_DIR']/values/unique/text()^</value>
+                </argument>
+                <argument id="input_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+                <argument id="output_directory">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^</value>
+                </argument>
+            </resource>
+        </step>
+        <!--<step id="6b" description="Remove large .mat file from the output directory" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^">
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR/*.mat')^</value>
+                </argument>
+            </resource>
+		</step>-->
+        <!--<step id="6c" description="Parse QMRI stats and bundle them as an XNAT assessment" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^" continueOnFailure="true">
+            <resource name="qmri_output_ingestor" location="/xnat/pipeline/amc-catalog/qMRI/resource">
+                <argument id="auth_token">
+                    <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
+                </argument>
+                <argument id="hostname">
+                    <value>^/Pipeline/parameters/parameter[name='host']/values/unique/text()^</value>
+                </argument>
+                <argument id="project">
+                    <value>^/Pipeline/parameters/parameter[name='projectID']/values/unique/text()^</value>
+                </argument>
+                <argument id="subject_name">
+                    <value>^/Pipeline/parameters/parameter[name='subjectLabel']/values/unique/text()^</value>
+                </argument>
+                <argument id="session_name">
+                    <value>^/Pipeline/parameters/parameter[name='sessionName']/values/unique/text()^</value>
+                </argument>
+                <argument id="stats_csv_file">
+                    <value>qmri_stats.csv</value>
+                </argument>                
+            </resource>
+        </step>-->
+        <step id="7" description="Zip the output directory with the resulting files (derived data)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
+            <resource name="zip" location="commandlineTools" >
+                <argument id="recursive"/>
+                <argument id="archive">
+                    <value>'b1map_output.zip'</value>
+                </argument>
+                <argument id="folder">
+                    <value>OUT_DIR</value>
+                </argument>
+            </resource>
+        </step>
+        <step id="8" description="Create a B1_map resource collection for pipeline-related derived data and upload it" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+            <resource name="XnatDataClient" location="xnat_tools">
+                <argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/B1_MAP?format=ZIP&amp;content=B1_map"')^</value>
+                </argument>
+            </resource>
+            <resource name="XnatDataClient" location="xnat_tools">
+                <argument id="user">
+					<value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+					<value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="method">
+                    <value>PUT</value>
+                </argument>
+                <argument id="remote">
+                    <value>^concat('"',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'data/archive/projects/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text(),'/subjects/',/Pipeline/parameters/parameter[name='subjectID']/values/unique/text(),'/experiments/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'/resources/B1_MAP/files/w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'_b1map_output.zip?format=ZIP&amp;extract=true&amp;content=B1_MAP"')^</value>
+                </argument>
+                <argument id="infile">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/b1map_output.zip')^</value>
+                </argument>
+            </resource>
+        </step>
+        <!--<step id="9" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
+                </argument>
+            </resource>
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/OUT_DIR')^</value>
+                </argument>
+            </resource>
+            <resource name="rm" location="commandlineTools">
+                <argument id="f"/>
+                <argument id="r"/>
+                <argument id="file">
+                    <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/qmri_output.zip')^</value>
+                </argument>
+            </resource>
+        </step>-->
+        <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
+            <resource name="Notifier" location="notifications">
+                <argument id="user">
+                    <value>^/Pipeline/parameters/parameter[name='user']/values/unique/text()^</value>
+                </argument>
+                <argument id="password">
+                    <value>^/Pipeline/parameters/parameter[name='pwd']/values/unique/text()^</value>
+                </argument>
+                <argument id="to">
+                    <value>^/Pipeline/parameters/parameter[name='useremail']/values/unique/text()^</value>
+                </argument>
+                <argument id="from">
+                    <value>^/Pipeline/parameters/parameter[name='adminemail']/values/unique/text()^</value>
+                </argument>
+                <argument id="subject">
+                    <value>^concat('[',/Pipeline/parameters/parameter[name='xnatserver']/values/unique/text(), '] B1 map conversion successfully performed for ',/Pipeline/parameters/parameter[name='sessionName']/values/unique/text() )^</value>
+                </argument>
+                <argument id="host">
+                    <value>^/Pipeline/parameters/parameter[name='mailhost']/values/unique/text()^</value>
+                </argument>
+                <argument id="body">
+                    <value>^concat('Dear ',/Pipeline/parameters/parameter[name='userfullname']/values/unique/text(),',&lt;br&gt; &lt;p&gt;', ' B1 map generated for session ', /Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'. Details of the session are available &lt;a href="',/Pipeline/parameters/parameter[name='host']/values/unique/text(),'/app/action/DisplayItemAction/search_element/xnat:mrSessionData/search_field/xnat:mrSessionData.ID/search_value/',/Pipeline/parameters/parameter[name='sessionID']/values/unique/text(),'"&gt;', ' here. &lt;/a&gt; &lt;/p&gt;&lt;br&gt;', ' &lt;/p&gt;&lt;br&gt;', '3TMRI-XNAT Team.')^</value>
+                </argument>                
+            </resource>
+        </step>
+    </steps>
+</Pipeline>
