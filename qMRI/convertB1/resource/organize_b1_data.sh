@@ -5,13 +5,13 @@
 ## inputs:           (1) Locally accessible copy of imaging data files
 ## author:           Jordi Huguet (AMC)
 ## date:             20171205
-## version:          0.3.3
+## version:          0.3.4
 ## usage:            bash organize_b1_data.sh [input directory]
 
 
 if [ $# != 1 ]
   then
-        echo "Organize XNAT downloaded scan data for convertB1 pipeline analysis - v0.3.3"
+        echo "Organize XNAT downloaded scan data for convertB1 pipeline analysis - v0.3.4"
         exit 1        
   else
         INPUT_DIRECTORY=$1
@@ -24,7 +24,7 @@ if [ $# != 1 ]
         
         mkdir -v -p $INPUT_DIRECTORY/SORTED
         
-        for SCAN_DIR in $(find $SCANS_DIR -mindepth 1 -maxdepth 1 -type d -iname '*B1'); do
+        for SCAN_DIR in $(find $SCANS_DIR -mindepth 1 -maxdepth 1 -type d); do
             
             B1_NIFTIs=$(find $SCAN_DIR -type f -iname "*.nii" -o -iname "*.nii.gz")
             if [[ -z $B1_NIFTIs ]]; then
