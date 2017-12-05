@@ -140,7 +140,7 @@
                 </argument>
             </resource>            
         </step>
-        <step id="3" description="HTTP-GET B1 resource and place it into B1_DIR folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/B1_DIR/')^" continueOnFailure="false">
+        <step id="3" description="HTTP-GET B1 resource and place it into B1_DIR folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/B1_DIR')^" continueOnFailure="false">
             <resource name="XnatDataClient" location="xnat_tools">
                 <argument id="sessionId">
                     <value>^/Pipeline/parameters/parameter[name='JSESSION']/values/unique/text()^</value>
@@ -178,7 +178,7 @@
                 </argument>
             </resource>
         </step>
-        <step id="6" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text())^" continueOnFailure="false">
+        <step id="6" description="Sort/reorganize all input data file/directory structure for simplicity" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
             <resource name="organize_data" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="input_T1_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
