@@ -34,8 +34,8 @@ if [ $# != 1 ]
             
             for B1_NII_FILE in $B1_NIFTIs; do
             
-                mv -v $B1_NII_FILE $PARENT_SCANS_DIR/SORTED
-                NEW_FILE_PATH=$PARENT_SCANS_DIR/SORTED/$(basename $B1_NII_FILE)
+                mv -v $B1_NII_FILE $INPUT_DIRECTORY/SORTED
+                NEW_FILE_PATH=$INPUT_DIRECTORY/SORTED/$(basename $B1_NII_FILE)
                 
                 #decompress (gzip) for harmonizing and/or compatibility with Matlab code?
                 if [[ $(basename $B1_NII_FILE) == *.nii.gz ]]
