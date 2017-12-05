@@ -227,7 +227,7 @@
                 </argument>
             </resource>
         </step>
-        <step id="9" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
+        <!--<step id="9" description="Delete intermediate data files" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="true">
             <resource name="rm" location="commandlineTools">
                 <argument id="f"/>
                 <argument id="r"/>
@@ -249,7 +249,7 @@
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/b1map_output.zip')^</value>
                 </argument>
             </resource>
-        </step>
+        </step>-->
         <step id="END-Notify-ALL" description="User notification" precondition="^/Pipeline/parameters/parameter[name='notify']/values/unique/text()=1^">
             <resource name="Notifier" location="notifications">
                 <argument id="user">
