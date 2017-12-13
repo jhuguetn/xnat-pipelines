@@ -19,7 +19,7 @@
                 <firstname>Caan</firstname>
             </author>
         </authors>
-        <version>0.3</version>
+        <version>0.3.1</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -134,13 +134,13 @@
                 </argument>
             </resource>            
         </step>
-        <step id="3" description="Reshape multivolumetric imaging files easing its processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
+        <!--<step id="3" description="Reshape multivolumetric imaging files easing its processing" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
             <resource name="split_nii_files" location="/xnat/pipeline/amc-catalog/qMRI/resource">
                 <argument id="input_data_directory">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>
             </resource>
-        </step>
+        </step>-->
         <step id="4" description="Simplify all input data files and directory tree structure" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
             <resource name="organize_b1_data" location="/xnat/pipeline/amc-catalog/qMRI/qMRI-convertB1/resource">
                 <argument id="input_data_directory">
