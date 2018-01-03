@@ -1,7 +1,9 @@
 # qMRI pipeline (quantitative anatomical MRI mapping)
 
 ## Introduction
-qMRI is subdivided in 3 XNAT pipelines:
+Quantitative multi-parameter mapping is designed to provide MRI parameter measures that are comparable across sites and time points. More info [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3677134/). 
+
+This qMRI pipeline is subdivided in 3 XNAT pipelines:
 
 - qMRI-dcm2niix
    - convert enhanced to classic dicom
@@ -18,6 +20,12 @@ qMRI is subdivided in 3 XNAT pipelines:
    - GM/WM segmentation
    - compute summary metrics
  
+## Requisites
+
+- XNAT platform (1.6 or +) and XNAT pipeline engine.  
+- MATLAB (version R2012b or +) and the following prerequisites...
+- Python version 2.7.X is required for running the pythonic scripts.
+
 ## Installation procedure
 
 * Get the lattest version of the pipeline(s) as follows: 
