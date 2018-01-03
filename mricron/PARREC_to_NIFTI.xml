@@ -4,7 +4,7 @@
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
 	<name>PARREC_to_NIFTI</name>
 	<!--Should be name of the pipeline XML file -->
-	<location>/xnat/pipeline/amc-catalog/mricron</location>
+	<location>amc-catalog/mricron</location>
 	<!-- Filesystem path to the pipeline XML -->
 	<description>PARREC to NIFTI image data converter (MRIcron), ignore errors</description>
     <resourceRequirements>
@@ -21,7 +21,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>3.1</version>
+		<version>3.2</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
@@ -132,7 +132,7 @@
 			</resource>
 		</step>
 		<step id="3" description="Convert each series file into a 4d NIFTI file" continueOnFailure="false">
-			<resource name="dcm2nii" location="/xnat/pipeline/amc-catalog/mricron/resource">
+			<resource name="dcm2nii" location="amc-catalog/mricron/resource">
 				<argument id="date">
 					<value>N</value>
 				</argument>
@@ -170,7 +170,7 @@
 			</resource>
 		</step>
 		<step id="3b" description="CleanUp the content created by dcm2nii" continueOnFailure="false">
-			<resource name="cleanUp" location="/xnat/pipeline/amc-catalog/mricron/resource">
+			<resource name="cleanUp" location="amc-catalog/mricron/resource">
 				<argument id="inputDir">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
 				</argument>

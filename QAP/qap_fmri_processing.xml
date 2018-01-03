@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
     <name>qap_fmri_processing</name>
-    <location>/xnat/pipeline/amc-catalog/QAP</location>
+    <location>amc-catalog/QAP</location>
     <description>Compute Quality Assessment Package metrics on functional MRI scan data</description>
     <resourceRequirements>
         <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
@@ -15,7 +15,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>1.0</version>
+        <version>1.1</version>
         <input-parameters>
             <!--<parameter>
                 <name>scanIDs</name>
@@ -148,7 +148,7 @@
             </resource>
         </step>
         <step id="2" description="Get suitable fMRI data and place it into the raw folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^" continueOnFailure="false">
-            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="get_mri_data" location="amc-catalog/QAP/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>
@@ -173,7 +173,7 @@
             </resource>
         </step>
         <step id="3" description="Organize XNAT-downloaded imaging data using BIDS specification" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^" continueOnFailure="false">
-            <resource name="organize_data" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="organize_data" location="amc-catalog/QAP/resource">
                 <argument id="project">
                     <value>^/Pipeline/parameters/parameter[name='projectID']/values/unique/text()^</value>
                 </argument>
@@ -192,7 +192,7 @@
             </resource>
         </step>
         <step id="4" description="Generate a file list (YAML) of all affected scan datasets" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
-            <resource name="qap_raw_data_sublist_generator" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_raw_data_sublist_generator" location="amc-catalog/QAP/resource">
                 <argument id="site_folder">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS/',/Pipeline/parameters/parameter[name='projectID']/values/unique/text())^</value>
                 </argument>
@@ -205,7 +205,7 @@
             </resource>
         </step>
         <step id="5" description="Create a configuration file (YAML format)" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
-            <resource name="qap_config_generator" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_config_generator" location="amc-catalog/QAP/resource">
                 <argument id="output_dir">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out')^</value>
                 </argument>
@@ -224,7 +224,7 @@
             </resource>
         </step>
         <step id="6a" description="Compute QA spatial metrics on functional MRI scan data" precondition="^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='Y'^" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
-            <resource name="qap_functional_spatial" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_functional_spatial" location="amc-catalog/QAP/resource">
                 <argument id="scan_list_file">
                     <value>^concat('scanlist_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
                 </argument>
@@ -235,7 +235,7 @@
             </resource>
         </step>
         <step id="6b" description="Parse QAP spatial results and store them as an XNAT assessment" precondition="^/Pipeline/parameters/parameter[name='spatial_analysis']/values/unique/text()='Y'^" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out')^" continueOnFailure="false">
-            <resource name="qap_output_ingestor" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_output_ingestor" location="amc-catalog/QAP/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>
@@ -257,7 +257,7 @@
             </resource>
         </step>
         <step id="7a" description="Compute QA temporal metrics on functional MRI scan data" precondition="^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='Y'^" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
-            <resource name="qap_functional_temporal" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_functional_temporal" location="amc-catalog/QAP/resource">
                 <argument id="scan_list_file">
                     <value>^concat('scanlist_w',/Pipeline/parameters/parameter[name='workflowid']/values/unique/text(),'.yaml')^</value>
                 </argument>
@@ -268,7 +268,7 @@
             </resource>
         </step>
         <step id="7b" description="Parse QAP temporal results and store them as an XNAT assessment" precondition="^/Pipeline/parameters/parameter[name='temporal_analysis']/values/unique/text()='Y'^" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out')^" continueOnFailure="false">
-            <resource name="qap_output_ingestor" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_output_ingestor" location="amc-catalog/QAP/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>

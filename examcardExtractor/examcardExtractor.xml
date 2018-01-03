@@ -3,7 +3,7 @@
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
     <name>examcardExtractor</name>
     <!--Should be name of the pipeline XML file -->
-    <location>/xnat/pipeline/amc-catalog/examcardExtractor</location>
+    <location>amc-catalog/examcardExtractor</location>
     <!-- Filesystem path to the pipeline XML -->
     <description>Recursively locate, parse and extract Philips EXAMCARDs from DICOM dataset</description>
     <resourceRequirements>
@@ -20,7 +20,7 @@
                 </contact>
             </author>
         </authors>
-        <version>3.1</version>
+        <version>3.2</version>
         <input-parameters>
             <parameter>
                 <name>scanIDs</name>
@@ -116,7 +116,7 @@
             </resource>
         </step>
         <step id="3" description="Scan series files looking for EXAMCARD">
-            <resource name="examcard" location="/xnat/pipeline/amc-catalog/examcardExtractor/resource">
+            <resource name="examcard" location="amc-catalog/examcardExtractor/resource">
                 <argument id="input">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW/')^</value>
                 </argument>

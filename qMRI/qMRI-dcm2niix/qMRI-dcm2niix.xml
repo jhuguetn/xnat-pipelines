@@ -4,7 +4,7 @@
 	<!--Should be name of the pipeline XML file -->
 	<name>qMRI-dcm2niix</name>
 	<!-- Filesystem path to the pipeline XML -->
-	<location>/xnat/pipeline/amc-catalog/qMRI/qMRI-dcm2niix</location>
+	<location>amc-catalog/qMRI/qMRI-dcm2niix</location>
     <description>DICOM to NIFTI image data converter (via dcm2niix) with additional qMRI-related B1 scans fix</description>
     <resourceRequirements>
         <!--  queue setting for SPINOZA CENTRE SGE scheduler -->
@@ -20,7 +20,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>1.3</version>
+		<version>1.4</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
@@ -124,7 +124,7 @@
 			</resource>
 		</step>
         <step id="3a" description="Convert enhanced DICOM files to classic multi-file series" continueOnFailure="false">
-			<resource name="enhanced2classic" location="/xnat/pipeline/amc-catalog/qMRI/qMRI-dcm2niix/resource">
+			<resource name="enhanced2classic" location="amc-catalog/qMRI/qMRI-dcm2niix/resource">
 				<argument id="input">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/RAW')^</value>
 				</argument>
@@ -134,7 +134,7 @@
 			</resource>
 		</step>
 		<step id="3b" description="Convert each classic DICOM series into NIFTI format" continueOnFailure="true">
-			<resource name="dcm2niix" location="/xnat/pipeline/amc-catalog/qMRI/qMRI-dcm2niix/resource">
+			<resource name="dcm2niix" location="amc-catalog/qMRI/qMRI-dcm2niix/resource">
 				<argument id="filename">
 					<value>^concat(/Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'_%3s_%d_%t')^</value>
 				</argument>
@@ -150,7 +150,7 @@
 			</resource>
 		</step>
 		<step id="3c" description="Fix Scale Intercept values (via FSL tools) in wrongly converted B1 scan NIFTI files" continueOnFailure="false">
-			<resource name="B1_nii_intercept_fix" location="/xnat/pipeline/amc-catalog/qMRI/qMRI-dcm2niix/resource">
+			<resource name="B1_nii_intercept_fix" location="amc-catalog/qMRI/qMRI-dcm2niix/resource">
 				<argument id="input_dir">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
 				</argument>

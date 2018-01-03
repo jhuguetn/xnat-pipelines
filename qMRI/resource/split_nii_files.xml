@@ -2,7 +2,7 @@
 <!-- edited by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>split_nii_files.sh</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/qMRI/resource</pip:location>
+	<pip:location>amc-catalog/qMRI/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Reshape multivolumetric imaging files easing its processing for qMRI pipeline analysis</pip:description>
 	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load fsl;</pip:commandPrefix>

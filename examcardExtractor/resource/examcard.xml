@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>examcard.py</pip:name>
-	<pip:location>/xnat/pipeline/myPipelines/examcardExtractor/resource</pip:location>
+	<pip:location>amc-catalog/examcardExtractor/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Extracts EXAMCARD MRi settings file from a DICOM dataset</pip:description>
     <pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>

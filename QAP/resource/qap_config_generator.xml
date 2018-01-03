@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
     <pip:name>qap_config_generator.sh</pip:name>
-    <pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>
+    <pip:location>amc-catalog/QAP/resource</pip:location>
     <pip:type>Executable</pip:type>
     <pip:description>Creates a QAP specific configuration file (YAML format) for running the QAP package.</pip:description>
     <pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>

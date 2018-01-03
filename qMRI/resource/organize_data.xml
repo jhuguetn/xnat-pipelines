@@ -2,7 +2,7 @@
 <!-- edited by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>organize_data.sh</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/qMRI/resource</pip:location>
+	<pip:location>amc-catalog/qMRI/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Organize XNAT downloaded scan data for qMRI pipeline analysis</pip:description>
 	<!--<pip:commandPrefix>source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>-->

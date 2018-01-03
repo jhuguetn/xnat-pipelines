@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>dti_preprocessing_core.sh</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/dti_preprocessing/resource</pip:location>
+	<pip:location>amc-catalog/dti_preprocessing/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Prepare data and compute preprocessing corrections on given DTI scans</pip:description>
 	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load fsl dtitk matlab matlab/toolbox/spm8 matlab/toolbox/dipimage matlab/toolbox/NIfTI;</pip:commandPrefix>

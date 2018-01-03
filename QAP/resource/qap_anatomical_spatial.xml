@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
     <pip:name>qap_anatomical_spatial.py</pip:name>
-    <!--<pip:location>/xnat/pipeline/amc-catalog/QAP/resource</pip:location>-->
+    <!--<pip:location>amc-catalog/QAP/resource</pip:location>-->
     <pip:type>Executable</pip:type>
     <pip:description>Computes QA spatial metrics on structural MRI scan data (QAP pipeline)</pip:description>
     <pip:commandPrefix>source /etc/profile.d/modules.sh; module load afni fsl development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate;</pip:commandPrefix>

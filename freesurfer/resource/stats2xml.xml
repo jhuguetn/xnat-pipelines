@@ -2,7 +2,7 @@
 <!-- edited by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>stats2xml.py</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/freesurfer/resource</pip:location>
+	<pip:location>amc-catalog/freesurfer/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Parses FreeSurfer processing results into an XML file representing an assessment</pip:description>
 	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load development/python/2.7.12; source /xnat/etc/xnat_venv/bin/activate; python</pip:commandPrefix>

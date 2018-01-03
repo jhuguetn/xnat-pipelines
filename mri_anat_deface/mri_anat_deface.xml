@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
     <name>mri_anat_deface</name>
-    <location>/xnat/pipeline/amc-catalog/mri_anat_deface</location>
+    <location>amc-catalog/mri_anat_deface</location>
     <description>Automated facial identifiable traits removal (defacing) of anatomical MRI scan imaging data</description>
     <!-- Only for SGE usage, remove it otherwise -->
     <resourceRequirements>
@@ -15,7 +15,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.1</version>
+        <version>0.2</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -113,7 +113,7 @@
             </resource>
         </step>
         <step id="2" description="Get suitable anatomical/T1 scan data and place it into the input folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
-            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/mri_anat_deface/resource">
+            <resource name="get_mri_data" location="amc-catalog/mri_anat_deface/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>
@@ -136,7 +136,7 @@
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>
             </resource>
-            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/mri_anat_deface/resource">
+            <resource name="get_mri_data" location="amc-catalog/mri_anat_deface/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>
@@ -161,7 +161,7 @@
             </resource>
         </step>
         <step id="3" description="Deface the anatomical MRI scan dataset" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
-            <resource name="mri_deface" location="/xnat/pipeline/amc-catalog/mri_anat_deface/resource">
+            <resource name="mri_deface" location="amc-catalog/mri_anat_deface/resource">
                 <argument id="input_dir">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>

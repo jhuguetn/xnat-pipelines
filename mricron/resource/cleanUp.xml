@@ -2,7 +2,7 @@
 <!-- edited by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>cleanUp.sh</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/mricron/resource</pip:location>
+	<pip:location>amc-catalog/mricron/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Dcm2nii output clean-up</pip:description>
 	<pip:estimated_time>00:00:05</pip:estimated_time>

@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
     <name>dti_preprocessing</name>
-    <location>/xnat/pipeline/amc-catalog/dti_preprocessing</location>
+    <location>amc-catalog/dti_preprocessing</location>
     <description>Automated correction of DTI scan data</description>
     <!-- Only for SGE usage, remove it otherwise -->
     <resourceRequirements>
@@ -15,7 +15,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.4</version>
+        <version>0.5</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -86,7 +86,7 @@
         <parameter>
             <name>TOOLBOX_DIR</name>
             <values>
-                <unique>/xnat/pipeline/amc-catalog/dti_preprocessing/resource/matlab_toolboxes</unique>
+                <unique>amc-catalog/dti_preprocessing/resource/matlab_toolboxes</unique>
             </values>
         </parameter>
     </parameters>
@@ -106,7 +106,7 @@
             </resource>
         </step>
         <step id="2" description="Get suitable DTI data and place it into the input folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
-            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/dti_preprocessing/resource">
+            <resource name="get_mri_data" location="amc-catalog/dti_preprocessing/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>
@@ -132,7 +132,7 @@
         </step>
         <!-- CONFIGURATION / OPTIONS step setting :: to be discussed -->
         <!--<step id="X" description="Create a configuration file" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/BIDS')^" continueOnFailure="false">
-            <resource name="qap_config_generator" location="/xnat/pipeline/amc-catalog/QAP/resource">
+            <resource name="qap_config_generator" location="amc-catalog/QAP/resource">
                 <argument id="output_dir">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/QAP_fMRI_out')^</value>
                 </argument>
@@ -151,7 +151,7 @@
             </resource>
         </step>-->
         <step id="3" description="Compute preprocessing corrections on DTI scans (Matlab)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
-            <resource name="dti_preprocessing_core" location="/xnat/pipeline/amc-catalog/dti_preprocessing/resource">
+            <resource name="dti_preprocessing_core" location="amc-catalog/dti_preprocessing/resource">
                 <argument id="toolboxes_directory">
                     <value>^/Pipeline/parameters/parameter[name='TOOLBOX_DIR']/values/unique/text()^</value>
                 </argument>

@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
     <pip:name>mri_nu_correct.sh</pip:name>
-    <pip:location>/xnat/pipeline/amc-catalog/bias_correction/resource</pip:location>
+    <pip:location>amc-catalog/bias_correction/resource</pip:location>
     <pip:type>Executable</pip:type>
     <pip:description>Wrapper for mri_nu_correct.mni, a program for correcting intensity non-uniformity (ie, bias fields)</pip:description>
     <pip:commandPrefix>source /etc/profile.d/modules.sh; module load freesurfer;</pip:commandPrefix>

@@ -4,7 +4,7 @@
 	<!--Should be name of the pipeline XML file -->
 	<name>dicom2nifti</name>
 	<!-- Filesystem path to the pipeline XML -->
-	<location>/xnat/pipeline/amc-catalog/mricrogl</location>
+	<location>amc-catalog/mricrogl</location>
     <description>New DICOM to NIFTI image data converter (dcm2niix)</description>
     <resourceRequirements>
         <!--<property name="DRMAA_JobTemplate_JobCategory">XNAT</property>-->
@@ -20,7 +20,7 @@
 				</contact>
 			</author>
 		</authors>
-		<version>1.2</version>
+		<version>1.3</version>
 		<input-parameters>
 			<parameter>
 				<name>scanIDs</name>
@@ -131,7 +131,7 @@
 			</resource>
 		</step>
 		<step id="3" description="Convert each series file into a 4d NIFTI file" continueOnFailure="true">
-			<resource name="dcm2niix" location="/xnat/pipeline/amc-catalog/mricrogl/resource">
+			<resource name="dcm2niix" location="amc-catalog/mricrogl/resource">
 				<argument id="filename">
 					<value>^concat(/Pipeline/parameters/parameter[name='sessionName']/values/unique/text(),'_%3s_%d_%t')^</value>
 				</argument>
@@ -147,7 +147,7 @@
 			</resource>
 		</step>
 		<!--<step id="3b" description="CleanUp the content created by dcm2nii" continueOnFailure="false">
-			<resource name="cleanUp" location="/xnat/pipeline/amc-catalog/mricron/resource">
+			<resource name="cleanUp" location="amc-catalog/mricron/resource">
 				<argument id="inputDir">
 					<value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/NIFTI/',PIPELINE_LOOPON(series))^</value>
 				</argument>

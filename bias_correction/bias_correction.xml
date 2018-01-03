@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <Pipeline xmlns="http://nrg.wustl.edu/pipeline" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/pipeline ..\schema\pipeline.xsd"  xmlns:fileUtils="http://www.xnat.org/java/org.nrg.imagingtools.utils.FileUtils">
     <name>bias_correction</name>
-    <location>/xnat/pipeline/amc-catalog/bias_correction</location>
+    <location>amc-catalog/bias_correction</location>
     <description>Automated correction of intensity non-uniformity (ie, bias fields) of FLAIR scan data</description>
     <!-- Only for SGE usage, remove it otherwise -->
     <resourceRequirements>
@@ -15,7 +15,7 @@
             <firstname>Huguet</firstname>
            </author>
        </authors>
-        <version>0.3</version>
+        <version>0.4</version>
         <input-parameters>
             <parameter>
                 <name>sessionID</name>
@@ -107,7 +107,7 @@
             </resource>
         </step>
         <step id="2" description="Get suitable FLAIR scan data and place it into the input folder" workdirectory="^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^" continueOnFailure="false">
-            <resource name="get_mri_data" location="/xnat/pipeline/amc-catalog/bias_correction/resource">
+            <resource name="get_mri_data" location="amc-catalog/bias_correction/resource">
                 <argument id="auth_token">
                     <value>^concat(/Pipeline/parameters/parameter[name='user']/values/unique/text(),':',/Pipeline/parameters/parameter[name='pwd']/values/unique/text())^</value>
                 </argument>
@@ -132,7 +132,7 @@
             </resource>
         </step>
         <step id="3" description="Compute bias correction (MNI nu_correct)" workdirectory="^/Pipeline/parameters/parameter[name='workdir']/values/unique/text()^" continueOnFailure="false">
-            <resource name="mri_nu_correct" location="/xnat/pipeline/amc-catalog/bias_correction/resource">
+            <resource name="mri_nu_correct" location="amc-catalog/bias_correction/resource">
                 <argument id="input_dir">
                     <value>^concat(/Pipeline/parameters/parameter[name='workdir']/values/unique/text(),'/IN_DIR')^</value>
                 </argument>

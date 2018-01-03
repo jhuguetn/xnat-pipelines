@@ -3,7 +3,7 @@
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
     <pip:name>enhanced2classic.sh</pip:name>
     <pip:type>Executable</pip:type>
-    <pip:location>/xnat/pipeline/amc-catalog/qMRI/qMRI-dcm2niix/resource</pip:location>
+    <pip:location>amc-catalog/qMRI/qMRI-dcm2niix/resource</pip:location>
     <pip:description>Converts enhanced DICOM files to non-enhanced series</pip:description>
     <pip:commandPrefix>source /etc/profile.d/modules.sh; module load dcmtk dicom3tools;</pip:commandPrefix>
     <pip:estimated_time>00:01:00</pip:estimated_time>year

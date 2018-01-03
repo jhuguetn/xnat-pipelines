@@ -2,7 +2,7 @@
 <!-- created by Jordi Huguet (AMC) -->
 <pip:Resource xmlns:pip="http://nrg.wustl.edu/pipeline">
 	<pip:name>get_scan_details.py</pip:name>
-	<pip:location>/xnat/pipeline/amc-catalog/qMRI/resource</pip:location>
+	<pip:location>amc-catalog/qMRI/resource</pip:location>
 	<pip:type>Executable</pip:type>
 	<pip:description>Get required MRI scanning details outputed as JSON file objects for the QMRI pipeline</pip:description>
 	<pip:commandPrefix>source /etc/profile.d/modules.sh; module load dcmtk development/python/2.7.12; python</pip:commandPrefix>
