@@ -20,6 +20,7 @@ XNAT pipelines repository, see the [wishlist](https://github.com/jhuguetn/xnat-p
 * [DTI-preprocessing](https://github.com/jhuguetn/xnat-pipelines/tree/master/dti_preprocessing) ::  Compute preprocessing corrections on MRI DTI scans
 * [MRI bias field correction](https://github.com/jhuguetn/xnat-pipelines/tree/master/bias_correction) :: correcting intensity non-uniformity (i.e. bias fields)
 * [MRI anatomical defacer](https://github.com/jhuguetn/xnat-pipelines/tree/master/mri_anat_deface) :: Automated facial traits removal (defacing) of anatomical scan data.
+* [QMRI](https://github.com/jhuguetn/xnat-pipelines/tree/master/qMRI) :: Quantitative anatomical MRI (qMRI) mapping provides MRI measures that are comparable across sites and time points. More background [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3677134). 
 
 
 ## Contributors
