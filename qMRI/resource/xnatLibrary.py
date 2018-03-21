@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
 # Created 2014-10-15, Jordi Huguet, Dept. Radiology AMC Amsterdam
+# Modified 2018-03-21, Jordi Huguet, Neuroimaging ICT BBRC Barcelona
 
 ####################################
 __author__      = 'Jordi Huguet'  ##
 __dateCreated__ = '20141015'      ##
-__version__     = '1.2.2'         ##
-__versionDate__ = '20160930'      ##
+__version__     = '1.4'           ##
+__versionDate__ = '20180321'      ##
 ####################################
 
 # xnatLibrary.py
@@ -22,6 +23,7 @@ import urllib
 import json
 import os
 import datetime
+import ssl
 
 class XNATException(Exception):
     pass
@@ -31,9 +33,12 @@ class XNAT(object):
     ''' To instantiate properly, provide XNAT hostname (URL) and a char string containing 'username:password' '''
     ''' A valid XNAT account is required to interface with the XNAT '''
     
-    def __init__(self, hostname, usr_pwd, verbose=True):
+    def __init__(self, hostname, usr_pwd, unverified_context=False, verbose=True):
         self.host = self.normalizeURL(hostname)
         self.b64Auth = base64.encodestring(usr_pwd).replace('\n', '')
+        self.ssl_context = ssl.create_default_context()
+        if unverified_context : 
+            self.ssl_context = ssl._create_unverified_context()
         self.jsession = self.getJSessionID()
         self.verbose = verbose
 
@@ -62,8 +67,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=10)
-            #connection = httplib.HTTPSConnection(netloc, timeout=10, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=10, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=10)
             
@@ -89,8 +93,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=100, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=100)
         
@@ -122,8 +125,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=100, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=100)
         
@@ -155,8 +157,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=100, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=100)
         
@@ -188,8 +189,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=100, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=100)
         
@@ -224,8 +224,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=100)
-            #connection = httplib.HTTPSConnection(netloc, timeout=100, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=100, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=100)
         
@@ -253,8 +252,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=3600)
-            #connection = httplib.HTTPSConnection(netloc, timeout=3600, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=3600, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=3600)
         
@@ -333,8 +331,7 @@ class XNAT(object):
         headers['Authorization'] = "Basic %s" % self.b64Auth 
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=10)
-            #connection = httplib.HTTPSConnection(netloc, timeout=10, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=10, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=10)
         
@@ -362,8 +359,7 @@ class XNAT(object):
         headers['Cookie'] = "JSESSIONID=%s" %self.jsession 
         
         if scheme == 'https' :
-            connection = httplib.HTTPSConnection(netloc, timeout=10)
-            #connection = httplib.HTTPSConnection(netloc, timeout=10, context=ssl._create_unverified_context())
+            connection = httplib.HTTPSConnection(netloc, timeout=10, context=self.ssl_context)
         else :
             connection = httplib.HTTPConnection(netloc, timeout=10)
             
@@ -599,7 +595,29 @@ class XNAT(object):
             #resourceDict[record['label']] = record <-- label might not be unique (i.e. several scans with same resource type/name)
             resourceDict[record['xnat_abstractresource_id']] = record        
         return resourceDict
-        
+
+    def getDerivedResources(self, experimentID):
+        '''Query for derived data resources list given an experiment'''
+        '''Returns a dictionary with the derived data resources existing for such experiment or None otherwise'''
+
+        # compose the URL for the REST call
+        URL = self.host + '/data/'
+        URL += 'experiments/%s/resources' % experimentID
+
+        # do the HTTP query
+        resultSet, response = self.queryURL(URL)
+
+        # an MRI Session can perfectly have no reconstructions!
+        resource_dict = {}
+        if len(resultSet) != 0:
+            # parse the results
+            for record in resultSet:
+                resource_dict[record['xnat_abstractresource_id']] = record
+        else:
+            resource_dict = None
+
+        return resource_dict
+
     def getReconstructions(self, experimentID):
         '''Query for reconstructions list given an experiment'''
         '''Returns a dictionary with the reconstructions created for such experiment or None otherwise'''
