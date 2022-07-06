@@ -15,12 +15,12 @@ XNAT pipelines repository, see the [wishlist](https://github.com/jhuguetn/xnat-p
 * [ExamCard extractor](https://github.com/jhuguetn/xnat-pipelines/tree/master/examcardExtractor) :: Extracts Philips ExamCard objects embedded in DICOM object files
 * [FreeSurfer](https://github.com/jhuguetn/xnat-pipelines/tree/master/freesurfer) :: FreeSurfer recon-all pipeline with XNAT assessor output with stats metrics
 * [mricron](https://github.com/jhuguetn/xnat-pipelines/tree/master/mricron) :: DICOM and PARREC flavoured pipelines for imaging data conversion to NIFTI format (using dcm2nii)
-* [Quality Assessment Protocol](https://github.com/jhuguetn/xnat-pipelines/tree/master/QAP) :: QA analysis on functional/structural MRI data
+* [Quality Assessment Protocol](https://github.com/jhuguetn/xnat-pipelines/blob/master/QAP/README.md) :: QA analysis on functional/structural MRI data
 * [mricrogl](https://github.com/jhuguetn/xnat-pipelines/tree/master/mricrogl) :: New generation of DICOM-to-NIFTI format conversion pipeline (using dcm2niix)
-* [DTI-preprocessing](https://github.com/jhuguetn/xnat-pipelines/tree/master/dti_preprocessing) ::  Compute preprocessing corrections on MRI DTI scans
-* [MRI bias field correction](https://github.com/jhuguetn/xnat-pipelines/tree/master/bias_correction) :: correcting intensity non-uniformity (i.e. bias fields)
-* [MRI anatomical defacer](https://github.com/jhuguetn/xnat-pipelines/tree/master/mri_anat_deface) :: Automated facial traits removal (defacing) of anatomical scan data.
-* [qMRI](https://github.com/jhuguetn/xnat-pipelines/tree/master/qMRI) :: Calculate quantitative anatomical MRI (qMRI) mapping. qMRI provides MRI measures that are comparable across sites and time points. More background [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3677134). 
+* [DTI-preprocessing](https://github.com/jhuguetn/xnat-pipelines/blob/master/dti_preprocessing/README.md) ::  Compute preprocessing corrections on MRI DTI scans
+* [MRI bias field correction](https://github.com/jhuguetn/xnat-pipelines/blob/master/bias_correction/README.md) :: correcting intensity non-uniformity (i.e. bias fields)
+* [MRI anatomical defacer](https://github.com/jhuguetn/xnat-pipelines/blob/master/mri_anat_deface/README.md) :: Automated facial traits removal (defacing) of anatomical scan data.
+* [qMRI](https://github.com/jhuguetn/xnat-pipelines/blob/master/qMRI/README.md) :: Calculate quantitative anatomical MRI (qMRI) mapping. qMRI provides MRI measures that are comparable across sites and time points. More background [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3677134). 
 
 
 ## Contributors
